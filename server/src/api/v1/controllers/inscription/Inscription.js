@@ -5,12 +5,12 @@ const Subscription = require("../../models/subscription/Subscription");
 const { generateOTP } = require("../../../../utils/utils");
 const bcrypt = require("bcrypt");
 const moment = require("moment");
-const { v4: uuid } = require("uuid");
+const { v1: uuid } = require("uuid");
 
 module.exports = {
   async create(req, res) {
     try {
-      const { prename, name, role, sys_role, username, password } = req.body;
+      const { prename, name, sys_role, username, password } = req.body;
 
       const check_username = await User.findOne({
         where: { username: username },
@@ -21,12 +21,12 @@ module.exports = {
           message: "The username is already used!",
         });
       }
-
+      const sys_id = v1()
       const user = await User.create({
         prename,
         name,
-        role,
         sys_role,
+        sys_id,
         username,
         password,
         is_completed: false,

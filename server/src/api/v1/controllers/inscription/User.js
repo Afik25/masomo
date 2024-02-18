@@ -1,5 +1,6 @@
 const User = require("../../models/inscription/User");
 const { Op } = require("sequelize");
+const uuid = require('uuid');
 
 const { generatePassword } = require("../../../../utils/utils");
 
@@ -14,7 +15,8 @@ module.exports = {
         mail,
         birth,
         birth_location,
-        role_id,
+        nationality,
+        sys_role,
         username,
       } = req.body;
 
@@ -55,6 +57,7 @@ module.exports = {
           message: `The username ${username} is already used!`,
         });
       }
+      const sys_id = uuid.v1()
       const password = generatePassword(6);
       const user = await User.create({
         prename,
@@ -64,11 +67,12 @@ module.exports = {
         mail,
         birth,
         birth_location,
-        role_id,
+        nationality,
+        sys_role,
+        sys_id,
         username,
         password,
         thumbnails,
-        path_to: "/user",
         is_completed: false,
       });
 
@@ -236,7 +240,7 @@ module.exports = {
       const mail = "admin@masomo.edu";
       const username = "admin";
       const password = "root@1";
-      const role = "General Administrator";
+      const sys_id = uuid.v1()
       const sys_role = "admin";
       const is_completed = false;
 
@@ -253,8 +257,8 @@ module.exports = {
         name,
         telephone,
         mail,
-        role,
         sys_role,
+        sys_id,
         username,
         password,
         is_completed,

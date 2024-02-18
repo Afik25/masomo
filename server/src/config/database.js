@@ -1,7 +1,9 @@
 require("dotenv").config("../.env");
 module.exports = {
   host: process.env.DEV_DB_HOST,
+  port: process.env.DEV_DB_PORT,
   dialect: process.env.DEV_DB_DIALECT,
+  dialectModule: require('pg'),
   username: process.env.DEV_DB_USER,
   password: process.env.DEV_DB_PASSWORD,
   database: process.env.DEV_DB_DATABASE_NAME,

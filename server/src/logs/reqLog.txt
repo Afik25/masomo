@@ -26710,3 +26710,9 @@
 20240107	09:40:04	1e14a301-a5d6-48aa-9d74-3dcd3c9b6e10	192.168.0.197:5500	GET	http://localhost:3000	/api/v1/program
 20240107	09:40:04	511b1dd7-aa84-4168-92f6-3c9a3f650387	192.168.0.197:5500	GET	http://localhost:3000	/api/v1/level/customized
 20240107	09:40:04	0f9986ee-4742-4935-8672-fb1ae80305e4	192.168.0.197:5500	GET	http://localhost:3000	/api/v1/program
+20240218	20:01:26	1ccfa553-fda7-4803-9d23-f402ada768b2	localhost:5500	GET	undefined	/auth/config
+20240218	20:01:43	da0d565b-a001-438e-930f-b912bbe291f6	localhost:5500	GET	undefined	/api/v1/auth/config
+20240218	20:01:43	47e1faf5-32ea-4855-8fe4-d988d8de9ec1	localhost:5500	GET	undefined	/favicon.ico
+20240218	20:01:56	d74fea58-2fd6-48cf-9bb0-8d7c8bd5e04c	localhost:5500	GET	undefined	/api/v1/auth/config
+20240218	20:08:06	f77601f4-8e79-450e-b91a-74e5d7f02abe	localhost:5500	GET	undefined	/api/v1/auth/config
+20240218	20:08:09	fba9f3cc-57b4-478e-96af-efb49396d0eb	localhost:5500	GET	undefined	/api/v1/auth/config
