@@ -1,0 +1,24 @@
+{
+  "name": "masomo",
+  "version": "1.0.0",
+  "description": "EduTech Platform",
+  "scripts": {
+    "build": "if-env TYPE=server && (cd server && npm install) || (cd client && npm install)",
+    "server": "node ./server/src/server.js",
+    "client": "cd client && npm start",
+    "dev-c": "cd client && npm start",
+    "dev-s": "cd server && npm run dev"
+  },
+  "keywords": [
+    "school",
+    "ecole",
+    "masomo",
+    "etudier"
+  ],
+  "author": "Afik Foundation",
+  "license": "ISC",
+  "dependencies": {
+    "if-env": "^1.0.4"
+  }
+}
+

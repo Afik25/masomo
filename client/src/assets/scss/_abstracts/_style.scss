@@ -1,0 +1,2009 @@
+@import "./colors";
+@import "./sizes";
+@import "./fonts";
+@import "./backgrounds";
+@import "./buttons";
+@import "./grids";
+@import "./languages";
+@import "./modal";
+@import "./others";
+@import "./table";
+@import "./components";
+@import "./inputs";
+@import "./menu-drawer";
+
+*,
+*::after,
+*::before {
+  box-sizing: border-box !important;
+  margin: 0;
+  padding: 0;
+  outline: none;
+}
+::-webkit-scrollbar {
+  width: 5px;
+  height: 5px;
+}
+::-webkit-scrollbar-track {
+  border-radius: 5px;
+  box-shadow: inset 0 0 1px rgba(0, 0, 0, 0.25);
+}
+::-webkit-scrollbar-thumb {
+  border-radius: 5px;
+  background-color: $color-1;
+}
+::-webkit-scrollbar-thumb:hover {
+  background-color: $grey-color-1;
+}
+
+html {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
+    sans-serif;
+}
+
+body {
+  font-family: "raleway-regular", sans-serif;
+  font-size: $size-05;
+  margin: 0;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+}
+
+.section {
+  width: 100%;
+  position: relative;
+}
+.home {
+  width: 100vw;
+  .banner {
+    width: 100%;
+    height: 600px;
+    position: relative;
+    background-color: $color-1;
+    .container {
+      width: 90%;
+      height: 100%;
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      .left,
+      .right {
+        height: 100%;
+      }
+      .left {
+        width: 40%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        .title {
+          letter-spacing: 0.05em;
+          margin-bottom: 0.5em;
+        }
+        .t-3 {
+          width: auto;
+          max-width: 60%;
+          background-color: rgba($color: $gold-color, $alpha: 0.5);
+          border-radius: 0.8em;
+          color: $white-color;
+          font-size: $size-105;
+          @include padding($size-1);
+        }
+        .t-1 {
+          font-size: 3em;
+          font-weight: bold;
+        }
+        .t-2 {
+          color: $white-color;
+          font-size: $size-105;
+          font-weight: bold;
+        }
+        .button {
+          @include margin($size-2 0);
+          .btn-join {
+            background-color: $white-color;
+            color: $color-1;
+            border-radius: 1em;
+            font-size: $size-102;
+            font-weight: bold;
+            @include padding($size-2 $size-109);
+            transition: all 0.3s ease-in-out;
+            &:hover {
+              background: transparent;
+              border: 1px solid $white-color;
+              color: $white-color;
+            }
+          }
+        }
+      }
+      .right {
+        width: 55%;
+        img {
+          width: 100%;
+          height: 100%;
+        }
+      }
+    }
+  }
+  .search {
+    @include padding($size-3 0);
+    .container {
+      width: 60%;
+      @include padding($size-3 0);
+      text-align: center;
+      .t-2 {
+        font-size: $size-3;
+        margin-bottom: $size-105;
+      }
+      .input-div {
+        .input-form {
+          font-size: $size-2;
+        }
+        .label-form {
+          font-size: $size-2;
+        }
+        .label-icon {
+          font-size: $size-2;
+        }
+      }
+    }
+  }
+  .countable {
+    background-color: rgba($color: $grey-color-3, $alpha: 0.5);
+    display: block;
+    text-align: center;
+    @include padding($size-3 0);
+    .t-2 {
+      font-size: $size-3;
+      margin-bottom: $size-2;
+    }
+    .container {
+      @include padding($size-2 0);
+      width: 90%;
+      display: flex;
+      .item {
+        width: 23%;
+        text-align: center;
+        .icon {
+          width: 50px;
+          height: 50px;
+          margin-bottom: $size-1;
+        }
+        .t-2 {
+          font-size: $size-3;
+          margin-bottom: $size-05;
+        }
+        .t-3 {
+          font-size: $size-105;
+        }
+      }
+    }
+  }
+  .accessibility {
+    display: block;
+    .container {
+      width: 90%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      @include padding($size-3 0);
+      .details {
+        width: 60%;
+        text-align: center;
+        .t-2 {
+          font-size: $size-107;
+        }
+        .t-3 {
+          font-size: $size-3;
+        }
+        .downloads {
+          width: 100%;
+          display: flex;
+          justify-content: center;
+          flex-wrap: wrap;
+          @include padding(1em 0em);
+          .item {
+            width: 15%;
+            cursor: pointer;
+            text-decoration: none;
+            margin: 0.5rem;
+            img {
+              width: 100%;
+            }
+          }
+        }
+      }
+      .devices {
+        width: 500px;
+        height: 300px;
+      }
+    }
+  }
+  .orientation {
+    height: 500px;
+    @include padding($size-3 0);
+    .container {
+      position: relative;
+      width: 90%;
+      height: 100%;
+      @include padding($size-3 0);
+      .inner,
+      .outer {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+      }
+      .inner {
+        .box {
+          width: 90%;
+          height: 100%;
+          background-color: $color-3;
+          border-top-left-radius: 25rem;
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          align-items: center;
+          z-index: 9;
+          .t-2 {
+            font-size: $size-3;
+          }
+          .t-3 {
+            color: $gold-color;
+            font-size: $size-2;
+            font-weight: bold;
+          }
+          .button {
+            @include margin($size-2 0);
+            .btn-join {
+              background-color: $color-1;
+              color: $white-color;
+              border-radius: 1em;
+              font-size: $size-102;
+              font-weight: bold;
+              @include padding($size-2 $size-109);
+              transition: all 0.3s ease-in-out;
+              &:hover {
+                background: transparent;
+                border: 1px solid $black-color;
+                color: $black-color;
+              }
+            }
+          }
+        }
+      }
+      .outer {
+        width: 45%;
+        height: 100%;
+        right: 0;
+      }
+    }
+  }
+  .partnership {
+    width: 100%;
+    text-align: center;
+    @include padding($size-3 0);
+    .t-2 {
+      color: $grey-color-1;
+      font-size: $size-3;
+    }
+    .container {
+      @include padding($size-3 0);
+      width: 90%;
+      margin: auto;
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+      flex-wrap: wrap;
+      img {
+        width: 220px;
+        height: 80px;
+        margin: $size-2;
+        filter: $grey-color-2;
+        -webkit-filter: grayscale(1);
+        transition: all 0.5s ease-in-out;
+        -webkit-transition: all 0.5s ease-in-out;
+        &:hover {
+          filter: none;
+          -webkit-filter: none;
+        }
+      }
+    }
+  }
+}
+.research {
+  position: absolute;
+  width: 100vw;
+  height: 100vh;
+  .container {
+    position: relative;
+    width: 90%;
+    @include padding($size-105 0);
+    .header {
+      width: 100%;
+      height: 110px;
+      .top,
+      .bottom {
+        width: 100%;
+      }
+      .top {
+        height: 65%;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        .input-div {
+          width: 60%;
+          margin: 0 !important;
+        }
+        .sign-nav {
+          display: flex;
+          align-items: center;
+          align-items: center;
+          .button {
+            border-radius: $size-05;
+            font-size: $size-107;
+            @include margin(0 $size-05);
+            &:nth-child(1) {
+              color: $color-4;
+              font-weight: bold;
+              &:hover {
+                background-color: $color-4;
+                color: $white-color;
+              }
+            }
+            &:nth-child(2) {
+              background-color: $color-2;
+              color: $white-color;
+              &:hover {
+                background-color: $white-color;
+                border: 1px solid $color-2;
+                color: $color-2;
+              }
+            }
+          }
+        }
+      }
+      .bottom {
+        height: 35%;
+        border-top: 1px solid $grey-color-3;
+        .tabs {
+          display: flex;
+          align-items: center;
+          .tab {
+            background-color: $white-color;
+            font-size: $size-105;
+            transition: all 0.3s ease-in-out;
+            &:hover {
+              background-color: $grey-color-2;
+            }
+          }
+          .active-tab {
+            color: $color-1;
+            border-bottom: 2px solid $color-1;
+          }
+          span {
+            color: $grey-color-1;
+            font-size: $size-105;
+            margin-left: $size-3;
+          }
+        }
+      }
+    }
+    .content {
+      width: 100%;
+      height: calc(100% - 110px);
+      display: flex;
+      flex-wrap: wrap;
+      overflow-y: auto;
+      .item {
+        width: 23.5%;
+        border: 1px solid $grey-color-3;
+        border-radius: $size-1;
+        cursor: pointer;
+        margin: $size-1;
+        @include padding($size-1);
+        transition: all 0.3s ease-in-out;
+        .icon {
+          margin-bottom: $size-1;
+        }
+        .t-2 {
+          color: $color-1;
+          font-size: $size-109;
+        }
+        .t-3 {
+          color: $color-4;
+          font-size: $size-104;
+        }
+        &:hover {
+          background-color: $grey-color-3;
+        }
+      }
+    }
+  }
+}
+.about {
+  width: 100vw;
+  .description {
+    width: 100%;
+    display: block;
+    @include padding($size-3 0);
+    .container {
+      width: 90%;
+      display: flex;
+      flex-direction: column;
+      .t-2 {
+        color: $color-1;
+        font-size: $size-3;
+      }
+      .content {
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+        .details,
+        .images {
+          width: 48%;
+        }
+        .details {
+          .t-3 {
+            font-size: $size-2;
+            text-align: justify;
+          }
+        }
+        .images {
+          display: flex;
+          flex-wrap: wrap;
+          justify-content: center;
+          .box-1 {
+            width: 25%;
+            height: 100px;
+            clip-path: polygon(25% 0%, 100% 0%, 75% 100%, 0% 100%);
+          }
+          .box-2 {
+            width: 25%;
+            height: 100px;
+            clip-path: polygon(25% 0%, 100% 0%, 75% 100%, 0% 100%);
+          }
+          .box-3 {
+            width: 30%;
+            height: 100px;
+            clip-path: circle(50% at 50% 50%);
+          }
+          .box-4 {
+            width: 60%;
+            height: 200px;
+            clip-path: polygon(
+              0% 0%,
+              100% 0%,
+              100% 75%,
+              75% 75%,
+              75% 100%,
+              50% 75%,
+              0% 75%
+            );
+          }
+        }
+      }
+    }
+  }
+  .connect {
+    width: 100%;
+    display: block;
+    .container {
+      width: 90%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      img {
+        width: 48%;
+      }
+      .details {
+        width: 48%;
+        text-align: center;
+        .t-2 {
+          font-size: 3.5rem;
+          span {
+            color: $color-2;
+          }
+        }
+        .button {
+          @include margin($size-2 0);
+          .btn-join {
+            background-color: $color-1;
+            color: $white-color;
+            border-radius: 1em;
+            font-size: $size-102;
+            font-weight: bold;
+            @include padding($size-2 $size-109);
+            transition: all 0.3s ease-in-out;
+            &:hover {
+              background: transparent;
+              border: 1px solid $color-1;
+              color: $color-1;
+            }
+          }
+        }
+      }
+      form {
+        width: 48%;
+        @include padding($size-3 0);
+        text-align: center;
+        .button {
+          width: 30%;
+          color: $white-color;
+        }
+      }
+    }
+  }
+}
+.sign-in {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  .left {
+    position: relative;
+    @include padding(15px 30px);
+    background-color: $white-color;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    overflow-y: hidden;
+
+    .head {
+      margin-bottom: $size-2;
+    }
+    h1 {
+      font-size: 1.5rem;
+      font-weight: 600;
+      letter-spacing: 0.07em;
+    }
+    p {
+      font-size: 1rem;
+      color: $grey-color-1;
+    }
+    .containers {
+      .container-48 {
+        width: 48%;
+      }
+    }
+    .body {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      .button {
+        border-radius: $size-05;
+        color: $white-color;
+      }
+      .sign-others {
+        @include padding(25px 0);
+        hr {
+          border: none;
+          width: 45%;
+          height: 1px;
+          background-color: $grey-color-2;
+        }
+      }
+
+      .back {
+        color: $black-color;
+        display: flex;
+        align-items: center;
+        .icon {
+          margin-right: $size-1;
+        }
+        span {
+          color: $black-color;
+        }
+      }
+    }
+
+    .foot {
+      font-size: $size-107;
+      margin-bottom: $size-3;
+      span {
+        color: $grey-color-1;
+        margin-right: 0.5rem;
+      }
+      .link {
+        color: $color-1;
+        margin: 0;
+      }
+    }
+  }
+  .right {
+    background-color: $color-1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    .banner {
+      position: relative;
+      width: 80%;
+      height: 80%;
+      background-color: rgba($color: $white-color, $alpha: 0.15);
+      border-radius: 0.5rem;
+      @include padding(25px);
+      .circle {
+        position: absolute;
+        width: 100px;
+        height: 100px;
+        background-color: $white-color;
+        border-radius: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        .image {
+          position: relative;
+          height: 60%;
+          width: 60%;
+        }
+      }
+      .circle-1 {
+        left: -40px;
+        top: 60px;
+      }
+      .circle-2 {
+        right: -40px;
+        bottom: 60px;
+      }
+      .t-1 {
+        text-align: right;
+        color: $white-color;
+        font-size: 1.5rem;
+        font-weight: 600;
+      }
+      .image {
+        position: absolute;
+        bottom: 0;
+        height: 80%;
+      }
+    }
+    .foot {
+      color: $white-color;
+      font-size: $size-105;
+      @include margin($size-3 0);
+    }
+  }
+}
+.user {
+  width: 100vw;
+  height: 100vh;
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  .container {
+    width: 99%;
+    height: 99%;
+    .body {
+      position: relative;
+      width: 100%;
+      height: calc(100% - 100px);
+    }
+  }
+  .wrapper {
+    position: relative;
+    width: 100%;
+    height: 100%;
+  }
+
+  .student-dashboard {
+    width: 100%;
+    height: 100%;
+    background-color: $white-color;
+    .container {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      flex-wrap: wrap;
+      .item {
+        @include margin($size-1);
+        @include padding($size-1);
+        border-radius: $size-1;
+        &:nth-child(1),
+        &:nth-child(2) {
+          width: 200px;
+          height: 120px;
+          border: 1px solid $grey-color-3;
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          align-items: center;
+          .icon {
+            margin-bottom: $size-09;
+            font-size: $size-105;
+          }
+          .t-3 {
+            font-size: $size-105;
+          }
+          .t-2 {
+            font-size: $size-2;
+          }
+        }
+      }
+    }
+  }
+  .courses {
+    width: 100%;
+    height: 100%;
+    .course-filter {
+      width: 100%;
+      height: 50px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      @include padding($size-05 0);
+      .input-div {
+        width: 85%;
+        margin: 0 !important;
+      }
+      .button {
+        color: $white-color;
+        border-radius: $size-04;
+      }
+    }
+    .course-content {
+      width: 100%;
+      height: auto;
+      max-height: calc(100% - 50px);
+      display: flex;
+      flex-wrap: wrap;
+      overflow-y: auto;
+    }
+    .course-reading {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      .left,
+      .right {
+        height: 100%;
+        @include padding($size-1);
+      }
+      .left {
+        width: 30%;
+        .courses-nav {
+          width: 100%;
+          height: 30px;
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          .title {
+            margin: 0;
+            font-size: $size-107;
+          }
+          .icon {
+            color: $color-4;
+            cursor: pointer;
+            font-size: $size-2;
+            transition: all 0.5s ease-in-out;
+            &:hover {
+              color: $grey-color-2;
+            }
+          }
+        }
+        .reading-nav {
+          width: 100%;
+          height: 40px;
+          display: flex;
+          justify-content: space-between;
+          border-bottom: 1px solid $grey-color-3;
+          .r-nav {
+            width: 100%;
+            .button {
+              width: 50%;
+              height: 100%;
+              background-color: $white-color;
+              transition: all 0.5s ease-in-out;
+              &:hover {
+                background-color: $grey-color-3;
+              }
+            }
+            .btn-active {
+              color: $color-1;
+              border-bottom: 2px solid $color-1;
+            }
+          }
+          .btn-close {
+            display: none;
+            background-color: $grey-color-1;
+            border-radius: 100%;
+            font-size: $size-3;
+            @include padding(0 $size-05);
+            &:hover {
+              background-color: $grey-color-2;
+            }
+          }
+        }
+        .reading-content {
+          width: 100%;
+          height: calc(100% - 30px - 40px);
+          display: flex;
+          flex-direction: column;
+          .link {
+            @include margin($size-04 0);
+            @include padding($size-03 0);
+            font-size: $size-105;
+            transition: all 0.4s ease-in-out;
+            &:hover {
+              color: $grey-color-2;
+            }
+          }
+          .active-reading {
+            color: $color-1;
+          }
+          .inactive-reading {
+            color: unset;
+          }
+        }
+      }
+      .right {
+        width: 70%;
+        position: relative;
+        .inner {
+          position: absolute;
+          width: 100%;
+          display: flex;
+          flex-direction: column;
+          .reading-actions,
+          .reading-content {
+            width: 100%;
+          }
+          .reading-actions {
+            border-bottom: 1px solid $grey-color-3;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            .btn-open {
+              display: none;
+              background-color: $grey-color-1;
+              border-radius: 100%;
+              font-size: $size-3;
+              @include padding($size-02 $size-03);
+              &:hover {
+                background-color: $grey-color-2;
+              }
+            }
+            .r-actions {
+              display: flex;
+              .button {
+                background-color: $white-color;
+                display: flex;
+                align-items: center;
+                .icon {
+                  margin-right: $size-05;
+                }
+                span {
+                  font-size: $size-09;
+                }
+                transition: all 0.5s ease-in-out;
+                &:hover {
+                  span {
+                    color: $grey-color-2;
+                  }
+                }
+              }
+            }
+          }
+          .reading-content {
+            @include padding($size-1);
+            font-size: $size-107;
+            text-align: justify;
+          }
+        }
+        .outer {
+          position: absolute;
+          width: 100%;
+          height: 84.9%;
+          background: linear-gradient(
+            0deg,
+            rgba(255, 255, 255, 1) 0%,
+            rgba(255, 255, 255, 1) 35%,
+            rgba(255, 255, 255, 0.98) 100%
+          );
+          z-index: 1;
+          bottom: 0;
+          display: flex;
+          justify-content: start;
+          align-items: center;
+          flex-direction: column;
+          img {
+            margin-bottom: $size-105;
+          }
+        }
+      }
+    }
+    .course-modal {
+      width: 100%;
+      height: 100% !important;
+      margin: 0;
+      .cm-head {
+        width: 100%;
+        height: 30px;
+        display: flex;
+        justify-content: center;
+        border-bottom: 1px solid $grey-color-3;
+        .button {
+          background-color: $white-color;
+          color: $grey-color-1;
+          margin: 0 $size-04;
+          padding: 0 $size-07;
+        }
+        .active-tab {
+          color: $color-1;
+          border-bottom: 3px solid $color-1;
+        }
+      }
+      .cm-content {
+        width: 100%;
+        height: calc(100% - 30px);
+        overflow: hidden;
+        //
+        .fragment-course {
+          width: 100%;
+          height: 100%;
+          display: flex;
+          .fc-left,
+          .fc-right {
+            height: 100%;
+            @include padding($size-07);
+          }
+          .fc-left {
+            width: 70%;
+            .fc-filter {
+              width: 100%;
+              height: 100px;
+              display: block;
+              .section-1,
+              .section-2 {
+                width: 100%;
+                display: flex;
+                justify-content: space-between;
+                margin-bottom: $size-1;
+                .input-div {
+                  margin: 0;
+                }
+              }
+              .section-1 {
+                .input-div {
+                  width: 88%;
+                }
+                .button {
+                  border-radius: $size-04;
+                  color: $white-color;
+                }
+              }
+              .section-2 {
+                .input-div {
+                  width: 48%;
+                }
+              }
+            }
+            .fc-container {
+              width: 100%;
+              height: auto;
+              max-height: calc(100% - 100px);
+              overflow-y: auto;
+              display: flex;
+              flex-direction: column;
+              .title {
+                margin: 0;
+              }
+              .t-1 {
+                font-size: $size-2;
+              }
+              .t-2 {
+                font-size: $size-105;
+              }
+              .t-3 {
+                font-size: $size-1;
+              }
+              .t-4 {
+                font-size: $size-07;
+              }
+              .fcc-item {
+                width: 100%;
+                border-bottom: 1px solid $grey-color-2;
+                margin-bottom: $size-05;
+                .fcc-content {
+                  width: 100%;
+                  display: flex;
+                  flex-direction: column;
+                  padding-left: $size-1;
+                  padding-top: $size-07;
+                  .prog-item {
+                    width: 100%;
+                    .fcc-details {
+                      width: 100%;
+                      display: flex;
+                      flex-wrap: wrap;
+                      .c-item {
+                        width: 23.5%;
+                        border: 1px solid $grey-color-3;
+                        border-radius: $size-03;
+                        margin: $size-05;
+                        padding: $size-03;
+                        .title {
+                          margin-bottom: $size-04 !important;
+                        }
+                        .t-2 {
+                          font-size: $size-102;
+                        }
+                        .t-3 {
+                          color: $color-4;
+                        }
+                        .t-4 {
+                          color: $grey-color-1;
+                        }
+                      }
+                      .fcc-actions {
+                        display: flex;
+                        justify-content: flex-end;
+                        .button {
+                          border-radius: $size-03;
+                          margin-left: $size-05;
+                          color: $white-color;
+                          &:first-child {
+                            background-color: $color-4;
+                          }
+                          &:hover {
+                            background-color: $grey-color-3;
+                            color: unset;
+                          }
+                        }
+                        .activated {
+                          background-color: $green-color;
+                        }
+                        .desactivated {
+                          background-color: $red-color;
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+          .fc-right {
+            width: 30%;
+          }
+        }
+        .fragment-lesson {
+          width: 100%;
+          height: 100%;
+          display: block;
+          @include padding($size-07);
+          .fl-filter {
+            width: 100%;
+            height: 100px;
+            display: block;
+            .section-1,
+            .section-2 {
+              width: 100%;
+              display: flex;
+              justify-content: space-between;
+              margin-bottom: $size-1;
+              .input-div {
+                margin: 0;
+              }
+            }
+            .section-1 {
+              .input-div {
+                width: 95%;
+              }
+              .button {
+                border-radius: $size-04;
+                color: $white-color;
+              }
+            }
+            .section-2 {
+              .input-div {
+                width: 32%;
+              }
+            }
+          }
+          .fl-container {
+            width: 100%;
+            height: auto;
+            max-height: calc(100% - 100px);
+            overflow-y: auto;
+            display: flex;
+            flex-wrap: wrap;
+            .t-3 {
+              font-size: $size-09;
+            }
+            .t-4 {
+              font-size: $size-07;
+            }
+            .fl-item {
+              width: 32%;
+              border: 1px solid $grey-color-2;
+              border-radius: $size-05;
+              margin: $size-07;
+              padding: $size-05;
+              .fl-actions {
+                display: flex;
+                justify-content: center;
+                .button {
+                  border-radius: $size-03;
+                  color: $white-color;
+                  margin: 0 $size-03;
+                  &:first-child {
+                    background-color: $color-1;
+                  }
+                  &:nth-child(2) {
+                    background-color: $color-2;
+                  }
+                  &:nth-child(3) {
+                    background-color: $color-4;
+                  }
+                  &:hover {
+                    background-color: $grey-color-2;
+                    color: $black-color;
+                  }
+                }
+                .activated {
+                  background-color: $green-color !important;
+                }
+                .desactivated {
+                  background-color: $red-color !important;
+                }
+              }
+            }
+          }
+        }
+        .add-content {
+          width: 100%;
+          height: 100%;
+          .t-1 {
+            font-size: $size-105;
+            font-weight: bold;
+          }
+          .container {
+            width: 100%;
+            height: 100%;
+            border-radius: unset;
+            display: flex;
+            @include padding($size-07 0);
+            .left,
+            .right {
+              height: 100%;
+            }
+            .left {
+              width: 60%;
+              display: flex;
+              justify-content: space-between;
+              .components,
+              .input-files {
+                width: 48%;
+              }
+              .input-files {
+                .file-wrapper {
+                  width: 100%;
+                  display: block;
+                  .view {
+                    width: 100%;
+                    height: 200px;
+                    margin-bottom: $size-07;
+                    overflow-y: auto;
+                  }
+                  .files {
+                    width: 100%;
+                    margin-bottom: $size-07;
+                    input {
+                      display: none;
+                    }
+                    .label {
+                      cursor: pointer;
+                      div {
+                        width: 100%;
+                        height: 100px;
+                        border: 1px dashed $grey-color-2;
+                        margin: 0;
+                        display: flex;
+                        justify-content: center;
+                        align-items: center;
+                        flex-direction: column;
+                      }
+                    }
+                  }
+                  .files-container {
+                    width: 100%;
+                    height: auto;
+                    max-height: 250px;
+                    margin-bottom: $size-05;
+                    overflow-y: auto;
+                    display: flex;
+                    flex-direction: column;
+                    .file-item {
+                      width: 100%;
+                      display: flex;
+                      justify-content: space-between;
+                      align-items: center;
+                      margin-bottom: $size-04;
+                      .t-3 {
+                        font-size: $size-102;
+                        margin: 0 !important;
+                      }
+                      span {
+                        cursor: pointer;
+                        background-color: $red-color;
+                        border-radius: 100%;
+                        color: $white-color;
+                        font-size: $size-105;
+                        padding: 0 $size-03;
+                        transition: all 0.3s ease-in-out;
+                        &:hover {
+                          background-color: $grey-color-2;
+                        }
+                      }
+                    }
+                  }
+                  .button {
+                    width: 100%;
+                    background-color: $color-4;
+                    color: $white-color;
+                    &:hover {
+                      background-color: $white-color;
+                      border: 1px solid $color-4;
+                      color: $color-4;
+                    }
+                  }
+                }
+              }
+            }
+            .right {
+              width: 40%;
+              text-align: right;
+              .button {
+                width: 30%;
+                height: 40px;
+                background-color: $color-1;
+                border-radius: $size-05;
+                color: $white-color;
+              }
+              .content {
+                width: 100%;
+                height: auto;
+                max-height: calc(100% - 40px);
+                overflow-y: auto;
+                .section,
+                .images {
+                  width: 100%;
+                }
+                .images {
+                  display: flex;
+                  justify-content: center;
+                  flex-wrap: wrap;
+                  img {
+                    width: 300px;
+                    height: 200px;
+                    margin: $size-05;
+                  }
+                }
+              }
+            }
+          }
+        }
+        .preview-content {
+          width: 50%;
+          height: 100%;
+          margin: auto;
+          .pc-head {
+            width: 100%;
+            height: 40px;
+            border-bottom: 1px solid $grey-color-2;
+            padding: $size-02;
+            span {
+              color: $black-color;
+              cursor: pointer;
+              font-size: $size-2;
+              transition: all 0.3s ease-in-out;
+              &:hover {
+                color: $grey-color-2;
+              }
+            }
+          }
+          .pc-body {
+            width: 100%;
+            height: auto;
+            max-height: calc(100% - 40px);
+          }
+        }
+        //
+      }
+    }
+  }
+  .programs,
+  .levels {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    .head {
+      width: 100%;
+      height: 40px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      .input-div {
+        width: 80%;
+        margin: 0;
+        .label-icon {
+          font-size: $size-2;
+        }
+      }
+      .button {
+        border-radius: $size-04;
+        color: $white-color;
+      }
+    }
+    .body {
+      width: 100%;
+      height: auto;
+      max-height: calc(100% - 40px);
+      overflow-y: auto;
+      display: flex;
+      flex-wrap: wrap;
+      .program-item,
+      .level-item {
+        width: 19%;
+        background-color: $grey-color-3;
+        border-radius: $size-07;
+        @include margin($size-1);
+        @include padding($size-1);
+        overflow: hidden;
+        text-align: right;
+        .status {
+          width: 20px;
+          height: 20px;
+          background-color: $white-color;
+          border-radius: 100%;
+          margin-bottom: $size-09;
+        }
+        .s-act {
+          border: 3px solid $green-color;
+        }
+        .s-inact {
+          border: 3px solid $red-color;
+        }
+        .title {
+          text-align: justify;
+        }
+        .t-2 {
+          font-size: $size-105;
+          font-weight: bold;
+        }
+        .t-1 {
+          font-size: $size-2;
+          font-weight: bold;
+          color: $color-2;
+        }
+        .t-3 {
+          display: flex;
+          justify-content: space-between;
+          font-size: $size-104;
+          .icon {
+            margin-right: $size-05;
+          }
+        }
+        .button {
+          background-color: $color-4;
+          border-radius: $size-05;
+          color: $white-color;
+          margin-left: $size-09;
+          font-size: $size-102;
+          &:first-child {
+            background-color: $white-color;
+            border: 1px solid $color-4;
+            color: $color-4;
+          }
+          &:hover {
+            background-color: $color-3;
+            color: $color-4;
+          }
+        }
+        .danger {
+          background-color: $red-color;
+        }
+      }
+    }
+  }
+  .favorite {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    .container {
+      width: 100%;
+      height: auto;
+      max-height: 100%;
+      display: flex;
+      flex-direction: row;
+      flex-wrap: wrap;
+      overflow-y: auto;
+      .link {
+        margin: $size-05;
+        div {
+          width: 300px;
+          display: flex;
+          flex-direction: column;
+          border: 1px solid $grey-color-2;
+          border-radius: $size-04;
+          @include padding($size-07);
+          .icon {
+            width: 60px;
+            height: 60px;
+            margin-bottom: $size-1;
+          }
+          .t-1 {
+            font-size: $size-105;
+            font-weight: bold;
+          }
+          .t-2 {
+            font-size: $size-1;
+          }
+          .t-3 {
+            font-size: $size-07;
+            color: $grey-color-1;
+          }
+        }
+      }
+    }
+  }
+  .library {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    .head {
+      width: 100%;
+      height: 40px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      .input-div {
+        width: 80%;
+        margin: 0;
+        .label-icon {
+          font-size: $size-2;
+        }
+      }
+      .button {
+        border-radius: $size-04;
+        color: $white-color;
+      }
+    }
+    .filter-category {
+      width: 100%;
+      height: 40px;
+      display: flex;
+      justify-content: flex-start;
+      @include padding($size-04);
+      .button {
+        margin-right: $size-03;
+      }
+      .active-button {
+        background-color: $color-1;
+        color: $white-color;
+      }
+    }
+    .body {
+      width: 100%;
+      height: auto;
+      max-height: calc(100% - 80px);
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      .item-category {
+        width: 100%;
+        padding-top: $size-1;
+        .t-2 {
+          font-size: $size-2;
+          margin: 0;
+        }
+        .item-category-content {
+          width: 100%;
+          display: flex;
+          flex-direction: row;
+          flex-wrap: wrap;
+          @include padding($size-04);
+          .link {
+            margin: $size-05;
+            div {
+              width: 250px;
+              height: 300px;
+              overflow: hidden;
+              position: relative;
+              img {
+                position: absolute;
+                width: 100%;
+                height: 100%;
+              }
+              .button {
+                position: absolute;
+                z-index: 1;
+                border-radius: $size-03;
+                width: 100%;
+                bottom: 5px;
+                background-color: rgba(0, 0, 0, 0.25);
+                color: $white-color;
+                &:hover {
+                  background-color: $color-2;
+                  color: $white-color;
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+    .book-management {
+      width: 100%;
+      height: 100%;
+      background-color: red !important;
+    }
+  }
+  .settings {
+    position: relative;
+    .container {
+      @include padding($size-1);
+      position: relative;
+      display: flex;
+      justify-content: space-between;
+      .title {
+        margin: 0;
+      }
+      .t-1 {
+        font-size: $size-3;
+      }
+      .t-2 {
+        font-size: $size-107;
+        font-weight: 500;
+      }
+      .t-3 {
+        font-size: $size-105;
+        color: $color-4;
+      }
+      .input-select {
+        position: relative;
+        top: 0;
+        left: 0;
+        font-size: $size-1;
+        border: 1px solid $grey-color-2;
+        border-radius: 0.5rem;
+        padding: 0.5rem;
+        background-color: $grey-color-3;
+        z-index: 1;
+      }
+      hr {
+        border: none;
+        height: 1px;
+        width: 100%;
+        background-color: $grey-color-3;
+        margin: $size-1 0;
+      }
+      .profile {
+        width: 32%;
+        .item {
+          width: 100%;
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          margin-bottom: $size-1;
+          .t-2 {
+            font-size: $size-105;
+            font-weight: 700;
+          }
+          .t-3 {
+            font-size: $size-103;
+          }
+          div {
+            display: flex;
+            align-items: center;
+          }
+          img {
+            width: 50px;
+            height: 50px;
+            background-color: $grey-color-2;
+            border-radius: 100%;
+            margin-right: $size-1;
+          }
+        }
+      }
+      .general {
+        width: 32%;
+        display: block;
+        .item {
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          margin-bottom: $size-07;
+          .t-3 {
+            font-size: $size-103;
+          }
+        }
+      }
+      .security {
+        width: 32%;
+        .t-2 {
+          margin-bottom: $size-1;
+        }
+        .button {
+          background-color: $color-4;
+          color: $white-color;
+          margin-bottom: $size-1;
+        }
+        .item {
+          width: 100%;
+          margin-bottom: $size-105;
+        }
+        form {
+          margin-bottom: $size-105;
+          .button {
+            width: 100%;
+            background-color: $color-1;
+            border-radius: $size-03;
+          }
+        }
+      }
+    }
+  }
+}
+.not-found {
+  width: 100vw;
+  height: 100vh;
+  .containers {
+    width: 100%;
+    height: calc(100% - 200px);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    .t-1 {
+      font-size: 5rem;
+    }
+    .t-2 {
+      font-size: 3rem;
+    }
+    .t-3 {
+      color: $grey-color-1;
+      font-size: 1rem;
+    }
+    div {
+      margin-top: 2rem;
+      .link {
+        font-size: 1rem;
+        border: 1px solid $grey-color-1;
+        border-radius: $size-05;
+        color: $grey-color-1;
+        @include padding($size-09);
+        span {
+          margin-left: $size-07;
+        }
+      }
+    }
+  }
+}
+
+@media only screen and (max-width: 688px) {
+  .home {
+    .banner {
+      width: 100%;
+      height: 600px;
+      .container {
+        flex-direction: column;
+        .left,
+        .right {
+          width: 100%;
+        }
+        .left {
+          height: 45%;
+          align-items: center;
+          .title {
+            text-align: center;
+          }
+          .t-3 {
+            width: 50%;
+          }
+          .t-1 {
+            font-size: 3em;
+            font-weight: bold;
+          }
+          .t-2 {
+            color: $white-color;
+            font-size: $size-105;
+            font-weight: bold;
+          }
+          .button {
+            @include margin($size-2 0);
+            .btn-join {
+              background-color: $white-color;
+              color: $color-1;
+              border-radius: 1em;
+              font-size: $size-102;
+              font-weight: bold;
+              @include padding($size-2 $size-109);
+              transition: all 0.3s ease-in-out;
+              &:hover {
+                background: transparent;
+                border: 1px solid $white-color;
+                color: $white-color;
+              }
+            }
+          }
+        }
+        .right {
+          height: 55%;
+          img {
+            width: 100%;
+            height: 100%;
+          }
+        }
+      }
+    }
+    .search {
+      .container {
+        width: 90%;
+        @include padding($size-3 0);
+        text-align: center;
+        .t-2 {
+          font-size: $size-2;
+        }
+        .input-div {
+          .input-form {
+            font-size: $size-105;
+          }
+          .label-form {
+            font-size: $size-105;
+          }
+          .label-icon {
+            font-size: $size-105;
+          }
+        }
+      }
+    }
+    .countable {
+      .t-2 {
+        font-size: $size-2;
+      }
+      .container {
+        @include padding($size-2 0);
+        width: 90%;
+        display: flex;
+        flex-wrap: wrap;
+        .item {
+          width: 45%;
+          @include margin($size-1);
+          .icon {
+            width: 64px;
+            height: 64px;
+          }
+        }
+      }
+    }
+    .accessibility {
+      .container {
+        flex-direction: column;
+        .details {
+          width: 95%;
+          text-align: center;
+          .t-2 {
+            font-size: $size-107;
+          }
+          .t-3 {
+            font-size: $size-3;
+          }
+          .downloads {
+            .item {
+              width: 25%;
+            }
+          }
+        }
+      }
+    }
+    .orientation {
+      height: 220px;
+      .container {
+        .inner {
+          .box {
+            width: 93%;
+            @include padding(0 $size-2);
+            .t-2 {
+              font-size: $size-2;
+            }
+            .t-3 {
+              font-size: $size-1;
+              text-align: center;
+            }
+          }
+        }
+        .outer {
+          width: 35%;
+          height: 100%;
+          right: -30px;
+        }
+      }
+    }
+    .partnership {
+      .t-2 {
+        font-size: $size-2;
+      }
+      .container {
+        img {
+          width: 43%;
+          height: 70px;
+        }
+      }
+    }
+  }
+  .research {
+    .container {
+      .header {
+        height: 180px;
+        .top {
+          flex-direction: row;
+          flex-wrap: wrap;
+          .input-div {
+            width: 100%;
+            order: 3;
+          }
+          .sign-nav {
+            .button {
+              font-size: $size-105;
+            }
+          }
+        }
+        .bottom {
+          height: 35%;
+          border-top: 1px solid $grey-color-3;
+          .tabs {
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+            .tab {
+              background-color: $white-color;
+              font-size: $size-105;
+              transition: all 0.3s ease-in-out;
+              &:hover {
+                background-color: $grey-color-2;
+              }
+            }
+            span {
+              width: 100%;
+              margin-left: 0 !important;
+              text-align: center;
+              @include padding($size-1);
+            }
+          }
+        }
+      }
+      .content {
+        flex-wrap: nowrap;
+        flex-direction: column;
+        .item {
+          width: 100%;
+          margin: $size-1 0;
+        }
+      }
+    }
+  }
+  .about {
+    .description {
+      .container {
+        .content {
+          justify-content: center;
+          flex-direction: column;
+          .details,
+          .images {
+            width: 100%;
+            @include padding($size-1 0);
+          }
+        }
+      }
+    }
+    .connect {
+      width: 100%;
+      display: block;
+      .container {
+        justify-content: center;
+        flex-direction: column;
+        img {
+          width: 100%;
+          order: 2;
+        }
+        .details {
+          order: 1;
+          width: 100%;
+          text-align: center;
+          @include padding($size-3 0);
+          .t-2 {
+            font-size: 1.5rem;
+            margin-bottom: $size-2;
+          }
+        }
+        form {
+          order: 3;
+          width: 100%;
+        }
+      }
+    }
+  }
+  .sign-in {
+    flex-direction: column;
+    .left {
+      width: 100%;
+      height: 100%;
+    }
+    .right {
+      display: none;
+    }
+  }
+  .user {
+    .container {
+      .body {
+        height: calc(100% - 190px);
+      }
+    }
+    .courses {
+      .course-reading {
+        .left,
+        .right {
+          position: absolute;
+          width: 100%;
+          height: 100%;
+          background-color: $white-color;
+        }
+        .left {
+          z-index: 0;
+          .reading-nav {
+            .r-nav {
+              width: 80%;
+            }
+            .btn-close {
+              display: block;
+            }
+          }
+        }
+        .right {
+          z-index: 1;
+          .inner {
+            .reading-actions {
+              justify-content: space-between;
+              .btn-open {
+                display: block;
+              }
+            }
+          }
+        }
+      }
+    }
+    .programs,
+    .levels {
+      height: auto;
+      max-height: 100%;
+      .head {
+        .input-div {
+          width: 70%;
+        }
+        .button {
+          font-size: $size-105;
+        }
+      }
+      .body {
+        .program-item,
+        .level-item {
+          width: 46.5%;
+          .t-2 {
+            font-size: $size-102;
+          }
+          .t-1 {
+            font-size: $size-107;
+          }
+          .t-3 {
+            font-size: $size-101;
+          }
+        }
+      }
+    }
+  }
+}
+
+@media only screen and (max-width: 1312px) {
+}
