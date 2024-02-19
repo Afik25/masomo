@@ -122,8 +122,7 @@ module.exports = {
           isLogged: true,
           message: "Connexion successfully!",
           sys_role: user?.sys_role,
-          accessToken,
-          refreshToken,
+          accessToken
         });
     } catch (error) {
       console.log({ "Error login student ": error });
@@ -131,16 +130,11 @@ module.exports = {
   },
   async refreshToken(req, res) {
     try {
-      // const cookies = req.cookies;
-      // if (!cookies?.jwt) return res.sendStatus(401);
-      // console.log({ "Cookies verify after ": cookies.jwt });
+      const cookies = req.cookies;
+      if (!cookies?.jwt) return res.sendStatus(401);
+      console.log({ "Cookies verify after ": cookies.jwt });
 
-      const cookies = req.headers?.refreshtoken;
-      if (!cookies) return res.sendStatus(401);
-      console.log({ "Cookies verify after ": cookies });
-
-      // const refreshToken = cookies.jwt;
-      const refreshToken = cookies;
+      const refreshToken = cookies.jwt;
       const connected = await Login.findOne({
         where: { refresh_token: refreshToken },
       });
@@ -162,7 +156,6 @@ module.exports = {
 
           let accessToken = "";
           const sys_role = decoded.userInfo.sys_role;
-
           accessToken = jwt.sign(
             {
               userInfo: {
@@ -200,14 +193,13 @@ module.exports = {
     const refreshToken = cookies.jwt;
 
     //It refreshToken id database ?
-    const connected = await StudentLogin.findOne({
+    const connected = await Login.findOne({
       where: { refresh_token: refreshToken },
     });
 
     if (connected) {
       // Desactivate or Delete refreshToken in database
-
-      const logout = await StudentLogin.update(
+      const logout = await Login.update(
         { connection_status: 0 },
         { where: { refresh_token: refreshToken } }
       );

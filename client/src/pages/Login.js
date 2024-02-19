@@ -40,7 +40,6 @@ const Login = () => {
           setIsSending(false);
         }
         const accessToken = response?.data?.accessToken;
-        const refreshToken = response?.data?.refreshToken;
         const sys_role = response?.data?.sys_role;
         const to = "/" + sys_role;
         setAuth({ sys_role, accessToken });

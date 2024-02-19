@@ -195,7 +195,7 @@ const StudyLevel = () => {
         </div>
         <div className="body">
           {isEmpty(customizedLevels?.data?.customizedLevels) ? (
-            <div style={{ width: "100%", textAlign: "center" }}>
+            <div style={{ width: "100%", textAlign: "center", padding: "1rem 0" }}>
               <p
                 className="title t-1"
                 style={{

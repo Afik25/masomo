@@ -12,7 +12,6 @@ import {
   IoHelp,
   FiLogOut,
 } from "../../middlewares/icons";
-import { SERVER_URL } from "../../routes";
 
 const Head = () => {
   const [option, setOption] = useState(false);
@@ -66,7 +65,7 @@ const Head = () => {
                 src={
                   !connectedUser?.userInfo?.thumbnails
                     ? process.env.PUBLIC_URL + "/user.png"
-                    : `${SERVER_URL}/${connectedUser?.userInfo?.thumbnails}`
+                    : `${process.env.API_SERVER_URL}:${process.env.API_SERVER_PORT}/${connectedUser?.userInfo?.thumbnails}`
                 }
                 alt="user-profile"
               />
