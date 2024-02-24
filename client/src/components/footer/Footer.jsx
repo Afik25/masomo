@@ -18,7 +18,7 @@ const Footer = () => {
       <div className="container">
         <div className="top">
           <div className="left">
-            <img src={process.env.PUBLIC_URL + "/logo.png"} />
+            <img src={process.env.PUBLIC_URL + "/logo-white.png"} />
             <p className="title t-3">{t("footer.text-1")}</p>
           </div>
           <div className="center">
