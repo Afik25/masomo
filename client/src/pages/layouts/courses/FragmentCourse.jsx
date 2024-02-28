@@ -1,9 +1,10 @@
 import React from "react";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { isEmpty, wait, validationLevel } from "../../../utils/utils";
+import { isEmpty, wait, validationCourse } from "../../../utils/utils";
 import { getPrograms } from "../../../services/programs";
 import { getLevels } from "../../../services/levels";
+import { onCreateCourse } from "../../../services/courses";
 import { useDispatch, useSelector } from "react-redux";
 import useAxiosPrivate from "../../../hooks/context/state/useAxiosPrivate";
 import { BiSearch, RiTimerLine } from "../../../middlewares/icons";
@@ -28,6 +29,12 @@ const FragmentCourse = () => {
     const controller = new AbortController();
     const signal = controller.signal;
 
+    getPrograms(axiosPrivate, signal).then((result) => {
+      dispatch({
+        type: "setUpPrograms/getPrograms",
+        payload: result,
+      });
+    });
     getLevels(axiosPrivate, signal).then((result) => {
       dispatch({
         type: "setUpLevels/getLevels",
@@ -35,12 +42,6 @@ const FragmentCourse = () => {
       });
     });
 
-    getPrograms(axiosPrivate, signal).then((result) => {
-      dispatch({
-        type: "setUpPrograms/getPrograms",
-        payload: result,
-      });
-    });
     return () => {
       isMounted = false;
       isMounted && controller.abort();
@@ -54,51 +55,51 @@ const FragmentCourse = () => {
     formState: { errors },
   } = useForm({
     mode: "all",
-    resolver: yupResolver(validationLevel),
+    resolver: yupResolver(validationCourse),
   });
 
   const onSubmit = async (data) => {
     await wait(300);
     //
-    // onCreateLevel(axiosPrivate, data)
-    //   .then((response) => {
-    //     let isMounted = true;
-    //     const controller = new AbortController();
-    //     const signal = controller.signal;
-    //     if (response?.data?.status === 1) {
-    //       setClassNameMsg("msg-box msg-box-success fade-in");
-    //       setResponseMessage(response?.data?.message);
-    //       //
-    //       getCustomizedLevels(axiosPrivate, signal).then((result) => {
-    //         dispatch({
-    //           type: "setUpLevels/getCustomizedLevels",
-    //           payload: result,
-    //         });
-    //       });
-    //       //
-    //       reset();
-    //     }
-    //     const timer = setTimeout(() => {
-    //       setClassNameMsg("display-none");
-    //     }, 4000);
-    //     return () => {
-    //       clearTimeout(timer);
-    //       isMounted = false;
-    //       isMounted && controller.abort();
-    //     };
-    //   })
-    //   .catch((error) => {
-    //     setClassNameMsg("msg-box msg-box-failed fade-in");
-    //     if (!error?.response) {
-    //       setResponseMessage("No server response");
-    //     } else {
-    //       setResponseMessage(error?.response?.data?.message);
-    //     }
-    //     const timer = setTimeout(() => {
-    //       setClassNameMsg("display-none");
-    //     }, 4000);
-    //     return () => clearTimeout(timer);
-    //   });
+    onCreateCourse(axiosPrivate, data)
+      .then((response) => {
+        let isMounted = true;
+        const controller = new AbortController();
+        const signal = controller.signal;
+        if (response?.data?.status === 1) {
+          setClassNameMsg("msg-box msg-box-success fade-in");
+          setResponseMessage(response?.data?.message);
+          //
+          // getCustomizedLevels(axiosPrivate, signal).then((result) => {
+          //   dispatch({
+          //     type: "setUpLevels/getCustomizedLevels",
+          //     payload: result,
+          //   });
+          // });
+          //
+          reset();
+        }
+        const timer = setTimeout(() => {
+          setClassNameMsg("display-none");
+        }, 4000);
+        return () => {
+          clearTimeout(timer);
+          isMounted = false;
+          isMounted && controller.abort();
+        };
+      })
+      .catch((error) => {
+        setClassNameMsg("msg-box msg-box-failed fade-in");
+        if (!error?.response) {
+          setResponseMessage("No server response");
+        } else {
+          setResponseMessage(error?.response?.data?.message);
+        }
+        const timer = setTimeout(() => {
+          setClassNameMsg("display-none");
+        }, 4000);
+        return () => clearTimeout(timer);
+      });
   };
 
   return (
@@ -139,13 +140,7 @@ const FragmentCourse = () => {
             <div className="input-div">
               <select
                 className="input-form"
-                {...register("program")}
-                // onChange={(e) => {
-                //   let _data = levelsData?.data?.levels.filter(
-                //     (item) => item.program_id == e.target.value
-                //   );
-                //   setSelectedLevels(_data);
-                // }}
+                // {...register("program")}
               >
                 <option value="" style={{ color: "grey" }} selected>
                   Program country
@@ -170,13 +165,7 @@ const FragmentCourse = () => {
             <div className="input-div">
               <select
                 className="input-form"
-                {...register("program")}
-                // onChange={(e) => {
-                //   let _data = levelsData?.data?.levels.filter(
-                //     (item) => item.program_id == e.target.value
-                //   );
-                //   setSelectedLevels(_data);
-                // }}
+                // {...register("program")}
               >
                 <option value="" style={{ color: "grey" }} selected>
                   Level of study
@@ -236,7 +225,7 @@ const FragmentCourse = () => {
         </div>
       </div>
       <div className="fc-right">
-        <h1 className="title t-1">Add New Course</h1>
+        <h1 className="title t-1">Adding a New Course</h1>
         <form onSubmit={handleSubmit(onSubmit)}>
           <div className={classNameMsg}>
             <span>{responseMessage}</span>
@@ -244,31 +233,35 @@ const FragmentCourse = () => {
           <div className="input-div">
             <select
               className="input-form"
-              {...register("program")}
-              onChange={(e) => {
-                let _data = levelsData?.data?.levels.filter(
-                  (item) => item.program_id == e.target.value
-                );
-                setSelectedLevels(_data);
-              }}
+              {...register("program", {
+                onChange: (e) => {
+                  let _data = levelsData?.data?.levels.filter(
+                    (item) => item.program_id == e.target.value
+                  );
+                  setSelectedLevels(null);
+                  setSelectedLevels(_data);
+                },
+              })}
             >
               <option value="" style={{ color: "grey" }}>
                 Program country
               </option>
               {isEmpty(programsData?.data?.programs) ? (
                 <option value="" selected>
-                  {programsData.data?.message}
+                  {programsData?.data?.message}
                 </option>
               ) : (
-                programsData?.data?.programs.map((item, i) => (
-                  <option key={i} value={item.id}>
-                    {item?.language +
-                      " - " +
-                      item?.title +
-                      " program / " +
-                      item?.country}
-                  </option>
-                ))
+                programsData?.data?.programs.map((_item, i) => {
+                  return (
+                    <option key={i} value={_item.id}>
+                      {_item?.language +
+                        " - " +
+                        _item?.title +
+                        " program / " +
+                        _item?.country}
+                    </option>
+                  );
+                })
               )}
             </select>
             {errors.program && (
@@ -304,13 +297,13 @@ const FragmentCourse = () => {
               className="input-form"
               autoComplete="none"
               placeholder=" "
-              {...register("course_title")}
+              {...register("title")}
             />
-            <label htmlFor="course_title" className="label-form">
+            <label htmlFor="title" className="label-form">
               Course's title
             </label>
-            {errors.course_title && (
-              <span className="fade-in">{errors.course_title.message}</span>
+            {errors.title && (
+              <span className="fade-in">{errors.title.message}</span>
             )}
           </div>
           <div className="input-div">

@@ -11,6 +11,7 @@ import Lesson from "../assets/images/lesson.png";
 import Exercice from "../assets/images/exercice.png";
 import DEVICES from "../assets/images/devices.png";
 import ECOLIER from "../assets/images/ecolier.png";
+import BANNER from "../assets/images/banner.jpg";
 import { BiSearch } from "../middlewares/icons";
 
 const Home = () => {
@@ -48,7 +49,7 @@ const Home = () => {
               </div>
             </div>
             <div className="right">
-              <img src={Pupils} />
+              <img src={Pupils} alt="pupils" />
             </div>
           </div>
         </div>
@@ -79,6 +80,16 @@ const Home = () => {
                 />
               </label>
             </div>
+          </div>
+        </div>
+        <div className="section illustration">
+          <img src={BANNER} alt="banner" />
+          <div className="text">
+            <p className="title t-1">
+              Best quality of Education via best quality of content based on
+              National or Standard Education's program for every study level;
+              from High school to University!
+            </p>
           </div>
         </div>
         <div className="section countable">
@@ -165,52 +176,6 @@ const Home = () => {
         </div>
         <Footer />
         {/* 
-        <div className="section-two">
-          <h2 className="title t-2">Course's categories</h2>
-          <p className="title t-3">
-            The platform offers courses in several categories, depending on the
-            program and the level of the class.
-          </p>
-          <div className="container">
-            <div className="item">
-              <img src={process.env.PUBLIC_URL + "/sciences.png"} />
-              <h3 className="title">Sciences</h3>
-            </div>
-            <div className="item">
-              <img src={process.env.PUBLIC_URL + "/mathematics.png"} />
-              <h3 className="title">Mathematics</h3>
-            </div>
-            <div className="item">
-              <img src={process.env.PUBLIC_URL + "/technologies.png"} />
-              <h3 className="title">Technologies</h3>
-            </div>
-            <div className="item">
-              <img src={process.env.PUBLIC_URL + "/phylosophy.png"} />
-              <h3 className="title">Phylosophy</h3>
-            </div>
-            <div className="item">
-              <img src={process.env.PUBLIC_URL + "/languages.png"} />
-              <h3 className="title">Languages</h3>
-            </div>
-          </div>
-        </div>
-        <div className="section-three">
-          <div className="container">
-            <div className="left">
-              <h2 className="title t-2">$2 / month</h2>
-              <p className="title t-3">
-                Beneficial support from tutors and friends anytime.
-              </p>
-            </div>
-            <div className="right">
-              <h2>Click below to download mobile App!</h2>
-              <div className="mobiles">
-                <img src={process.env.PUBLIC_URL + "/play-store.png"} />
-                <img src={process.env.PUBLIC_URL + "/app-store.png"} />
-              </div>
-            </div>
-          </div>
-        </div>
         <div className="section-four">
           <h3 className="title t-2">Why you should study with MASOMO ?</h3>
           <p className="title t-3">

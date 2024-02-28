@@ -33,23 +33,24 @@ router.get("/auth/logout", Login.logout);
 //
 // program and levels
 router
-  .post("/program", Program.create)
-  .post("/program/activation", Program.activation)
-  .get("/program", Program.get)
-  .get("/program/customized", Program.getCustomized);
+  .post("/programs", Program.create)
+  .post("/programs/activation", Program.activation)
+  .get("/programs", Program.get)
+  .get("/programs/customized", Program.getCustomized);
 router
-  .post("/level", Level.create)
-  .post("/level/activation", Level.activation)
-  .get("/level", Level.get)
-  .get("/level/customized", Level.getCustomized);
+  .post("/levels", Level.create)
+  .post("/levels/activation", Level.activation)
+  .get("/levels", Level.get)
+  .get("/levels/customized", Level.getCustomized);
 //
 // course
-router.post("/course", Course.create).get("/course", Course.get);
-router.get("/allcourses", Course.getAll);
+router.post("/courses", Course.create).get("/courses", Course.get);
+router.get("/courses/customized", Course.getCustomized);
+router.get("/courses/all", Course.getAll);
 //
 // Lesson
-router.post("/lesson", Lesson.create).get("/lesson", Lesson.get);
-router.post("/exercice", Exercice.create).get("/exercice", Exercice.get);
-router.post("/solution", Solution.create).get("/solution", Solution.get);
+router.post("/lessons", Lesson.create).get("/lessons", Lesson.get);
+router.post("/exercices", Exercice.create).get("/exercices", Exercice.get);
+router.post("/solutions", Solution.create).get("/solutions", Solution.get);
 
 module.exports = router;

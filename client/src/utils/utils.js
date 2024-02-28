@@ -92,3 +92,10 @@ export const validationLevel = Yup.object().shape({
   level: Yup.string().required("Provide the level of study"),
   description: Yup.string().required("Describe the level of study"),
 });
+
+export const validationCourse = Yup.object().shape({
+  program: Yup.string().required("Choose the concerned program"),
+  level: Yup.string().required("Provide the level of study"),
+  title: Yup.string().required("Grab the title of course"),
+  description: Yup.string().required("Procide Description or Summary of the course"),
+});

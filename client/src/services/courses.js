@@ -1,15 +1,14 @@
-import { PROGRAMS, LEVELS } from "../routes";
+import { COURSES } from "../routes";
 
-// Program
-export function onCreatePrograms(axiosPrivate, data) {
+export function onCreateCourse(axiosPrivate, data) {
   const _data = {
-    country: data.program_country,
-    language: data.program_language,
-    title: data.program_type,
+    level: data.level,
+    title: data.title,
+    description: data.description,
   };
   return new Promise(async (resolve, reject) => {
     await axiosPrivate
-      .post(PROGRAMS, _data, {
+      .post(COURSES, _data, {
         headers: { "Content-Type": "application/json" },
         withCredentials: true,
       })
@@ -21,11 +20,10 @@ export function onCreatePrograms(axiosPrivate, data) {
       });
   });
 }
-
-export function getPrograms(axiosPrivate, signal) {
+export function getCourses(axiosPrivate, signal) {
   return new Promise(async (resolve, reject) => {
     await axiosPrivate
-      .get(PROGRAMS, {
+      .get(COURSES, {
         signal: signal,
       })
       .then((response) => {
@@ -36,19 +34,36 @@ export function getPrograms(axiosPrivate, signal) {
       });
   });
 }
-//
-// Level
-export function getLevels(axiosPrivate, signal) {
-  return new Promise(async (resolve, reject) => {
-    await axiosPrivate
-      .get(LEVELS, {
-        signal: signal,
-      })
-      .then((response) => {
-        resolve(response);
-      })
-      .catch((error) => {
-        reject(error);
-      });
-  });
-}
+// export function getCustomizedCourses(axiosPrivate, signal) {
+//   return new Promise(async (resolve, reject) => {
+//     await axiosPrivate
+//       .get(LEVELS_CUSTOMIZED, {
+//         signal: signal,
+//       })
+//       .then((response) => {
+//         resolve(response);
+//       })
+//       .catch((error) => {
+//         reject(error);
+//       });
+//   });
+// }
+// export function onActivateCourses(axiosPrivate, data) {
+//   const _data = {
+//     id: data.level_id,
+//     status: data.level_status
+//   };
+//   return new Promise(async (resolve, reject) => {
+//     await axiosPrivate
+//       .post(LEVELS_ACTIVATION, _data, {
+//         headers: { "Content-Type": "application/json" },
+//         withCredentials: true,
+//       })
+//       .then((response) => {
+//         resolve(response);
+//       })
+//       .catch((error) => {
+//         reject(error);
+//       });
+//   });
+// }

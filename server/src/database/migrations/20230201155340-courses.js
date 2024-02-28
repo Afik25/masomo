@@ -21,11 +21,7 @@ module.exports = {
       },
       title: {
         type: Sequelize.STRING,
-        allowNull: true,
-      },
-      type: {
-        type: Sequelize.STRING,
-        allowNull: true,
+        allowNull: false,
       },
       timing: {
         type: Sequelize.INTEGER,

@@ -7,7 +7,6 @@ class Course extends Model {
         level_id: DataTypes.INTEGER,
         code: DataTypes.STRING,
         title: DataTypes.STRING,
-        type: DataTypes.STRING,
         timing: DataTypes.INTEGER,
         description: DataTypes.TEXT,
         status: DataTypes.INTEGER,
