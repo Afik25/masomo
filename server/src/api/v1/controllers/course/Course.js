@@ -111,8 +111,8 @@ module.exports = {
             level_id:_levels[j].id, 
             level_code:_levels[j].code, 
             level_title:_levels[j].title, 
-            level_description::_levels[j].description,
-            
+            level_description:_levels[j].description,
+
           })
         }
       }
