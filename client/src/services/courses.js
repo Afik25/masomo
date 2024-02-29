@@ -1,4 +1,4 @@
-import { COURSES } from "../routes";
+import { COURSES, COURSES_CUSTOMIZED } from "../routes";
 
 export function onCreateCourse(axiosPrivate, data) {
   const _data = {
@@ -34,20 +34,20 @@ export function getCourses(axiosPrivate, signal) {
       });
   });
 }
-// export function getCustomizedCourses(axiosPrivate, signal) {
-//   return new Promise(async (resolve, reject) => {
-//     await axiosPrivate
-//       .get(LEVELS_CUSTOMIZED, {
-//         signal: signal,
-//       })
-//       .then((response) => {
-//         resolve(response);
-//       })
-//       .catch((error) => {
-//         reject(error);
-//       });
-//   });
-// }
+export function getCustomizedCourses(axiosPrivate, signal) {
+  return new Promise(async (resolve, reject) => {
+    await axiosPrivate
+      .get(COURSES_CUSTOMIZED, {
+        signal: signal,
+      })
+      .then((response) => {
+        resolve(response);
+      })
+      .catch((error) => {
+        reject(error);
+      });
+  });
+}
 // export function onActivateCourses(axiosPrivate, data) {
 //   const _data = {
 //     id: data.level_id,

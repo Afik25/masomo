@@ -4,7 +4,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { isEmpty, wait, validationCourse } from "../../../utils/utils";
 import { getPrograms } from "../../../services/programs";
 import { getLevels } from "../../../services/levels";
-import { onCreateCourse } from "../../../services/courses";
+import { onCreateCourse, getCustomizedCourses } from "../../../services/courses";
 import { useDispatch, useSelector } from "react-redux";
 import useAxiosPrivate from "../../../hooks/context/state/useAxiosPrivate";
 import { BiSearch, RiTimerLine } from "../../../middlewares/icons";
@@ -24,10 +24,22 @@ const FragmentCourse = () => {
     (state) => state.setLevelSlice.initLevels?.levelsData
   );
 
+  const customizedCoursesData = useSelector(
+    (state) => state.setCourseSlice.initCustomizedCourses?.customizedCoursesData
+  );
+
   React.useEffect(() => {
     let isMounted = true;
     const controller = new AbortController();
     const signal = controller.signal;
+
+    getCustomizedCourses(axiosPrivate, signal).then((result) => {
+      console.log({"checl getCustomizedCourses":result});
+      dispatch({
+        type: "setUpCourses/getCustomizedCourses",
+        payload: result,
+      });
+    });
 
     getPrograms(axiosPrivate, signal).then((result) => {
       dispatch({
@@ -70,12 +82,13 @@ const FragmentCourse = () => {
           setClassNameMsg("msg-box msg-box-success fade-in");
           setResponseMessage(response?.data?.message);
           //
-          // getCustomizedLevels(axiosPrivate, signal).then((result) => {
-          //   dispatch({
-          //     type: "setUpLevels/getCustomizedLevels",
-          //     payload: result,
-          //   });
-          // });
+          getCustomizedCourses(axiosPrivate, signal).then((result) => {
+            console.log({"checl getCustomizedCourses":result});
+            dispatch({
+              type: "setUpCourses/getCustomizedCourses",
+              payload: result,
+            });
+          });
           //
           reset();
         }

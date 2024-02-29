@@ -97,28 +97,61 @@ module.exports = {
           message: "No information about course available.",
         });
       }
-      // sort the levels
-      const _courses = []
+      const customizedCourses = [];
+      const _programs = [];
+      const _programsContent = [];
       for (let i = 0; i < programs.length; i++) {
         const _levels = levels.filter((el) => el.program_id == programs[i].id);
         for (let j = 0; j < _levels.length; j++) {
-          const _getCourses = courses.filter((el) => el.level_id == _levels[j].id);
-          _courses.push({
-            program_id:programs[i].id,
-            program_title:programs[i].title, 
-            program_language:programs[i].language, 
-            program_country:programs[i].country,
-            level_id:_levels[j].id, 
-            level_code:_levels[j].code, 
-            level_title:_levels[j].title, 
-            level_description:_levels[j].description,
-
-          })
+          const _getCourses = courses.filter(
+            (el) => el.level_id == _levels[j].id
+          );
+          for (let k = 0; k < _getCourses.length; k++) {
+            _programsContent.push({
+              course_id: _getCourses[k].id,
+              course_title: _getCourses[k].title,
+              timing: _getCourses[k].timing,
+              level_id: _levels[j].id,
+              level_title: _levels[j].title,
+            });
+          }
+          _programs.push({
+            program_title: programs[i].title,
+            program_content: _programsContent,
+          });
+        }
+        //
+        const isFound = customizedCourses.some((element) => {
+          if (element.country === programs[i].country) {
+            return true;
+          }
+          return false;
+        });
+        //
+        if (isFound) {
+          customizedCourses.push({
+            country: programs[i].country,
+            content: _programs,
+          });
+        } else {
+          customizedCourses.push({
+            country: programs[i].country,
+            content: _programs,
+          });
         }
       }
-      return res
-        .status(200)
-        .json({ status: 1, length: _courses.length, courses: _courses });
+      // sort the customized courses
+      const _customizedCourses = customizedCourses.sort((a, b) => {
+        if (a.country < b.country) return -1;
+        if (a.country > b.country) return 1;
+
+        return 0;
+      });
+      return res.status(200).json({
+        status: 1,
+        length: _customizedCourses.length,
+        courses: _customizedCourses,
+      });
     } catch (error) {
       console.log({ "catch error get customized course ": error });
     }
