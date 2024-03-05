@@ -11,8 +11,10 @@ class Exercice extends Model {
         timing: DataTypes.INTEGER, // premium or freemium
         version: DataTypes.STRING,
         description: DataTypes.TEXT,
+        thumbnail: DataTypes.TEXT,
         audio: DataTypes.STRING,
         video: DataTypes.STRING,
+        pdf: DataTypes.STRING,
         status: DataTypes.INTEGER,
         updated_at: DataTypes.DATE,
       },

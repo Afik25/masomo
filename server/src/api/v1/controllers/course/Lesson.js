@@ -11,7 +11,10 @@ module.exports = {
         type,
         version,
         description,
-        thumbnails,
+        thumbnail,
+        audio,
+        video,
+        pdf,
       } = req.body;
 
       var check_lessons = [];

@@ -7,14 +7,18 @@ import {
   COMPLETE_ACTIVATION,
 } from "../routes";
 
-export function login(data) {
+export async function login(data) {
+  const ipAPI = "//api.ipify.org?format=json";
+  const response = await fetch(ipAPI);
+  const responseData = await response.json();
+  const ipAddress = responseData.ip;
   //
   const dates = new Date();
   const location = "N/A";
   const latitude = "N/A";
   const longitude = "N/A";
   const device = "PC";
-  const ip_address = "N/A";
+  const ip_address = ipAddress;
   const operating_system = "N/A";
   const navigator = "N/A";
   //
@@ -70,7 +74,12 @@ export function inscription(data) {
   });
 }
 
-export function completeInscription(data) {
+export async function completeInscription(data) {
+  const ipAPI = "//api.ipify.org?format=json";
+  const response = await fetch(ipAPI);
+  const responseData = await response.json();
+  const ipAddress = responseData.ip;
+  // 
   const _data = {
     id: data.id,
     prename: data.prename,
@@ -91,7 +100,7 @@ export function completeInscription(data) {
     latitude: "N/A",
     longitude: "N/A",
     device: "PC",
-    ip_address: "127.0.0.1",
+    ip_address: ipAddress,
     operating_system: "Linux",
     navigator: "Chrome",
     end_date: new Date().setDate(new Date().getDate() + 3),

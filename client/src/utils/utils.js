@@ -99,3 +99,11 @@ export const validationCourse = Yup.object().shape({
   title: Yup.string().required("Grab the title of course"),
   description: Yup.string().required("Procide Description or Summary of the course"),
 });
+
+export const validationAddingContent = Yup.object().shape({
+  title: Yup.string().required("Grab the title content"),
+  type: Yup.string().required("Provide the type of accessibility to the content"),
+  language: Yup.string().required("Provide the langauge of the content"),
+  description: Yup.string().required("Provide Description or Summary of the content"),
+  thumbnail: Yup.string().required("Grab the content"),
+});

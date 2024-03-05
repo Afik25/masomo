@@ -39,11 +39,19 @@ module.exports = {
         type: Sequelize.TEXT,
         allowNull: true,
       },
+      thumbnail: {
+        type: Sequelize.STRING,
+        allowNull: true,
+      },
       audio: {
         type: Sequelize.STRING,
         allowNull: true,
       },
       video: {
+        type: Sequelize.STRING,
+        allowNull: true,
+      },
+      pdf: {
         type: Sequelize.STRING,
         allowNull: true,
       },

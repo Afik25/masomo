@@ -149,24 +149,25 @@ body {
       }
     }
   }
-  .illustration{
+  .illustration {
     height: 600px;
     position: relative;
-    img, .text{
+    img,
+    .text {
       width: 100%;
       height: 100%;
       position: absolute;
     }
-    .text{
+    .text {
       background-color: rgba($color: $white-color, $alpha: 0.6);
       display: flex;
       justify-content: center;
       align-items: center;
       @include padding(0 5rem);
 
-      .t-1{
+      .t-1 {
         color: $color-4;
-        font-family: 'shalimar-regular', sans-serif;
+        font-family: "shalimar-regular", sans-serif;
         font-size: 5rem;
         font-weight: bold;
         text-align: center;
@@ -1013,6 +1014,8 @@ body {
                 margin: 0;
               }
               .t-1 {
+                color: $grey-color-1;
+                font-weight: bold;
                 font-size: $size-2;
               }
               .t-2 {
@@ -1028,6 +1031,7 @@ body {
                 width: 100%;
                 border-bottom: 1px solid $grey-color-2;
                 margin-bottom: $size-05;
+                padding-bottom: $size-1;
                 .fcc-content {
                   width: 100%;
                   display: flex;
@@ -1036,6 +1040,11 @@ body {
                   padding-top: $size-07;
                   .prog-item {
                     width: 100%;
+                    .t-3 {
+                      color: $color-1;
+                      font-weight: bold;
+                      margin: $size-05 0;
+                    }
                     .fcc-details {
                       width: 100%;
                       display: flex;
@@ -1052,9 +1061,6 @@ body {
                         .t-2 {
                           font-size: $size-102;
                         }
-                        .t-3 {
-                          color: $color-4;
-                        }
                         .t-4 {
                           color: $grey-color-1;
                         }
@@ -1066,6 +1072,7 @@ body {
                           border-radius: $size-03;
                           margin-left: $size-05;
                           color: $white-color;
+                          font-size: $size-07;
                           &:first-child {
                             background-color: $color-4;
                           }
@@ -1177,7 +1184,7 @@ body {
         }
         .add-content {
           width: 100%;
-          height: 100%;
+          height: 92%;
           .t-1 {
             font-size: $size-105;
             font-weight: bold;
@@ -1189,27 +1196,23 @@ body {
             display: flex;
             @include padding($size-07 0);
             .left,
+            .middle,
             .right {
-              height: 100%;
+              height: auto;
+              max-width: 100%;
+              overflow-y: auto;
             }
             .left {
-              width: 60%;
+              width: 30%;
               display: flex;
-              justify-content: space-between;
-              .components,
+              flex-direction: column;
+              @include padding($size-05);
               .input-files {
-                width: 48%;
-              }
-              .input-files {
+                width: 100%;
+                top: 0;
                 .file-wrapper {
                   width: 100%;
                   display: block;
-                  .view {
-                    width: 100%;
-                    height: 200px;
-                    margin-bottom: $size-07;
-                    overflow-y: auto;
-                  }
                   .files {
                     width: 100%;
                     margin-bottom: $size-07;
@@ -1262,29 +1265,22 @@ body {
                       }
                     }
                   }
-                  .button {
-                    width: 100%;
-                    background-color: $color-4;
-                    color: $white-color;
-                    &:hover {
-                      background-color: $white-color;
-                      border: 1px solid $color-4;
-                      color: $color-4;
-                    }
+                }
+                .button {
+                  width: 100%;
+                  background-color: $color-4;
+                  color: $white-color;
+                  &:hover {
+                    background-color: $white-color;
+                    border: 1px solid $color-4;
+                    color: $color-4;
                   }
                 }
               }
             }
-            .right {
+            .middle {
               width: 40%;
-              text-align: right;
-              .button {
-                width: 30%;
-                height: 40px;
-                background-color: $color-1;
-                border-radius: $size-05;
-                color: $white-color;
-              }
+              @include padding($size-05);
               .content {
                 width: 100%;
                 height: auto;
@@ -1300,37 +1296,22 @@ body {
                   flex-wrap: wrap;
                   img {
                     width: 300px;
-                    height: 200px;
+                    height: 100px;
                     margin: $size-05;
                   }
                 }
               }
             }
-          }
-        }
-        .preview-content {
-          width: 50%;
-          height: 100%;
-          margin: auto;
-          .pc-head {
-            width: 100%;
-            height: 40px;
-            border-bottom: 1px solid $grey-color-2;
-            padding: $size-02;
-            span {
-              color: $black-color;
-              cursor: pointer;
-              font-size: $size-2;
-              transition: all 0.3s ease-in-out;
-              &:hover {
-                color: $grey-color-2;
+            .right {
+              .button {
+                background-color: $color-1;
+                color: $white-color;
+                text-align: right;
+                &:hover {
+                  background-color: $color-2;
+                }
               }
             }
-          }
-          .pc-body {
-            width: 100%;
-            height: auto;
-            max-height: calc(100% - 40px);
           }
         }
         //
@@ -1783,12 +1764,12 @@ body {
         }
       }
     }
-    .illustration{
+    .illustration {
       height: 250px;
-      .text{
+      .text {
         @include padding(0 5rem);
-  
-        .t-1{
+
+        .t-1 {
           font-size: 1.8rem;
         }
       }

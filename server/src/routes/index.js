@@ -44,7 +44,10 @@ router
   .get("/levels/customized", Level.getCustomized);
 //
 // course
-router.post("/courses", Course.create).get("/courses", Course.get);
+router
+  .post("/courses", Course.create)
+  .post("/courses/activation", Course.activation)
+  .get("/courses", Course.get);
 router.get("/courses/customized", Course.getCustomized);
 router.get("/courses/all", Course.getAll);
 //

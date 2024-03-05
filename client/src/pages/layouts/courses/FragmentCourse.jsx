@@ -4,13 +4,20 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { isEmpty, wait, validationCourse } from "../../../utils/utils";
 import { getPrograms } from "../../../services/programs";
 import { getLevels } from "../../../services/levels";
-import { onCreateCourse, getCustomizedCourses } from "../../../services/courses";
+import {
+  onCreateCourse,
+  getCustomizedCourses,
+  onActivateCourses,
+} from "../../../services/courses";
 import { useDispatch, useSelector } from "react-redux";
 import useAxiosPrivate from "../../../hooks/context/state/useAxiosPrivate";
+import useAuth from "../../../hooks/context/state/useAuth";
 import { BiSearch, RiTimerLine } from "../../../middlewares/icons";
+import swal from "sweetalert";
 
-const FragmentCourse = () => {
+const FragmentCourse = ({ onAdding }) => {
   const axiosPrivate = useAxiosPrivate();
+  const { setKeys } = useAuth();
   const [responseMessage, setResponseMessage] = React.useState("");
   const [classNameMsg, setClassNameMsg] = React.useState("");
   const [selectedLevels, setSelectedLevels] = React.useState(null);
@@ -34,7 +41,6 @@ const FragmentCourse = () => {
     const signal = controller.signal;
 
     getCustomizedCourses(axiosPrivate, signal).then((result) => {
-      console.log({"checl getCustomizedCourses":result});
       dispatch({
         type: "setUpCourses/getCustomizedCourses",
         payload: result,
@@ -83,7 +89,6 @@ const FragmentCourse = () => {
           setResponseMessage(response?.data?.message);
           //
           getCustomizedCourses(axiosPrivate, signal).then((result) => {
-            console.log({"checl getCustomizedCourses":result});
             dispatch({
               type: "setUpCourses/getCustomizedCourses",
               payload: result,
@@ -112,6 +117,56 @@ const FragmentCourse = () => {
           setClassNameMsg("display-none");
         }, 4000);
         return () => clearTimeout(timer);
+      });
+  };
+
+  const onActivate = async (title, id, status) => {
+    await wait(300);
+    //
+    const data = {
+      course_id: id,
+      course_status: status,
+    };
+    onActivateCourses(axiosPrivate, data)
+      .then((response) => {
+        let isMounted = true;
+        const controller = new AbortController();
+        const signal = controller.signal;
+        if (response?.data?.status === 1) {
+          swal({
+            icon: "success",
+            title: "Course Status Processing",
+            text: `The ${title} is ${
+              status === 1 ? "Desactivated" : "Activated"
+            }!`,
+          });
+          //
+          getCustomizedCourses(axiosPrivate, signal).then((result) => {
+            dispatch({
+              type: "setUpCourses/getCustomizedCourses",
+              payload: result,
+            });
+          });
+        }
+        return () => {
+          isMounted = false;
+          isMounted && controller.abort();
+        };
+      })
+      .catch((error) => {
+        if (!error?.response) {
+          swal({
+            icon: "warning",
+            title: "Course Status Processing",
+            text: "No server response",
+          });
+        } else {
+          swal({
+            icon: "warning",
+            title: "Course Status Processing",
+            text: error?.response?.data?.message,
+          });
+        }
       });
   };
 
@@ -203,38 +258,114 @@ const FragmentCourse = () => {
           </div>
         </div>
         <div className="fc-container">
-          <div className="fcc-item">
-            <h1 className="title t-1">Country's name</h1>
-            <div className="fcc-content">
-              <div className="prog-item">
-                <h2 className="title t-2">Program's title</h2>
-                <div className="fcc-details">
-                  <div className="c-item">
-                    <h2 className="title t-2">Course's title</h2>
-                    <h3 className="title t-3">Course's level of study</h3>
-                    <p className="title t-4">
-                      Reading <RiTimerLine className="icon" /> 25 min.
-                    </p>
-                    <div className="fcc-actions">
-                      <button className="button">Add lessons</button>
-                      <button className="button desactivated">Activate</button>
-                    </div>
-                  </div>
-                  <div className="c-item">
-                    <h2 className="title t-2">Course's title</h2>
-                    <h3 className="title t-3">Course's level of study</h3>
-                    <p className="title t-4">
-                      Reading <RiTimerLine className="icon" /> 25 min.
-                    </p>
-                    <div className="fcc-actions">
-                      <button className="button">Add lessons</button>
-                      <button className="button activated">Desactivate</button>
-                    </div>
+          {isEmpty(customizedCoursesData?.data?.customizedCourses) ? (
+            <div
+              style={{
+                textAlign: "center",
+                padding: "1rem",
+                color: "red",
+                fontSize: "1rem",
+              }}
+            >
+              {customizedCoursesData?.data?.message}
+            </div>
+          ) : (
+            customizedCoursesData?.data?.customizedCourses.map((item, i) => {
+              return (
+                <div className="fcc-item" key={i}>
+                  <h1 className="title t-1">{item.country}</h1>
+                  <div className="fcc-content">
+                    {item.content.map((el, j) => {
+                      return (
+                        <div className="prog-item" key={j}>
+                          <h2 className="title t-2">
+                            {el.program_title +
+                              " Program - " +
+                              el.program_language}
+                          </h2>
+                          {isEmpty(el.levels) ? (
+                            <div style={{ padding: "0.9rem 0", color: "red" }}>
+                              No level of study available for this program yet.
+                            </div>
+                          ) : (
+                            el.levels.map((_item) => {
+                              return (
+                                <>
+                                  <h3 className="title t-3">
+                                    {_item.level.title}
+                                  </h3>
+                                  <div className="fcc-details">
+                                    {isEmpty(_item.courses) ? (
+                                      <div
+                                        style={{
+                                          padding: "0.9rem 0",
+                                          color: "grey",
+                                        }}
+                                      >
+                                        No course available for this level of
+                                        study yet!
+                                      </div>
+                                    ) : (
+                                      _item.courses.map((_el, m) => {
+                                        return (
+                                          <div className="c-item" key={m}>
+                                            <h2 className="title t-2">
+                                              {_el.title}
+                                            </h2>
+                                            <p className="title t-4">
+                                              Reading{" "}
+                                              <RiTimerLine className="icon" />{" "}
+                                              {_el.timing + " min."}
+                                            </p>
+                                            <div className="fcc-actions">
+                                              <button
+                                                className="button"
+                                                onClick={() => {
+                                                  onAdding();
+                                                  setKeys({
+                                                    keyId: _el.id,
+                                                    keyTitle: "isLesson",
+                                                  });
+                                                }}
+                                              >
+                                                Add lessons
+                                              </button>
+                                              <button
+                                                className={
+                                                  _el.status === 0
+                                                    ? "button activated"
+                                                    : "button desactivated"
+                                                }
+                                                onClick={() =>
+                                                  onActivate(
+                                                    `${_el.title}`,
+                                                    _el.id,
+                                                    _el.status
+                                                  )
+                                                }
+                                              >
+                                                {_el.status === 0
+                                                  ? "Activate"
+                                                  : "Desactivate"}
+                                              </button>
+                                            </div>
+                                          </div>
+                                        );
+                                      })
+                                    )}
+                                  </div>
+                                </>
+                              );
+                            })
+                          )}
+                        </div>
+                      );
+                    })}
                   </div>
                 </div>
-              </div>
-            </div>
-          </div>
+              );
+            })
+          )}
         </div>
       </div>
       <div className="fc-right">
@@ -247,12 +378,11 @@ const FragmentCourse = () => {
             <select
               className="input-form"
               {...register("program", {
-                onChange: (e) => {
+                onChange: async (e) => {
                   let _data = levelsData?.data?.levels.filter(
-                    (item) => item.program_id == e.target.value
+                    (item) => item.program_id === parseInt(e.target.value)
                   );
-                  setSelectedLevels(null);
-                  setSelectedLevels(_data);
+                  await setSelectedLevels(_data);
                 },
               })}
             >
