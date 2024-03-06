@@ -13,12 +13,16 @@ const RequireAuth = ({ allowedRoles }) => {
   const sys_role = decoded?.userInfo?.sys_role;
   //
   const dispatch = useDispatch();
-  useEffect(() => {
-    dispatch({
-      type: "setUp/initConnectedUser",
-      payload: decoded,
-    });
-  }, []);
+  dispatch({
+    type: "setUp/initConnectedUser",
+    payload: decoded,
+  });
+  // useEffect(() => {
+  //   dispatch({
+  //     type: "setUp/initConnectedUser",
+  //     payload: decoded,
+  //   });
+  // }, []);
 
   return allowedRoles?.includes(sys_role) ? (
     <Outlet />

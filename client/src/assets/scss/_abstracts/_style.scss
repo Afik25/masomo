@@ -1311,6 +1311,31 @@ body {
                   background-color: $color-2;
                 }
               }
+              .view-body {
+                width: 100%;
+                display: flex;
+                flex-direction: column;
+                .view-item {
+                  width: 100%;
+                  display: flex;
+                  flex-direction: column;
+                  @include padding($size-03);
+                  .section{
+                    width: 100%;
+                  }
+                  .images{
+                    width: 100%;
+                    display: flex;
+                    justify-content: center;
+                    flex-wrap: wrap;
+                    @include padding($size-03);
+                    img{
+                      width: 48%;
+                      height: 150px;
+                    }
+                  }
+                }
+              }
             }
           }
         }

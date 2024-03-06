@@ -18,19 +18,19 @@ const Admin = () => {
       <div className="user">
         <div className="container">
           <Head />
-          <Navigation role={user.userInfo?.sys_role} open={open} setOpen={setOpen} />
+          <Navigation role={user?.userInfo?.sys_role} open={open} setOpen={setOpen} />
           <div className="body">
             <Outlet />
           </div>
         </div>
       </div>
-      {!user.userInfo?.is_completed && (
+      {!user?.userInfo?.is_completed && (
         <Modal
           visibility={false}
           height="95%"
           width="60%"
           title="Complete Initial Configuration"
-          content={<CompleteRegister sys_role={user.userInfo?.sys_role} />}
+          content={<CompleteRegister sys_role={user?.userInfo?.sys_role} />}
         />
       )}
     </>

@@ -17,66 +17,68 @@ module.exports = {
         pdf,
       } = req.body;
 
+      console.log({ "check data from client": req.body });
+
       var check_lessons = [];
       var levels_arr = [];
 
-      for (let index = 0; index < level_id.length; index++) {
-        const check = await Lesson.findOne({
-          where: {
-            [Op.and]: [{ title: title }, { level_id: level_id[index].value }],
-          },
-        });
-        //
-        if (check != null) {
-          check_lessons.push(level_id[index].label);
-        } else {
-          const course_count = await Lesson.count({
-            where: {
-              [Op.and]: [
-                { course_id: course_id },
-                { level_id: level_id[index].value },
-              ],
-            },
-          });
+      // for (let index = 0; index < level_id.length; index++) {
+      //   const check = await Lesson.findOne({
+      //     where: {
+      //       [Op.and]: [{ title: title }, { level_id: level_id[index].value }],
+      //     },
+      //   });
+      //   //
+      //   if (check != null) {
+      //     check_lessons.push(level_id[index].label);
+      //   } else {
+      //     const course_count = await Lesson.count({
+      //       where: {
+      //         [Op.and]: [
+      //           { course_id: course_id },
+      //           { level_id: level_id[index].value },
+      //         ],
+      //       },
+      //     });
 
-          var code =
-            "MCL" +
-            level_id[index].value +
-            course_count +
-            "-" +
-            (new Date().getMonth() + 1) +
-            "" +
-            new Date().getDate() +
-            "" +
-            new Date().getSeconds();
+      //     var code =
+      //       "MCL" +
+      //       level_id[index].value +
+      //       course_count +
+      //       "-" +
+      //       (new Date().getMonth() + 1) +
+      //       "" +
+      //       new Date().getDate() +
+      //       "" +
+      //       new Date().getSeconds();
 
-          await Lesson.create({
-            course_id,
-            level_id: level_id[index].value,
-            code,
-            title,
-            type,
-            version,
-            description,
-            thumbnails,
-          });
-          //
-          levels_arr.push(level_id[index].label);
-        }
-      }
+      //     await Lesson.create({
+      //       course_id,
+      //       level_id: level_id[index].value,
+      //       code,
+      //       title,
+      //       type,
+      //       version,
+      //       description,
+      //       thumbnails,
+      //     });
+      //     //
+      //     levels_arr.push(level_id[index].label);
+      //   }
+      // }
 
-      return res.status(200).json({
-        status: 1,
-        message: `Lessons ${title.toUpperCase()} ${
-          levels_arr.length > 0
-            ? "added successfully for level(s) : " + levels_arr
-            : "did not added"
-        } ${
-          check_lessons.length > 0
-            ? "; it exists already for level(s) : " + check_lessons
-            : "."
-        }`,
-      });
+      // return res.status(200).json({
+      //   status: 1,
+      //   message: `Lessons ${title.toUpperCase()} ${
+      //     levels_arr.length > 0
+      //       ? "added successfully for level(s) : " + levels_arr
+      //       : "did not added"
+      //   } ${
+      //     check_lessons.length > 0
+      //       ? "; it exists already for level(s) : " + check_lessons
+      //       : "."
+      //   }`,
+      // });
     } catch (error) {
       console.log({ "catch error create lesson ": error });
     }

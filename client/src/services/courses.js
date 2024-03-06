@@ -86,7 +86,9 @@ export function onCreateContent(axiosPrivate, data) {
           : SOLUTIONS,
         data,
         {
-          headers: { "Content-Type": "application/json" },
+          headers: {
+            'Content-Type': 'multipart/form-data'
+          },
           withCredentials: true,
         }
       )

@@ -27,7 +27,7 @@ const AddContent = () => {
   const {
     register,
     setValue,
-    reset,
+    resetField,
     handleSubmit,
     formState: { errors },
   } = useForm({
@@ -38,6 +38,8 @@ const AddContent = () => {
   const onAdd = async (data) => {
     await wait(300);
     //
+    console.log({ "test data ": sectionUpload });
+    // 
     setSectionUpload([
       ...sectionUpload,
       {
@@ -45,7 +47,7 @@ const AddContent = () => {
         keyId: data.keyId,
         keyTitle: data.keyTitle,
         language: data.language,
-        section_files: data.section_files,
+        section_files: sectionImages,
         thumbnail: data.thumbnail,
         title: data.title,
         type: data.type,
@@ -56,7 +58,8 @@ const AddContent = () => {
       icon: "success",
       text: "Section added",
     });
-    reset();
+    resetField('thumbnail');
+    resetField('section_files');
     setLatexContent("");
     setSectionImages([]);
   };
