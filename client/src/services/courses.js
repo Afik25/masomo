@@ -1,4 +1,11 @@
-import { COURSES, COURSES_CUSTOMIZED, COURSES_ACTIVATION } from "../routes";
+import {
+  COURSES,
+  COURSES_CUSTOMIZED,
+  COURSES_ACTIVATION,
+  LESSONS,
+  EXERCISES,
+  SOLUTIONS,
+} from "../routes";
 
 export function onCreateCourse(axiosPrivate, data) {
   const _data = {
@@ -51,7 +58,7 @@ export function getCustomizedCourses(axiosPrivate, signal) {
 export function onActivateCourses(axiosPrivate, data) {
   const _data = {
     id: data.course_id,
-    status: data.course_status
+    status: data.course_status,
   };
   return new Promise(async (resolve, reject) => {
     await axiosPrivate
@@ -68,22 +75,26 @@ export function onActivateCourses(axiosPrivate, data) {
   });
 }
 export function onCreateContent(axiosPrivate, data) {
-  // const _data = {
-  //   level: data.level,
-  //   title: data.title,
-  //   description: data.description,
-  // };
-  // return new Promise(async (resolve, reject) => {
-  //   await axiosPrivate
-  //     .post(COURSES, _data, {
-  //       headers: { "Content-Type": "application/json" },
-  //       withCredentials: true,
-  //     })
-  //     .then((response) => {
-  //       resolve(response);
-  //     })
-  //     .catch((error) => {
-  //       reject(error);
-  //     });
-  // });
+  const keyTitle = data.keyTitle;
+  return new Promise(async (resolve, reject) => {
+    await axiosPrivate
+      .post(
+        keyTitle === "isLesson"
+          ? LESSONS
+          : keyTitle === "isExercise"
+          ? EXERCISES
+          : SOLUTIONS,
+        data,
+        {
+          headers: { "Content-Type": "application/json" },
+          withCredentials: true,
+        }
+      )
+      .then((response) => {
+        resolve(response);
+      })
+      .catch((error) => {
+        reject(error);
+      });
+  });
 }

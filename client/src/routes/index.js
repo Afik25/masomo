@@ -15,3 +15,6 @@ export const LEVELS_ACTIVATION = "/levels/activation";
 export const COURSES = "/courses";
 export const COURSES_CUSTOMIZED = "/courses/customized";
 export const COURSES_ACTIVATION = "/courses/activation";
+export const LESSONS = "/lessons";
+export const EXERCISES = "/exercises";
+export const SOLUTIONS = "/solutions";

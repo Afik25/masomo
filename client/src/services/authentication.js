@@ -8,10 +8,11 @@ import {
 } from "../routes";
 
 export async function login(data) {
-  const ipAPI = "//api.ipify.org?format=json";
-  const response = await fetch(ipAPI);
-  const responseData = await response.json();
-  const ipAddress = responseData.ip;
+  // const ipAPI = "//api.ipify.org?format=json";
+  // const response = await fetch(ipAPI);
+  // const responseData = await response.json();
+  // const ipAddress = responseData.ip;
+  const ipAddress = '127.0.0.1';
   //
   const dates = new Date();
   const location = "N/A";
@@ -75,10 +76,11 @@ export function inscription(data) {
 }
 
 export async function completeInscription(data) {
-  const ipAPI = "//api.ipify.org?format=json";
-  const response = await fetch(ipAPI);
-  const responseData = await response.json();
-  const ipAddress = responseData.ip;
+  // const ipAPI = "//api.ipify.org?format=json";
+  // const response = await fetch(ipAPI);
+  // const responseData = await response.json();
+  // const ipAddress = responseData.ip;
+  const ipAddress = '127.0.0.1';
   // 
   const _data = {
     id: data.id,

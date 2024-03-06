@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { useLocation, Navigate, Outlet } from "react-router-dom";
 import useAuth from "./useAuth";
 // import jwt_decode from "jwt-decode";
@@ -12,10 +13,12 @@ const RequireAuth = ({ allowedRoles }) => {
   const sys_role = decoded?.userInfo?.sys_role;
   //
   const dispatch = useDispatch();
-  dispatch({
-    type: "setUp/initConnectedUser",
-    payload: decoded,
-  });
+  useEffect(() => {
+    dispatch({
+      type: "setUp/initConnectedUser",
+      payload: decoded,
+    });
+  }, []);
 
   return allowedRoles?.includes(sys_role) ? (
     <Outlet />

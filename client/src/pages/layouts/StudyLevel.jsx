@@ -190,7 +190,7 @@ const StudyLevel = () => {
           )} */}
           </div>
           <button className="button validate" onClick={() => setOpen(!open)}>
-            New Program
+            New level of study
           </button>
         </div>
         <div className="body">

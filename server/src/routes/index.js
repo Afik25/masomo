@@ -53,7 +53,7 @@ router.get("/courses/all", Course.getAll);
 //
 // Lesson
 router.post("/lessons", Lesson.create).get("/lessons", Lesson.get);
-router.post("/exercices", Exercice.create).get("/exercices", Exercice.get);
+router.post("/exercises", Exercice.create).get("/exercises", Exercice.get);
 router.post("/solutions", Solution.create).get("/solutions", Solution.get);
 
 module.exports = router;

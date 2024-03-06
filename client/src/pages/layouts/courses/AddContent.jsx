@@ -61,33 +61,41 @@ const AddContent = () => {
     setSectionImages([]);
   };
 
-  // const onSubmit = async (data) => {
-  //   await wait(300);
-  //   //
-  //   onCreateContent(axiosPrivate, data)
-  //     .then((response) => {
-  //       if (response?.data?.status === 1) {
-  //         setClassNameMsg("msg-box msg-box-success fade-in");
-  //         setResponseMessage(response?.data?.message);
-  //       }
-  //       const timer = setTimeout(() => {
-  //         setClassNameMsg("display-none");
-  //       }, 4000);
-  //       return () => clearTimeout(timer);
-  //     })
-  //     .catch((error) => {
-  //       setClassNameMsg("msg-box msg-box-failed fade-in");
-  //       if (!error?.response) {
-  //         setResponseMessage("No server response");
-  //       } else {
-  //         setResponseMessage(error?.response?.data?.message);
-  //       }
-  //       const timer = setTimeout(() => {
-  //         setClassNameMsg("display-none");
-  //       }, 4000);
-  //       return () => clearTimeout(timer);
-  //     });
-  // };
+  const onSubmit = async () => {
+    await wait(300);
+    //
+    const data = {
+      keyId: keys?.keyId,
+      keyTitle: keys?.keyTitle,
+      content: sectionUpload,
+    };
+    //
+    onCreateContent(axiosPrivate, data)
+      .then((response) => {
+        if (response?.data?.status === 1) {
+          swal({
+            title: "Uploading content",
+            icon: "success",
+            text: response?.data?.message,
+          });
+        }
+      })
+      .catch((error) => {
+        if (!error?.response) {
+          swal({
+            title: "Uploading content",
+            icon: "error",
+            text: error?.response?.data?.message,
+          });
+        } else {
+          swal({
+            title: "Uploading content",
+            icon: "error",
+            text: error?.response?.data?.message,
+          });
+        }
+      });
+  };
 
   useEffect(() => {
     setValue("keyId", keys?.keyId);
@@ -215,9 +223,9 @@ const AddContent = () => {
                 {isEmpty(sectionImages) ? (
                   <div>No section files yet!</div>
                 ) : (
-                  sectionImages.map((file) => {
+                  sectionImages.map((file, i) => {
                     return (
-                      <div className="file-item">
+                      <div className="file-item" key={i}>
                         <h3 className="title t-3">{file.name}</h3>
                         <span
                           onClick={() =>
@@ -255,7 +263,9 @@ const AddContent = () => {
         </div>
         <div className="right">
           {sectionUpload.length !== 0 && (
-            <button className="button">Validate and Upload</button>
+            <button className="button" onClick={onSubmit}>
+              Validate and Upload
+            </button>
           )}
           <div className="view-body">
             {sectionUpload.length !== 0 &&
@@ -263,17 +273,13 @@ const AddContent = () => {
                 return (
                   <div key={i} className="view-item">
                     <div className="section">
-                      latex
-                      {/* {latexContent && (
-                        <Latex>{"$$" + latexContent.toString() + "$$"}</Latex>
-                      )} */}
+                      <Latex>{"$$" + item.thumbnail + "$$"}</Latex>
                     </div>
                     <div className="images">
-                      images
-                      {/* {!isEmpty(sectionImages) &&
-                        sectionImages.map((file) => {
+                      {!isEmpty(item.section_files) &&
+                        item.section_files.map((file) => {
                           return <img src={file.blob} alt={file.blob} />;
-                        })} */}
+                        })}
                     </div>
                   </div>
                 );
