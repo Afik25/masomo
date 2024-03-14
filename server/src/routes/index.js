@@ -1,6 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const verifyJWT = require("../middlewares/verifyJWT");
+const uploadFiles = require("../middlewares/uploadFiles");
 const countries = require("../middlewares/countries.json");
 //
 const User = require("../api/v1/controllers/inscription/User");
@@ -52,7 +53,7 @@ router.get("/courses/customized", Course.getCustomized);
 router.get("/courses/all", Course.getAll);
 //
 // Lesson
-router.post("/lessons", Lesson.create).get("/lessons", Lesson.get);
+router.post("/lessons", uploadFiles.upload.array("thumbnailsImages"), Lesson.create).get("/lessons", Lesson.get);
 router.post("/exercises", Exercice.create).get("/exercises", Exercice.get);
 router.post("/solutions", Solution.create).get("/solutions", Solution.get);
 

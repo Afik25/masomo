@@ -9,6 +9,7 @@ class Section extends Model {
         solution_id: DataTypes.INTEGER,
         description: DataTypes.TEXT,
         thumbnails: DataTypes.STRING,
+        updated_at: DataTypes.DATE,
       },
       {
         sequelize,

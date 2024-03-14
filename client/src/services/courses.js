@@ -74,8 +74,7 @@ export function onActivateCourses(axiosPrivate, data) {
       });
   });
 }
-export function onCreateContent(axiosPrivate, data) {
-  const keyTitle = data.keyTitle;
+export function onCreateContent(axiosPrivate, keyTitle, data) {
   return new Promise(async (resolve, reject) => {
     await axiosPrivate
       .post(
@@ -86,9 +85,7 @@ export function onCreateContent(axiosPrivate, data) {
           : SOLUTIONS,
         data,
         {
-          headers: {
-            'Content-Type': 'multipart/form-data'
-          },
+          headers: { "Content-Type": "multipart/form-data" },
           withCredentials: true,
         }
       )

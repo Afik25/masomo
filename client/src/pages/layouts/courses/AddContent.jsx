@@ -20,6 +20,8 @@ const AddContent = () => {
   const [latexContent, setLatexContent] = useState("");
   const [sectionImages, setSectionImages] = useState([]);
   const [sectionUpload, setSectionUpload] = useState([]);
+  const [sectionCount, setSectionCount] = useState(0);
+  //
   // $$\\sum_{n=1}^{\\infty} 2^{-n} = 1$$
   // \\int_0^\\infty x^2 dx
   // \sum_{n=1}^{\infty} 2^{-n} = 1 (un seul slash pour la saisie)
@@ -38,8 +40,6 @@ const AddContent = () => {
   const onAdd = async (data) => {
     await wait(300);
     //
-    console.log({ "test data ": sectionUpload });
-    // 
     setSectionUpload([
       ...sectionUpload,
       {
@@ -51,6 +51,7 @@ const AddContent = () => {
         thumbnail: data.thumbnail,
         title: data.title,
         type: data.type,
+        section: sectionCount,
       },
     ]);
     swal({
@@ -58,22 +59,50 @@ const AddContent = () => {
       icon: "success",
       text: "Section added",
     });
-    resetField('thumbnail');
-    resetField('section_files');
+    resetField("thumbnail");
+    resetField("section_files");
     setLatexContent("");
     setSectionImages([]);
+    setSectionCount((prev) => prev + 1);
   };
 
   const onSubmit = async () => {
     await wait(300);
     //
-    const data = {
-      keyId: keys?.keyId,
-      keyTitle: keys?.keyTitle,
-      content: sectionUpload,
-    };
+    const formData = new FormData();
+    let course_id = "";
+    let title = "";
+    let type = "";
+    let language = "";
+    let desc = "";
     //
-    onCreateContent(axiosPrivate, data)
+    sectionUpload.map((sectionUploadItem, i) => {
+      sectionUploadItem?.section_files?.map((fileItem) => {
+        const ext = fileItem?.file?.name.split('.').pop()
+        const newName = `mf-img-${fileItem?.file?.name?.split('.')[0]}-${Date.now()}.${ext}`;
+        const newFile = new File([fileItem?.file], newName, { type: fileItem?.file?.type });
+        
+        formData.append("thumbnailsImages", newFile);
+        formData.append(
+          "fileSectionNames",
+          `${sectionUploadItem?.section}#${newFile?.name}`
+        );
+      });
+      course_id = sectionUploadItem?.keyId;
+      title = sectionUploadItem?.title;
+      type = sectionUploadItem?.type;
+      language = sectionUploadItem?.language;
+      desc = sectionUploadItem?.description;
+      formData.append("thumbnails", sectionUploadItem?.thumbnail);
+    });
+    //
+    formData.append("course_id", course_id);
+    formData.append("title", title);
+    formData.append("type", type);
+    formData.append("language", language);
+    formData.append("description", desc);
+    //
+    onCreateContent(axiosPrivate, keys?.keyTitle, formData)
       .then((response) => {
         if (response?.data?.status === 1) {
           swal({
@@ -81,6 +110,7 @@ const AddContent = () => {
             icon: "success",
             text: response?.data?.message,
           });
+          formData = new FormData();
         }
       })
       .catch((error) => {
@@ -107,14 +137,21 @@ const AddContent = () => {
 
   return (
     <div className="add-content">
-      <h2 className="title t-1">
-        Adding new{" "}
-        {keys.keyTitle === "isLesson"
-          ? "lesson"
-          : keys.keyTitle === "isExercise"
-          ? "exercise"
-          : "solution"}
-      </h2>
+      <div className="add-content-head">
+        <h2 className="title t-1">
+          Adding new{" "}
+          {keys.keyTitle === "isLesson"
+            ? "lesson"
+            : keys.keyTitle === "isExercise"
+            ? "exercise"
+            : "solution"}
+        </h2>
+        <p className="title t-3">
+          Course and Level : {keys.keyDetails + " / " + keys.keyLevel}
+        </p>
+        <p className="title t-3">Program : {keys.keyProgram}</p>
+        <p className="title t-3">Country : {keys.keyCountry}</p>
+      </div>
       <div className="container">
         <form className="left" onSubmit={handleSubmit(onAdd)}>
           <input type="hidden" {...register("keyId")} />
@@ -202,11 +239,11 @@ const AddContent = () => {
                     onChange: (e) => {
                       const selectedFiles = e.target.files;
                       const selectedFilesToArray = Array.from(selectedFiles);
-
                       const imagesArray = selectedFilesToArray.map((file) => {
                         return {
                           name: file.name,
                           blob: URL.createObjectURL(file),
+                          file: file,
                         };
                       });
                       setSectionImages(imagesArray);
@@ -245,7 +282,9 @@ const AddContent = () => {
                 )}
               </div>
             </div>
-            <button className="button">Process</button>
+            <button type="submit" className="button">
+              Process
+            </button>
           </div>
         </form>
         <div className="middle">
@@ -258,8 +297,8 @@ const AddContent = () => {
             </div>
             <div className="images">
               {!isEmpty(sectionImages) &&
-                sectionImages.map((file) => {
-                  return <img src={file.blob} alt={file.blob} />;
+                sectionImages.map((file, k) => {
+                  return <img src={file.blob} alt={file.blob} key={k + 1} />;
                 })}
             </div>
           </div>

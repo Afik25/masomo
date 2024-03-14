@@ -277,7 +277,7 @@ const FragmentCourse = ({ onAdding }) => {
                   <div className="fcc-content">
                     {item.content.map((el, j) => {
                       return (
-                        <div className="prog-item" key={j}>
+                        <div className="prog-item" key={j+1}>
                           <h2 className="title t-2">
                             {el.program_title +
                               " Program - " +
@@ -306,16 +306,16 @@ const FragmentCourse = ({ onAdding }) => {
                                         study yet!
                                       </div>
                                     ) : (
-                                      _item.courses.map((_el, m) => {
+                                      _item.courses.map((_courseItem, m) => {
                                         return (
                                           <div className="c-item" key={m}>
                                             <h2 className="title t-2">
-                                              {_el.title}
+                                              {_courseItem.title}
                                             </h2>
                                             <p className="title t-4">
                                               Reading{" "}
                                               <RiTimerLine className="icon" />{" "}
-                                              {_el.timing + " min."}
+                                              {_courseItem.timing + " min."}
                                             </p>
                                             <div className="fcc-actions">
                                               <button
@@ -323,8 +323,15 @@ const FragmentCourse = ({ onAdding }) => {
                                                 onClick={() => {
                                                   onAdding();
                                                   setKeys({
-                                                    keyId: _el.id,
+                                                    keyId: _courseItem.id,
                                                     keyTitle: "isLesson",
+                                                    keyDetails: _courseItem.title,
+                                                    keyLevel: _item.level.title,
+                                                    keyProgram:
+                                                      el.program_title +
+                                                      " Program - " +
+                                                      el.program_language,
+                                                    keyCountry: item.country,
                                                   });
                                                 }}
                                               >
@@ -332,19 +339,19 @@ const FragmentCourse = ({ onAdding }) => {
                                               </button>
                                               <button
                                                 className={
-                                                  _el.status === 0
+                                                  _courseItem.status === 0
                                                     ? "button activated"
                                                     : "button desactivated"
                                                 }
                                                 onClick={() =>
                                                   onActivate(
-                                                    `${_el.title}`,
-                                                    _el.id,
-                                                    _el.status
+                                                    `${_courseItem.title}`,
+                                                    _courseItem.id,
+                                                    _courseItem.status
                                                   )
                                                 }
                                               >
-                                                {_el.status === 0
+                                                {_courseItem.status === 0
                                                   ? "Activate"
                                                   : "Desactivate"}
                                               </button>

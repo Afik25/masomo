@@ -1,86 +1,86 @@
 const Lesson = require("../../models/course/Lesson");
+const Section = require("../../models/course/Section");
 const { Op } = require("sequelize");
+const { isEmpty } = require("../../../../utils/utils");
 
 module.exports = {
   async create(req, res) {
     try {
       const {
         course_id,
-        level_id,
         title,
         type,
-        version,
+        language,
         description,
-        thumbnail,
-        audio,
-        video,
-        pdf,
+        thumbnails,
+        fileSectionNames,
       } = req.body;
 
-      console.log({ "check data from client": req.body });
+      const check_lesson = await Lesson.findOne({
+        where: {
+          [Op.and]: [{ title: title.toLowerCase() }, { course_id: course_id }],
+        },
+      });
+      //
+      if (isEmpty(check_lesson)) {
+        const course_count = await Lesson.count({
+          where: { course_id: course_id },
+        });
 
-      var check_lessons = [];
-      var levels_arr = [];
+        var code =
+          "MCL" +
+          course_id +
+          course_count +
+          "-" +
+          (new Date().getMonth() + 1) +
+          "" +
+          new Date().getDate() +
+          "" +
+          new Date().getSeconds();
 
-      // for (let index = 0; index < level_id.length; index++) {
-      //   const check = await Lesson.findOne({
-      //     where: {
-      //       [Op.and]: [{ title: title }, { level_id: level_id[index].value }],
-      //     },
-      //   });
-      //   //
-      //   if (check != null) {
-      //     check_lessons.push(level_id[index].label);
-      //   } else {
-      //     const course_count = await Lesson.count({
-      //       where: {
-      //         [Op.and]: [
-      //           { course_id: course_id },
-      //           { level_id: level_id[index].value },
-      //         ],
-      //       },
-      //     });
+        const lesson = await Lesson.create({
+          course_id,
+          code,
+          title,
+          type,
+          timing: 0.0,
+          version: language,
+          description,
+        });
 
-      //     var code =
-      //       "MCL" +
-      //       level_id[index].value +
-      //       course_count +
-      //       "-" +
-      //       (new Date().getMonth() + 1) +
-      //       "" +
-      //       new Date().getDate() +
-      //       "" +
-      //       new Date().getSeconds();
+        for (let idx = 0; idx < thumbnails.length; idx++) {
+          var _fileSectionNames = [];
+          for (let j = 0; j < fileSectionNames.length; j++) {
+            const section_number = fileSectionNames[j].split("#")[0];
+            const section_file = fileSectionNames[j].split("#")[1];
+            console.log({
+              "fileSectionNames splitted ": `${fileSectionNames[j]} ---- ${section_number} --- ${section_file}`,
+            });
+            if (section_number == j) {
+              _fileSectionNames.push(section_file);
+            }
+          }
+          await Section.create({
+            lesson_id: lesson?.id,
+            description: thumbnails[idx],
+            thumbnails: `${_fileSectionNames}`,
+          });
+          _fileSectionNames = [];
+        }
 
-      //     await Lesson.create({
-      //       course_id,
-      //       level_id: level_id[index].value,
-      //       code,
-      //       title,
-      //       type,
-      //       version,
-      //       description,
-      //       thumbnails,
-      //     });
-      //     //
-      //     levels_arr.push(level_id[index].label);
-      //   }
-      // }
+        return res.status(200).json({
+          status: 1,
+          message: `Lessons ${title.toUpperCase()} saved successfully`,
+          lesson,
+        });
+      }
 
-      // return res.status(200).json({
-      //   status: 1,
-      //   message: `Lessons ${title.toUpperCase()} ${
-      //     levels_arr.length > 0
-      //       ? "added successfully for level(s) : " + levels_arr
-      //       : "did not added"
-      //   } ${
-      //     check_lessons.length > 0
-      //       ? "; it exists already for level(s) : " + check_lessons
-      //       : "."
-      //   }`,
-      // });
+      return res.status(400).json({
+        status: 0,
+        message: `Saving lessons ${title.toUpperCase()} failed.`,
+      });
     } catch (error) {
-      console.log({ "catch error create lesson ": error });
+      console.log({ "Error create lesson ": error });
     }
   },
   async get(req, res) {

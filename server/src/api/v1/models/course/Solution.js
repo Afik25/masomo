@@ -10,10 +10,6 @@ class Solution extends Model {
         type: DataTypes.STRING, // freemium or premium
         version: DataTypes.STRING,
         description: DataTypes.TEXT,
-        thumbnail: DataTypes.TEXT,
-        audio: DataTypes.STRING,
-        video: DataTypes.STRING,
-        pdf: DataTypes.STRING,
         status: DataTypes.INTEGER,
         updated_at: DataTypes.DATE,
       },
