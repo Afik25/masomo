@@ -29,6 +29,7 @@ const AddContent = () => {
   const {
     register,
     setValue,
+    reset,
     resetField,
     handleSubmit,
     formState: { errors },
@@ -78,10 +79,14 @@ const AddContent = () => {
     //
     sectionUpload.map((sectionUploadItem, i) => {
       sectionUploadItem?.section_files?.map((fileItem) => {
-        const ext = fileItem?.file?.name.split('.').pop()
-        const newName = `mf-img-${fileItem?.file?.name?.split('.')[0]}-${Date.now()}.${ext}`;
-        const newFile = new File([fileItem?.file], newName, { type: fileItem?.file?.type });
-        
+        const ext = fileItem?.file?.name.split(".").pop();
+        const newName = `mf-img-${
+          fileItem?.file?.name?.split(".")[0]
+        }-${Date.now()}.${ext}`;
+        const newFile = new File([fileItem?.file], newName, {
+          type: fileItem?.file?.type,
+        });
+
         formData.append("thumbnailsImages", newFile);
         formData.append(
           "fileSectionNames",
@@ -110,8 +115,10 @@ const AddContent = () => {
             icon: "success",
             text: response?.data?.message,
           });
-          formData = new FormData();
         }
+        reset();
+        setSectionCount(0);
+        setSectionUpload([]);
       })
       .catch((error) => {
         if (!error?.response) {

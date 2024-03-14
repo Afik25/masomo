@@ -10,7 +10,7 @@ module.exports = {
       const code = uuid();
 
       const check_program_id_title = await Level.findOne({
-        where: { [Op.and]: [{ program_id: program_id }, { title: title }] },
+        where: { [Op.and]: [{ program_id: program_id }, { title: title.toLowerCase() }] },
       });
       if (check_program_id_title) {
         return res.status(400).json({

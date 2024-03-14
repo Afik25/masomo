@@ -53,17 +53,14 @@ module.exports = {
           for (let j = 0; j < fileSectionNames.length; j++) {
             const section_number = fileSectionNames[j].split("#")[0];
             const section_file = fileSectionNames[j].split("#")[1];
-            console.log({
-              "fileSectionNames splitted ": `${fileSectionNames[j]} ---- ${section_number} --- ${section_file}`,
-            });
-            if (section_number == j) {
+            if (section_number == idx) {
               _fileSectionNames.push(section_file);
             }
           }
           await Section.create({
             lesson_id: lesson?.id,
             description: thumbnails[idx],
-            thumbnails: `${_fileSectionNames}`,
+            thumbnails: `[${_fileSectionNames}]`,
           });
           _fileSectionNames = [];
         }
