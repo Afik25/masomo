@@ -7,6 +7,7 @@ import { getLevels } from "../../../services/levels";
 import { useDispatch, useSelector } from "react-redux";
 import useAxiosPrivate from "../../../hooks/context/state/useAxiosPrivate";
 import { BiSearch, RiTimerLine } from "../../../middlewares/icons";
+import Programs from "../Programs";
 
 const FragmentLesson = () => {
   const {
@@ -148,7 +149,1369 @@ const FragmentLesson = () => {
         </div>
       </div>
       <div className="fl-container">
-        <div className="fl-item">
+        <div className="fl-country">
+          <h2 className="title t-1">Country's name</h2>
+          <div className="fl-programs">
+            <div className="fl-program-item">
+              <h2 className="title t-2">Program's name</h2>
+              <div className="fl-levels">
+                <div className="fl-level-item">
+                  <h2 className="title t-3">level's title</h2>
+                  <div className="fl-courses">
+                    <div className="fl-course-item">
+                      <h2 className="title t-2">course's title</h2>
+                      <div className="fl-lessons">
+                        <div className="fl-lesson-item">
+                          <h3 className="title t-3">lesson's title</h3>
+                          <p className="title t-4">
+                            Reading <RiTimerLine className="icon" /> 25 min.
+                          </p>
+                          <div className="fl-actions">
+                            <button className="button">Add exercise</button>
+                            <button className="button">Edit exercise</button>
+                            <button className="button">Preview</button>
+                            <button className="button activated">
+                              Activate
+                            </button>
+                          </div>
+                        </div>
+                        <div className="fl-lesson-item">
+                          <h3 className="title t-3">lesson's title</h3>
+                          <p className="title t-4">
+                            Reading <RiTimerLine className="icon" /> 25 min.
+                          </p>
+                          <div className="fl-actions">
+                            <button className="button">Add exercise</button>
+                            <button className="button">Edit exercise</button>
+                            <button className="button">Preview</button>
+                            <button className="button activated">
+                              Activate
+                            </button>
+                          </div>
+                        </div>
+                        <div className="fl-lesson-item">
+                          <h3 className="title t-3">lesson's title</h3>
+                          <p className="title t-4">
+                            Reading <RiTimerLine className="icon" /> 25 min.
+                          </p>
+                          <div className="fl-actions">
+                            <button className="button">Add exercise</button>
+                            <button className="button">Edit exercise</button>
+                            <button className="button">Preview</button>
+                            <button className="button activated">
+                              Activate
+                            </button>
+                          </div>
+                        </div>
+                        <div className="fl-lesson-item">
+                          <h3 className="title t-3">lesson's title</h3>
+                          <p className="title t-4">
+                            Reading <RiTimerLine className="icon" /> 25 min.
+                          </p>
+                          <div className="fl-actions">
+                            <button className="button">Add exercise</button>
+                            <button className="button">Edit exercise</button>
+                            <button className="button">Preview</button>
+                            <button className="button activated">
+                              Activate
+                            </button>
+                          </div>
+                        </div>
+                        <div className="fl-lesson-item">
+                          <h3 className="title t-3">lesson's title</h3>
+                          <p className="title t-4">
+                            Reading <RiTimerLine className="icon" /> 25 min.
+                          </p>
+                          <div className="fl-actions">
+                            <button className="button">Add exercise</button>
+                            <button className="button">Edit exercise</button>
+                            <button className="button">Preview</button>
+                            <button className="button activated">
+                              Activate
+                            </button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div className="fl-course-item">
+                      <h2 className="title t-2">course's title</h2>
+                      <div className="fl-lessons">
+                        <div className="fl-lesson-item">
+                          <h3 className="title t-3">lesson's title</h3>
+                          <p className="title t-4">
+                            Reading <RiTimerLine className="icon" /> 25 min.
+                          </p>
+                          <div className="fl-actions">
+                            <button className="button">Add exercise</button>
+                            <button className="button">Edit exercise</button>
+                            <button className="button">Preview</button>
+                            <button className="button activated">
+                              Activate
+                            </button>
+                          </div>
+                        </div>
+                        <div className="fl-lesson-item">
+                          <h3 className="title t-3">lesson's title</h3>
+                          <p className="title t-4">
+                            Reading <RiTimerLine className="icon" /> 25 min.
+                          </p>
+                          <div className="fl-actions">
+                            <button className="button">Add exercise</button>
+                            <button className="button">Edit exercise</button>
+                            <button className="button">Preview</button>
+                            <button className="button activated">
+                              Activate
+                            </button>
+                          </div>
+                        </div>
+                        <div className="fl-lesson-item">
+                          <h3 className="title t-3">lesson's title</h3>
+                          <p className="title t-4">
+                            Reading <RiTimerLine className="icon" /> 25 min.
+                          </p>
+                          <div className="fl-actions">
+                            <button className="button">Add exercise</button>
+                            <button className="button">Edit exercise</button>
+                            <button className="button">Preview</button>
+                            <button className="button activated">
+                              Activate
+                            </button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div className="fl-course-item">
+                      <h2 className="title t-2">course's title</h2>
+                      <div className="fl-lessons">
+                        <div className="fl-lesson-item">
+                          <h3 className="title t-3">lesson's title</h3>
+                          <p className="title t-4">
+                            Reading <RiTimerLine className="icon" /> 25 min.
+                          </p>
+                          <div className="fl-actions">
+                            <button className="button">Add exercise</button>
+                            <button className="button">Edit exercise</button>
+                            <button className="button">Preview</button>
+                            <button className="button activated">
+                              Activate
+                            </button>
+                          </div>
+                        </div>
+                        <div className="fl-lesson-item">
+                          <h3 className="title t-3">lesson's title</h3>
+                          <p className="title t-4">
+                            Reading <RiTimerLine className="icon" /> 25 min.
+                          </p>
+                          <div className="fl-actions">
+                            <button className="button">Add exercise</button>
+                            <button className="button">Edit exercise</button>
+                            <button className="button">Preview</button>
+                            <button className="button activated">
+                              Activate
+                            </button>
+                          </div>
+                        </div>
+                        <div className="fl-lesson-item">
+                          <h3 className="title t-3">lesson's title</h3>
+                          <p className="title t-4">
+                            Reading <RiTimerLine className="icon" /> 25 min.
+                          </p>
+                          <div className="fl-actions">
+                            <button className="button">Add exercise</button>
+                            <button className="button">Edit exercise</button>
+                            <button className="button">Preview</button>
+                            <button className="button activated">
+                              Activate
+                            </button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div className="fl-level-item">
+                  <h2 className="title t-3">level's title</h2>
+                  <div className="fl-courses">
+                    <div className="fl-course-item">
+                      <h2 className="title t-2">course's title</h2>
+                      <div className="fl-lessons">
+                        <div className="fl-lesson-item">
+                          <h3 className="title t-3">lesson's title</h3>
+                          <p className="title t-4">
+                            Reading <RiTimerLine className="icon" /> 25 min.
+                          </p>
+                          <div className="fl-actions">
+                            <button className="button">Add exercise</button>
+                            <button className="button">Edit exercise</button>
+                            <button className="button">Preview</button>
+                            <button className="button activated">
+                              Activate
+                            </button>
+                          </div>
+                        </div>
+                        <div className="fl-lesson-item">
+                          <h3 className="title t-3">lesson's title</h3>
+                          <p className="title t-4">
+                            Reading <RiTimerLine className="icon" /> 25 min.
+                          </p>
+                          <div className="fl-actions">
+                            <button className="button">Add exercise</button>
+                            <button className="button">Edit exercise</button>
+                            <button className="button">Preview</button>
+                            <button className="button activated">
+                              Activate
+                            </button>
+                          </div>
+                        </div>
+                        <div className="fl-lesson-item">
+                          <h3 className="title t-3">lesson's title</h3>
+                          <p className="title t-4">
+                            Reading <RiTimerLine className="icon" /> 25 min.
+                          </p>
+                          <div className="fl-actions">
+                            <button className="button">Add exercise</button>
+                            <button className="button">Edit exercise</button>
+                            <button className="button">Preview</button>
+                            <button className="button activated">
+                              Activate
+                            </button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div className="fl-course-item">
+                      <h2 className="title t-2">course's title</h2>
+                      <div className="fl-lessons">
+                        <div className="fl-lesson-item">
+                          <h3 className="title t-3">lesson's title</h3>
+                          <p className="title t-4">
+                            Reading <RiTimerLine className="icon" /> 25 min.
+                          </p>
+                          <div className="fl-actions">
+                            <button className="button">Add exercise</button>
+                            <button className="button">Edit exercise</button>
+                            <button className="button">Preview</button>
+                            <button className="button activated">
+                              Activate
+                            </button>
+                          </div>
+                        </div>
+                        <div className="fl-lesson-item">
+                          <h3 className="title t-3">lesson's title</h3>
+                          <p className="title t-4">
+                            Reading <RiTimerLine className="icon" /> 25 min.
+                          </p>
+                          <div className="fl-actions">
+                            <button className="button">Add exercise</button>
+                            <button className="button">Edit exercise</button>
+                            <button className="button">Preview</button>
+                            <button className="button activated">
+                              Activate
+                            </button>
+                          </div>
+                        </div>
+                        <div className="fl-lesson-item">
+                          <h3 className="title t-3">lesson's title</h3>
+                          <p className="title t-4">
+                            Reading <RiTimerLine className="icon" /> 25 min.
+                          </p>
+                          <div className="fl-actions">
+                            <button className="button">Add exercise</button>
+                            <button className="button">Edit exercise</button>
+                            <button className="button">Preview</button>
+                            <button className="button activated">
+                              Activate
+                            </button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div className="fl-course-item">
+                      <h2 className="title t-2">course's title</h2>
+                      <div className="fl-lessons">
+                        <div className="fl-lesson-item">
+                          <h3 className="title t-3">lesson's title</h3>
+                          <p className="title t-4">
+                            Reading <RiTimerLine className="icon" /> 25 min.
+                          </p>
+                          <div className="fl-actions">
+                            <button className="button">Add exercise</button>
+                            <button className="button">Edit exercise</button>
+                            <button className="button">Preview</button>
+                            <button className="button activated">
+                              Activate
+                            </button>
+                          </div>
+                        </div>
+                        <div className="fl-lesson-item">
+                          <h3 className="title t-3">lesson's title</h3>
+                          <p className="title t-4">
+                            Reading <RiTimerLine className="icon" /> 25 min.
+                          </p>
+                          <div className="fl-actions">
+                            <button className="button">Add exercise</button>
+                            <button className="button">Edit exercise</button>
+                            <button className="button">Preview</button>
+                            <button className="button activated">
+                              Activate
+                            </button>
+                          </div>
+                        </div>
+                        <div className="fl-lesson-item">
+                          <h3 className="title t-3">lesson's title</h3>
+                          <p className="title t-4">
+                            Reading <RiTimerLine className="icon" /> 25 min.
+                          </p>
+                          <div className="fl-actions">
+                            <button className="button">Add exercise</button>
+                            <button className="button">Edit exercise</button>
+                            <button className="button">Preview</button>
+                            <button className="button activated">
+                              Activate
+                            </button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div className="fl-level-item">
+                  <h2 className="title t-3">level's title</h2>
+                  <div className="fl-courses">
+                    <div className="fl-course-item">
+                      <h2 className="title t-2">course's title</h2>
+                      <div className="fl-lessons">
+                        <div className="fl-lesson-item">
+                          <h3 className="title t-3">lesson's title</h3>
+                          <p className="title t-4">
+                            Reading <RiTimerLine className="icon" /> 25 min.
+                          </p>
+                          <div className="fl-actions">
+                            <button className="button">Add exercise</button>
+                            <button className="button">Edit exercise</button>
+                            <button className="button">Preview</button>
+                            <button className="button activated">
+                              Activate
+                            </button>
+                          </div>
+                        </div>
+                        <div className="fl-lesson-item">
+                          <h3 className="title t-3">lesson's title</h3>
+                          <p className="title t-4">
+                            Reading <RiTimerLine className="icon" /> 25 min.
+                          </p>
+                          <div className="fl-actions">
+                            <button className="button">Add exercise</button>
+                            <button className="button">Edit exercise</button>
+                            <button className="button">Preview</button>
+                            <button className="button activated">
+                              Activate
+                            </button>
+                          </div>
+                        </div>
+                        <div className="fl-lesson-item">
+                          <h3 className="title t-3">lesson's title</h3>
+                          <p className="title t-4">
+                            Reading <RiTimerLine className="icon" /> 25 min.
+                          </p>
+                          <div className="fl-actions">
+                            <button className="button">Add exercise</button>
+                            <button className="button">Edit exercise</button>
+                            <button className="button">Preview</button>
+                            <button className="button activated">
+                              Activate
+                            </button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div className="fl-course-item">
+                      <h2 className="title t-2">course's title</h2>
+                      <div className="fl-lessons">
+                        <div className="fl-lesson-item">
+                          <h3 className="title t-3">lesson's title</h3>
+                          <p className="title t-4">
+                            Reading <RiTimerLine className="icon" /> 25 min.
+                          </p>
+                          <div className="fl-actions">
+                            <button className="button">Add exercise</button>
+                            <button className="button">Edit exercise</button>
+                            <button className="button">Preview</button>
+                            <button className="button activated">
+                              Activate
+                            </button>
+                          </div>
+                        </div>
+                        <div className="fl-lesson-item">
+                          <h3 className="title t-3">lesson's title</h3>
+                          <p className="title t-4">
+                            Reading <RiTimerLine className="icon" /> 25 min.
+                          </p>
+                          <div className="fl-actions">
+                            <button className="button">Add exercise</button>
+                            <button className="button">Edit exercise</button>
+                            <button className="button">Preview</button>
+                            <button className="button activated">
+                              Activate
+                            </button>
+                          </div>
+                        </div>
+                        <div className="fl-lesson-item">
+                          <h3 className="title t-3">lesson's title</h3>
+                          <p className="title t-4">
+                            Reading <RiTimerLine className="icon" /> 25 min.
+                          </p>
+                          <div className="fl-actions">
+                            <button className="button">Add exercise</button>
+                            <button className="button">Edit exercise</button>
+                            <button className="button">Preview</button>
+                            <button className="button activated">
+                              Activate
+                            </button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div className="fl-course-item">
+                      <h2 className="title t-2">course's title</h2>
+                      <div className="fl-lessons">
+                        <div className="fl-lesson-item">
+                          <h3 className="title t-3">lesson's title</h3>
+                          <p className="title t-4">
+                            Reading <RiTimerLine className="icon" /> 25 min.
+                          </p>
+                          <div className="fl-actions">
+                            <button className="button">Add exercise</button>
+                            <button className="button">Edit exercise</button>
+                            <button className="button">Preview</button>
+                            <button className="button activated">
+                              Activate
+                            </button>
+                          </div>
+                        </div>
+                        <div className="fl-lesson-item">
+                          <h3 className="title t-3">lesson's title</h3>
+                          <p className="title t-4">
+                            Reading <RiTimerLine className="icon" /> 25 min.
+                          </p>
+                          <div className="fl-actions">
+                            <button className="button">Add exercise</button>
+                            <button className="button">Edit exercise</button>
+                            <button className="button">Preview</button>
+                            <button className="button activated">
+                              Activate
+                            </button>
+                          </div>
+                        </div>
+                        <div className="fl-lesson-item">
+                          <h3 className="title t-3">lesson's title</h3>
+                          <p className="title t-4">
+                            Reading <RiTimerLine className="icon" /> 25 min.
+                          </p>
+                          <div className="fl-actions">
+                            <button className="button">Add exercise</button>
+                            <button className="button">Edit exercise</button>
+                            <button className="button">Preview</button>
+                            <button className="button activated">
+                              Activate
+                            </button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div className="fl-program-item">
+              <h2 className="title t-2">Program's name</h2>
+              <div className="fl-levels">
+                <div className="fl-level-item">
+                  <h2 className="title t-3">level's title</h2>
+                  <div className="fl-courses">
+                    <div className="fl-course-item">
+                      <h2 className="title t-2">course's title</h2>
+                      <div className="fl-lessons">
+                        <div className="fl-lesson-item">
+                          <h3 className="title t-3">lesson's title</h3>
+                          <p className="title t-4">
+                            Reading <RiTimerLine className="icon" /> 25 min.
+                          </p>
+                          <div className="fl-actions">
+                            <button className="button">Add exercise</button>
+                            <button className="button">Edit exercise</button>
+                            <button className="button">Preview</button>
+                            <button className="button activated">
+                              Activate
+                            </button>
+                          </div>
+                        </div>
+                        <div className="fl-lesson-item">
+                          <h3 className="title t-3">lesson's title</h3>
+                          <p className="title t-4">
+                            Reading <RiTimerLine className="icon" /> 25 min.
+                          </p>
+                          <div className="fl-actions">
+                            <button className="button">Add exercise</button>
+                            <button className="button">Edit exercise</button>
+                            <button className="button">Preview</button>
+                            <button className="button activated">
+                              Activate
+                            </button>
+                          </div>
+                        </div>
+                        <div className="fl-lesson-item">
+                          <h3 className="title t-3">lesson's title</h3>
+                          <p className="title t-4">
+                            Reading <RiTimerLine className="icon" /> 25 min.
+                          </p>
+                          <div className="fl-actions">
+                            <button className="button">Add exercise</button>
+                            <button className="button">Edit exercise</button>
+                            <button className="button">Preview</button>
+                            <button className="button activated">
+                              Activate
+                            </button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div className="fl-course-item">
+                      <h2 className="title t-2">course's title</h2>
+                      <div className="fl-lessons">
+                        <div className="fl-lesson-item">
+                          <h3 className="title t-3">lesson's title</h3>
+                          <p className="title t-4">
+                            Reading <RiTimerLine className="icon" /> 25 min.
+                          </p>
+                          <div className="fl-actions">
+                            <button className="button">Add exercise</button>
+                            <button className="button">Edit exercise</button>
+                            <button className="button">Preview</button>
+                            <button className="button activated">
+                              Activate
+                            </button>
+                          </div>
+                        </div>
+                        <div className="fl-lesson-item">
+                          <h3 className="title t-3">lesson's title</h3>
+                          <p className="title t-4">
+                            Reading <RiTimerLine className="icon" /> 25 min.
+                          </p>
+                          <div className="fl-actions">
+                            <button className="button">Add exercise</button>
+                            <button className="button">Edit exercise</button>
+                            <button className="button">Preview</button>
+                            <button className="button activated">
+                              Activate
+                            </button>
+                          </div>
+                        </div>
+                        <div className="fl-lesson-item">
+                          <h3 className="title t-3">lesson's title</h3>
+                          <p className="title t-4">
+                            Reading <RiTimerLine className="icon" /> 25 min.
+                          </p>
+                          <div className="fl-actions">
+                            <button className="button">Add exercise</button>
+                            <button className="button">Edit exercise</button>
+                            <button className="button">Preview</button>
+                            <button className="button activated">
+                              Activate
+                            </button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div className="fl-course-item">
+                      <h2 className="title t-2">course's title</h2>
+                      <div className="fl-lessons">
+                        <div className="fl-lesson-item">
+                          <h3 className="title t-3">lesson's title</h3>
+                          <p className="title t-4">
+                            Reading <RiTimerLine className="icon" /> 25 min.
+                          </p>
+                          <div className="fl-actions">
+                            <button className="button">Add exercise</button>
+                            <button className="button">Edit exercise</button>
+                            <button className="button">Preview</button>
+                            <button className="button activated">
+                              Activate
+                            </button>
+                          </div>
+                        </div>
+                        <div className="fl-lesson-item">
+                          <h3 className="title t-3">lesson's title</h3>
+                          <p className="title t-4">
+                            Reading <RiTimerLine className="icon" /> 25 min.
+                          </p>
+                          <div className="fl-actions">
+                            <button className="button">Add exercise</button>
+                            <button className="button">Edit exercise</button>
+                            <button className="button">Preview</button>
+                            <button className="button activated">
+                              Activate
+                            </button>
+                          </div>
+                        </div>
+                        <div className="fl-lesson-item">
+                          <h3 className="title t-3">lesson's title</h3>
+                          <p className="title t-4">
+                            Reading <RiTimerLine className="icon" /> 25 min.
+                          </p>
+                          <div className="fl-actions">
+                            <button className="button">Add exercise</button>
+                            <button className="button">Edit exercise</button>
+                            <button className="button">Preview</button>
+                            <button className="button activated">
+                              Activate
+                            </button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div className="fl-level-item">
+                  <h2 className="title t-3">level's title</h2>
+                  <div className="fl-courses">
+                    <div className="fl-course-item">
+                      <h2 className="title t-2">course's title</h2>
+                      <div className="fl-lessons">
+                        <div className="fl-lesson-item">
+                          <h3 className="title t-3">lesson's title</h3>
+                          <p className="title t-4">
+                            Reading <RiTimerLine className="icon" /> 25 min.
+                          </p>
+                          <div className="fl-actions">
+                            <button className="button">Add exercise</button>
+                            <button className="button">Edit exercise</button>
+                            <button className="button">Preview</button>
+                            <button className="button activated">
+                              Activate
+                            </button>
+                          </div>
+                        </div>
+                        <div className="fl-lesson-item">
+                          <h3 className="title t-3">lesson's title</h3>
+                          <p className="title t-4">
+                            Reading <RiTimerLine className="icon" /> 25 min.
+                          </p>
+                          <div className="fl-actions">
+                            <button className="button">Add exercise</button>
+                            <button className="button">Edit exercise</button>
+                            <button className="button">Preview</button>
+                            <button className="button activated">
+                              Activate
+                            </button>
+                          </div>
+                        </div>
+                        <div className="fl-lesson-item">
+                          <h3 className="title t-3">lesson's title</h3>
+                          <p className="title t-4">
+                            Reading <RiTimerLine className="icon" /> 25 min.
+                          </p>
+                          <div className="fl-actions">
+                            <button className="button">Add exercise</button>
+                            <button className="button">Edit exercise</button>
+                            <button className="button">Preview</button>
+                            <button className="button activated">
+                              Activate
+                            </button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div className="fl-course-item">
+                      <h2 className="title t-2">course's title</h2>
+                      <div className="fl-lessons">
+                        <div className="fl-lesson-item">
+                          <h3 className="title t-3">lesson's title</h3>
+                          <p className="title t-4">
+                            Reading <RiTimerLine className="icon" /> 25 min.
+                          </p>
+                          <div className="fl-actions">
+                            <button className="button">Add exercise</button>
+                            <button className="button">Edit exercise</button>
+                            <button className="button">Preview</button>
+                            <button className="button activated">
+                              Activate
+                            </button>
+                          </div>
+                        </div>
+                        <div className="fl-lesson-item">
+                          <h3 className="title t-3">lesson's title</h3>
+                          <p className="title t-4">
+                            Reading <RiTimerLine className="icon" /> 25 min.
+                          </p>
+                          <div className="fl-actions">
+                            <button className="button">Add exercise</button>
+                            <button className="button">Edit exercise</button>
+                            <button className="button">Preview</button>
+                            <button className="button activated">
+                              Activate
+                            </button>
+                          </div>
+                        </div>
+                        <div className="fl-lesson-item">
+                          <h3 className="title t-3">lesson's title</h3>
+                          <p className="title t-4">
+                            Reading <RiTimerLine className="icon" /> 25 min.
+                          </p>
+                          <div className="fl-actions">
+                            <button className="button">Add exercise</button>
+                            <button className="button">Edit exercise</button>
+                            <button className="button">Preview</button>
+                            <button className="button activated">
+                              Activate
+                            </button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div className="fl-course-item">
+                      <h2 className="title t-2">course's title</h2>
+                      <div className="fl-lessons">
+                        <div className="fl-lesson-item">
+                          <h3 className="title t-3">lesson's title</h3>
+                          <p className="title t-4">
+                            Reading <RiTimerLine className="icon" /> 25 min.
+                          </p>
+                          <div className="fl-actions">
+                            <button className="button">Add exercise</button>
+                            <button className="button">Edit exercise</button>
+                            <button className="button">Preview</button>
+                            <button className="button activated">
+                              Activate
+                            </button>
+                          </div>
+                        </div>
+                        <div className="fl-lesson-item">
+                          <h3 className="title t-3">lesson's title</h3>
+                          <p className="title t-4">
+                            Reading <RiTimerLine className="icon" /> 25 min.
+                          </p>
+                          <div className="fl-actions">
+                            <button className="button">Add exercise</button>
+                            <button className="button">Edit exercise</button>
+                            <button className="button">Preview</button>
+                            <button className="button activated">
+                              Activate
+                            </button>
+                          </div>
+                        </div>
+                        <div className="fl-lesson-item">
+                          <h3 className="title t-3">lesson's title</h3>
+                          <p className="title t-4">
+                            Reading <RiTimerLine className="icon" /> 25 min.
+                          </p>
+                          <div className="fl-actions">
+                            <button className="button">Add exercise</button>
+                            <button className="button">Edit exercise</button>
+                            <button className="button">Preview</button>
+                            <button className="button activated">
+                              Activate
+                            </button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div className="fl-level-item">
+                  <h2 className="title t-3">level's title</h2>
+                  <div className="fl-courses">
+                    <div className="fl-course-item">
+                      <h2 className="title t-2">course's title</h2>
+                      <div className="fl-lessons">
+                        <div className="fl-lesson-item">
+                          <h3 className="title t-3">lesson's title</h3>
+                          <p className="title t-4">
+                            Reading <RiTimerLine className="icon" /> 25 min.
+                          </p>
+                          <div className="fl-actions">
+                            <button className="button">Add exercise</button>
+                            <button className="button">Edit exercise</button>
+                            <button className="button">Preview</button>
+                            <button className="button activated">
+                              Activate
+                            </button>
+                          </div>
+                        </div>
+                        <div className="fl-lesson-item">
+                          <h3 className="title t-3">lesson's title</h3>
+                          <p className="title t-4">
+                            Reading <RiTimerLine className="icon" /> 25 min.
+                          </p>
+                          <div className="fl-actions">
+                            <button className="button">Add exercise</button>
+                            <button className="button">Edit exercise</button>
+                            <button className="button">Preview</button>
+                            <button className="button activated">
+                              Activate
+                            </button>
+                          </div>
+                        </div>
+                        <div className="fl-lesson-item">
+                          <h3 className="title t-3">lesson's title</h3>
+                          <p className="title t-4">
+                            Reading <RiTimerLine className="icon" /> 25 min.
+                          </p>
+                          <div className="fl-actions">
+                            <button className="button">Add exercise</button>
+                            <button className="button">Edit exercise</button>
+                            <button className="button">Preview</button>
+                            <button className="button activated">
+                              Activate
+                            </button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div className="fl-course-item">
+                      <h2 className="title t-2">course's title</h2>
+                      <div className="fl-lessons">
+                        <div className="fl-lesson-item">
+                          <h3 className="title t-3">lesson's title</h3>
+                          <p className="title t-4">
+                            Reading <RiTimerLine className="icon" /> 25 min.
+                          </p>
+                          <div className="fl-actions">
+                            <button className="button">Add exercise</button>
+                            <button className="button">Edit exercise</button>
+                            <button className="button">Preview</button>
+                            <button className="button activated">
+                              Activate
+                            </button>
+                          </div>
+                        </div>
+                        <div className="fl-lesson-item">
+                          <h3 className="title t-3">lesson's title</h3>
+                          <p className="title t-4">
+                            Reading <RiTimerLine className="icon" /> 25 min.
+                          </p>
+                          <div className="fl-actions">
+                            <button className="button">Add exercise</button>
+                            <button className="button">Edit exercise</button>
+                            <button className="button">Preview</button>
+                            <button className="button activated">
+                              Activate
+                            </button>
+                          </div>
+                        </div>
+                        <div className="fl-lesson-item">
+                          <h3 className="title t-3">lesson's title</h3>
+                          <p className="title t-4">
+                            Reading <RiTimerLine className="icon" /> 25 min.
+                          </p>
+                          <div className="fl-actions">
+                            <button className="button">Add exercise</button>
+                            <button className="button">Edit exercise</button>
+                            <button className="button">Preview</button>
+                            <button className="button activated">
+                              Activate
+                            </button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div className="fl-course-item">
+                      <h2 className="title t-2">course's title</h2>
+                      <div className="fl-lessons">
+                        <div className="fl-lesson-item">
+                          <h3 className="title t-3">lesson's title</h3>
+                          <p className="title t-4">
+                            Reading <RiTimerLine className="icon" /> 25 min.
+                          </p>
+                          <div className="fl-actions">
+                            <button className="button">Add exercise</button>
+                            <button className="button">Edit exercise</button>
+                            <button className="button">Preview</button>
+                            <button className="button activated">
+                              Activate
+                            </button>
+                          </div>
+                        </div>
+                        <div className="fl-lesson-item">
+                          <h3 className="title t-3">lesson's title</h3>
+                          <p className="title t-4">
+                            Reading <RiTimerLine className="icon" /> 25 min.
+                          </p>
+                          <div className="fl-actions">
+                            <button className="button">Add exercise</button>
+                            <button className="button">Edit exercise</button>
+                            <button className="button">Preview</button>
+                            <button className="button activated">
+                              Activate
+                            </button>
+                          </div>
+                        </div>
+                        <div className="fl-lesson-item">
+                          <h3 className="title t-3">lesson's title</h3>
+                          <p className="title t-4">
+                            Reading <RiTimerLine className="icon" /> 25 min.
+                          </p>
+                          <div className="fl-actions">
+                            <button className="button">Add exercise</button>
+                            <button className="button">Edit exercise</button>
+                            <button className="button">Preview</button>
+                            <button className="button activated">
+                              Activate
+                            </button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div className="fl-program-item">
+              <h2 className="title t-2">Program's name</h2>
+              <div className="fl-levels">
+                <div className="fl-level-item">
+                  <h2 className="title t-3">level's title</h2>
+                  <div className="fl-courses">
+                    <div className="fl-course-item">
+                      <h2 className="title t-2">course's title</h2>
+                      <div className="fl-lessons">
+                        <div className="fl-lesson-item">
+                          <h3 className="title t-3">lesson's title</h3>
+                          <p className="title t-4">
+                            Reading <RiTimerLine className="icon" /> 25 min.
+                          </p>
+                          <div className="fl-actions">
+                            <button className="button">Add exercise</button>
+                            <button className="button">Edit exercise</button>
+                            <button className="button">Preview</button>
+                            <button className="button activated">
+                              Activate
+                            </button>
+                          </div>
+                        </div>
+                        <div className="fl-lesson-item">
+                          <h3 className="title t-3">lesson's title</h3>
+                          <p className="title t-4">
+                            Reading <RiTimerLine className="icon" /> 25 min.
+                          </p>
+                          <div className="fl-actions">
+                            <button className="button">Add exercise</button>
+                            <button className="button">Edit exercise</button>
+                            <button className="button">Preview</button>
+                            <button className="button activated">
+                              Activate
+                            </button>
+                          </div>
+                        </div>
+                        <div className="fl-lesson-item">
+                          <h3 className="title t-3">lesson's title</h3>
+                          <p className="title t-4">
+                            Reading <RiTimerLine className="icon" /> 25 min.
+                          </p>
+                          <div className="fl-actions">
+                            <button className="button">Add exercise</button>
+                            <button className="button">Edit exercise</button>
+                            <button className="button">Preview</button>
+                            <button className="button activated">
+                              Activate
+                            </button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div className="fl-course-item">
+                      <h2 className="title t-2">course's title</h2>
+                      <div className="fl-lessons">
+                        <div className="fl-lesson-item">
+                          <h3 className="title t-3">lesson's title</h3>
+                          <p className="title t-4">
+                            Reading <RiTimerLine className="icon" /> 25 min.
+                          </p>
+                          <div className="fl-actions">
+                            <button className="button">Add exercise</button>
+                            <button className="button">Edit exercise</button>
+                            <button className="button">Preview</button>
+                            <button className="button activated">
+                              Activate
+                            </button>
+                          </div>
+                        </div>
+                        <div className="fl-lesson-item">
+                          <h3 className="title t-3">lesson's title</h3>
+                          <p className="title t-4">
+                            Reading <RiTimerLine className="icon" /> 25 min.
+                          </p>
+                          <div className="fl-actions">
+                            <button className="button">Add exercise</button>
+                            <button className="button">Edit exercise</button>
+                            <button className="button">Preview</button>
+                            <button className="button activated">
+                              Activate
+                            </button>
+                          </div>
+                        </div>
+                        <div className="fl-lesson-item">
+                          <h3 className="title t-3">lesson's title</h3>
+                          <p className="title t-4">
+                            Reading <RiTimerLine className="icon" /> 25 min.
+                          </p>
+                          <div className="fl-actions">
+                            <button className="button">Add exercise</button>
+                            <button className="button">Edit exercise</button>
+                            <button className="button">Preview</button>
+                            <button className="button activated">
+                              Activate
+                            </button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div className="fl-course-item">
+                      <h2 className="title t-2">course's title</h2>
+                      <div className="fl-lessons">
+                        <div className="fl-lesson-item">
+                          <h3 className="title t-3">lesson's title</h3>
+                          <p className="title t-4">
+                            Reading <RiTimerLine className="icon" /> 25 min.
+                          </p>
+                          <div className="fl-actions">
+                            <button className="button">Add exercise</button>
+                            <button className="button">Edit exercise</button>
+                            <button className="button">Preview</button>
+                            <button className="button activated">
+                              Activate
+                            </button>
+                          </div>
+                        </div>
+                        <div className="fl-lesson-item">
+                          <h3 className="title t-3">lesson's title</h3>
+                          <p className="title t-4">
+                            Reading <RiTimerLine className="icon" /> 25 min.
+                          </p>
+                          <div className="fl-actions">
+                            <button className="button">Add exercise</button>
+                            <button className="button">Edit exercise</button>
+                            <button className="button">Preview</button>
+                            <button className="button activated">
+                              Activate
+                            </button>
+                          </div>
+                        </div>
+                        <div className="fl-lesson-item">
+                          <h3 className="title t-3">lesson's title</h3>
+                          <p className="title t-4">
+                            Reading <RiTimerLine className="icon" /> 25 min.
+                          </p>
+                          <div className="fl-actions">
+                            <button className="button">Add exercise</button>
+                            <button className="button">Edit exercise</button>
+                            <button className="button">Preview</button>
+                            <button className="button activated">
+                              Activate
+                            </button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div className="fl-level-item">
+                  <h2 className="title t-3">level's title</h2>
+                  <div className="fl-courses">
+                    <div className="fl-course-item">
+                      <h2 className="title t-2">course's title</h2>
+                      <div className="fl-lessons">
+                        <div className="fl-lesson-item">
+                          <h3 className="title t-3">lesson's title</h3>
+                          <p className="title t-4">
+                            Reading <RiTimerLine className="icon" /> 25 min.
+                          </p>
+                          <div className="fl-actions">
+                            <button className="button">Add exercise</button>
+                            <button className="button">Edit exercise</button>
+                            <button className="button">Preview</button>
+                            <button className="button activated">
+                              Activate
+                            </button>
+                          </div>
+                        </div>
+                        <div className="fl-lesson-item">
+                          <h3 className="title t-3">lesson's title</h3>
+                          <p className="title t-4">
+                            Reading <RiTimerLine className="icon" /> 25 min.
+                          </p>
+                          <div className="fl-actions">
+                            <button className="button">Add exercise</button>
+                            <button className="button">Edit exercise</button>
+                            <button className="button">Preview</button>
+                            <button className="button activated">
+                              Activate
+                            </button>
+                          </div>
+                        </div>
+                        <div className="fl-lesson-item">
+                          <h3 className="title t-3">lesson's title</h3>
+                          <p className="title t-4">
+                            Reading <RiTimerLine className="icon" /> 25 min.
+                          </p>
+                          <div className="fl-actions">
+                            <button className="button">Add exercise</button>
+                            <button className="button">Edit exercise</button>
+                            <button className="button">Preview</button>
+                            <button className="button activated">
+                              Activate
+                            </button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div className="fl-course-item">
+                      <h2 className="title t-2">course's title</h2>
+                      <div className="fl-lessons">
+                        <div className="fl-lesson-item">
+                          <h3 className="title t-3">lesson's title</h3>
+                          <p className="title t-4">
+                            Reading <RiTimerLine className="icon" /> 25 min.
+                          </p>
+                          <div className="fl-actions">
+                            <button className="button">Add exercise</button>
+                            <button className="button">Edit exercise</button>
+                            <button className="button">Preview</button>
+                            <button className="button activated">
+                              Activate
+                            </button>
+                          </div>
+                        </div>
+                        <div className="fl-lesson-item">
+                          <h3 className="title t-3">lesson's title</h3>
+                          <p className="title t-4">
+                            Reading <RiTimerLine className="icon" /> 25 min.
+                          </p>
+                          <div className="fl-actions">
+                            <button className="button">Add exercise</button>
+                            <button className="button">Edit exercise</button>
+                            <button className="button">Preview</button>
+                            <button className="button activated">
+                              Activate
+                            </button>
+                          </div>
+                        </div>
+                        <div className="fl-lesson-item">
+                          <h3 className="title t-3">lesson's title</h3>
+                          <p className="title t-4">
+                            Reading <RiTimerLine className="icon" /> 25 min.
+                          </p>
+                          <div className="fl-actions">
+                            <button className="button">Add exercise</button>
+                            <button className="button">Edit exercise</button>
+                            <button className="button">Preview</button>
+                            <button className="button activated">
+                              Activate
+                            </button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div className="fl-course-item">
+                      <h2 className="title t-2">course's title</h2>
+                      <div className="fl-lessons">
+                        <div className="fl-lesson-item">
+                          <h3 className="title t-3">lesson's title</h3>
+                          <p className="title t-4">
+                            Reading <RiTimerLine className="icon" /> 25 min.
+                          </p>
+                          <div className="fl-actions">
+                            <button className="button">Add exercise</button>
+                            <button className="button">Edit exercise</button>
+                            <button className="button">Preview</button>
+                            <button className="button activated">
+                              Activate
+                            </button>
+                          </div>
+                        </div>
+                        <div className="fl-lesson-item">
+                          <h3 className="title t-3">lesson's title</h3>
+                          <p className="title t-4">
+                            Reading <RiTimerLine className="icon" /> 25 min.
+                          </p>
+                          <div className="fl-actions">
+                            <button className="button">Add exercise</button>
+                            <button className="button">Edit exercise</button>
+                            <button className="button">Preview</button>
+                            <button className="button activated">
+                              Activate
+                            </button>
+                          </div>
+                        </div>
+                        <div className="fl-lesson-item">
+                          <h3 className="title t-3">lesson's title</h3>
+                          <p className="title t-4">
+                            Reading <RiTimerLine className="icon" /> 25 min.
+                          </p>
+                          <div className="fl-actions">
+                            <button className="button">Add exercise</button>
+                            <button className="button">Edit exercise</button>
+                            <button className="button">Preview</button>
+                            <button className="button activated">
+                              Activate
+                            </button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div className="fl-level-item">
+                  <h2 className="title t-3">level's title</h2>
+                  <div className="fl-courses">
+                    <div className="fl-course-item">
+                      <h2 className="title t-2">course's title</h2>
+                      <div className="fl-lessons">
+                        <div className="fl-lesson-item">
+                          <h3 className="title t-3">lesson's title</h3>
+                          <p className="title t-4">
+                            Reading <RiTimerLine className="icon" /> 25 min.
+                          </p>
+                          <div className="fl-actions">
+                            <button className="button">Add exercise</button>
+                            <button className="button">Edit exercise</button>
+                            <button className="button">Preview</button>
+                            <button className="button activated">
+                              Activate
+                            </button>
+                          </div>
+                        </div>
+                        <div className="fl-lesson-item">
+                          <h3 className="title t-3">lesson's title</h3>
+                          <p className="title t-4">
+                            Reading <RiTimerLine className="icon" /> 25 min.
+                          </p>
+                          <div className="fl-actions">
+                            <button className="button">Add exercise</button>
+                            <button className="button">Edit exercise</button>
+                            <button className="button">Preview</button>
+                            <button className="button activated">
+                              Activate
+                            </button>
+                          </div>
+                        </div>
+                        <div className="fl-lesson-item">
+                          <h3 className="title t-3">lesson's title</h3>
+                          <p className="title t-4">
+                            Reading <RiTimerLine className="icon" /> 25 min.
+                          </p>
+                          <div className="fl-actions">
+                            <button className="button">Add exercise</button>
+                            <button className="button">Edit exercise</button>
+                            <button className="button">Preview</button>
+                            <button className="button activated">
+                              Activate
+                            </button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div className="fl-course-item">
+                      <h2 className="title t-2">course's title</h2>
+                      <div className="fl-lessons">
+                        <div className="fl-lesson-item">
+                          <h3 className="title t-3">lesson's title</h3>
+                          <p className="title t-4">
+                            Reading <RiTimerLine className="icon" /> 25 min.
+                          </p>
+                          <div className="fl-actions">
+                            <button className="button">Add exercise</button>
+                            <button className="button">Edit exercise</button>
+                            <button className="button">Preview</button>
+                            <button className="button activated">
+                              Activate
+                            </button>
+                          </div>
+                        </div>
+                        <div className="fl-lesson-item">
+                          <h3 className="title t-3">lesson's title</h3>
+                          <p className="title t-4">
+                            Reading <RiTimerLine className="icon" /> 25 min.
+                          </p>
+                          <div className="fl-actions">
+                            <button className="button">Add exercise</button>
+                            <button className="button">Edit exercise</button>
+                            <button className="button">Preview</button>
+                            <button className="button activated">
+                              Activate
+                            </button>
+                          </div>
+                        </div>
+                        <div className="fl-lesson-item">
+                          <h3 className="title t-3">lesson's title</h3>
+                          <p className="title t-4">
+                            Reading <RiTimerLine className="icon" /> 25 min.
+                          </p>
+                          <div className="fl-actions">
+                            <button className="button">Add exercise</button>
+                            <button className="button">Edit exercise</button>
+                            <button className="button">Preview</button>
+                            <button className="button activated">
+                              Activate
+                            </button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div className="fl-course-item">
+                      <h2 className="title t-2">course's title</h2>
+                      <div className="fl-lessons">
+                        <div className="fl-lesson-item">
+                          <h3 className="title t-3">lesson's title</h3>
+                          <p className="title t-4">
+                            Reading <RiTimerLine className="icon" /> 25 min.
+                          </p>
+                          <div className="fl-actions">
+                            <button className="button">Add exercise</button>
+                            <button className="button">Edit exercise</button>
+                            <button className="button">Preview</button>
+                            <button className="button activated">
+                              Activate
+                            </button>
+                          </div>
+                        </div>
+                        <div className="fl-lesson-item">
+                          <h3 className="title t-3">lesson's title</h3>
+                          <p className="title t-4">
+                            Reading <RiTimerLine className="icon" /> 25 min.
+                          </p>
+                          <div className="fl-actions">
+                            <button className="button">Add exercise</button>
+                            <button className="button">Edit exercise</button>
+                            <button className="button">Preview</button>
+                            <button className="button activated">
+                              Activate
+                            </button>
+                          </div>
+                        </div>
+                        <div className="fl-lesson-item">
+                          <h3 className="title t-3">lesson's title</h3>
+                          <p className="title t-4">
+                            Reading <RiTimerLine className="icon" /> 25 min.
+                          </p>
+                          <div className="fl-actions">
+                            <button className="button">Add exercise</button>
+                            <button className="button">Edit exercise</button>
+                            <button className="button">Preview</button>
+                            <button className="button activated">
+                              Activate
+                            </button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        {/* <div className="fl-item">
           <h2 className="title t-1">Lesson's title</h2>
           <h3 className="title t-2">course's title</h3>
           <h3 className="title t-3">english standard program / Congo DR</h3>
@@ -164,7 +1527,7 @@ const FragmentLesson = () => {
             <button className="button">Preview</button>
             <button className="button activated">Activate</button>
           </div>
-        </div>
+        </div> */}
       </div>
     </div>
   );

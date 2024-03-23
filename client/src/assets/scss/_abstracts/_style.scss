@@ -1139,53 +1139,131 @@ body {
             overflow-y: auto;
             display: flex;
             flex-wrap: wrap;
+            .t-1 {
+              color: $grey-color-1;
+              font-size: $size-105;
+            }
+            .t-2 {
+              color: $grey-color-1;
+              font-size: $size-1;
+            }
             .t-3 {
               font-size: $size-09;
             }
             .t-4 {
               font-size: $size-07;
             }
-            .fl-item {
-              width: 32%;
-              border: 1px solid $grey-color-2;
-              border-radius: $size-05;
-              margin: $size-07;
-              padding: $size-05;
-              .fl-actions {
-                display: flex;
-                justify-content: center;
-                .button {
-                  border-radius: $size-03;
-                  color: $white-color;
-                  margin: 0 $size-03;
-                  &:first-child {
-                    background-color: $color-1;
-                  }
-                  &:nth-child(2) {
-                    background-color: $color-2;
-                  }
-                  &:nth-child(3) {
-                    background-color: $color-4;
-                  }
-                  &:hover {
-                    background-color: $grey-color-2;
-                    color: $black-color;
-                  }
-                }
-                .activated {
-                  background-color: $green-color !important;
-                }
-                .desactivated {
-                  background-color: $red-color !important;
-                }
+            .fl-country {
+              width: 100%;
+              border-bottom: 1px solid $grey-color-3;
+              margin-bottom: $size-05;
+            }
+            .fl-programs {
+              width: 100%;
+              display: flex;
+              flex-direction: column;
+            }
+            .fl-program-item {
+              width: 100%;
+              display: block;
+            }
+            .fl-levels,
+            .fl-level-item,
+            .fl-courses,
+            .fl-course-item,
+            .fl-lessons {
+              width: 100%;
+            }
+            .fl-level-item{
+              margin-bottom: $size-2;
+              .t-3{
+                color: $color-1;
+              }
+              .t-2{
+                color: $gold-color;
               }
             }
+            .fl-lessons {
+              display: flex;
+              flex-wrap: wrap;
+            }
+            .fl-lesson-item {
+              width: 23.5%;
+              border-left: 1px solid $grey-color-2;
+              border-radius: $size-03;
+              margin: $size-07;
+              @include padding($size-02);
+            }
+            .fl-actions {
+              display: flex;
+              justify-content: center;
+              .button {
+                border-radius: $size-03;
+                color: $white-color;
+                font-size: $size-07;
+                margin: 0 $size-03;
+                &:first-child {
+                  background-color: $color-1;
+                }
+                &:nth-child(2) {
+                  background-color: $color-2;
+                }
+                &:nth-child(3) {
+                  background-color: $color-4;
+                }
+                &:hover {
+                  background-color: $grey-color-2;
+                  color: $black-color;
+                }
+              }
+              .activated {
+                background-color: $green-color !important;
+              }
+              .desactivated {
+                background-color: $red-color !important;
+              }
+            }
+            // .fl-item {
+            //   width: 32%;
+            //   border: 1px solid $grey-color-2;
+            //   border-radius: $size-05;
+            //   margin: $size-07;
+            //   padding: $size-05;
+            //   .fl-actions {
+            //     display: flex;
+            //     justify-content: center;
+            //     .button {
+            //       border-radius: $size-03;
+            //       color: $white-color;
+            //       margin: 0 $size-03;
+            //       &:first-child {
+            //         background-color: $color-1;
+            //       }
+            //       &:nth-child(2) {
+            //         background-color: $color-2;
+            //       }
+            //       &:nth-child(3) {
+            //         background-color: $color-4;
+            //       }
+            //       &:hover {
+            //         background-color: $grey-color-2;
+            //         color: $black-color;
+            //       }
+            //     }
+            //     .activated {
+            //       background-color: $green-color !important;
+            //     }
+            //     .desactivated {
+            //       background-color: $red-color !important;
+            //     }
+            //   }
+            // }
           }
         }
         .add-content {
           width: 100%;
           height: 92%;
-          .add-content-head{
+          .add-content-head {
             display: flex;
             align-items: center;
             justify-content: space-between;
@@ -1325,16 +1403,16 @@ body {
                   display: flex;
                   flex-direction: column;
                   @include padding($size-03);
-                  .section{
+                  .section {
                     width: 100%;
                   }
-                  .images{
+                  .images {
                     width: 100%;
                     display: flex;
                     justify-content: center;
                     flex-wrap: wrap;
                     @include padding($size-03);
-                    img{
+                    img {
                       width: 48%;
                       height: 150px;
                     }

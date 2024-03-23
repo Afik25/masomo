@@ -12,7 +12,9 @@ module.exports = {
       const { level, title, description } = req.body;
 
       const check_title = await Course.findOne({
-        where: { title: title.toLowerCase() },
+        where: {
+          [Op.and]: [{ title: title.toLowerCase() }, { level_id: level }],
+        },
       });
       if (check_title) {
         return res
