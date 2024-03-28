@@ -5,6 +5,7 @@ export const courseSlice = createSlice({
   initialState: {
     initCourses: {},
     initCustomizedCourses: {},
+    initCustomizedCoursesByLevels: {},
   },
   reducers: {
     getCourses: (state, action) => {
@@ -15,6 +16,11 @@ export const courseSlice = createSlice({
     getCustomizedCourses: (state, action) => {
       state.initCustomizedCourses = {
         customizedCoursesData: action.payload,
+      };
+    },
+    getCustomizedCoursesbyLevels: (state, action) => {
+      state.initCustomizedCoursesByLevels = {
+        customizedCoursesByLevelsData: action.payload,
       };
     },
   },

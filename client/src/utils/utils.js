@@ -16,6 +16,8 @@ export const wait = (duration = 1000) => {
   });
 };
 
+export const capitalize = (s) => s && s[0].toUpperCase() + s.slice(1);
+
 export const validationSchemaRegister = Yup.object().shape({
   prename: Yup.string()
     .required("First Name is required")
@@ -27,10 +29,9 @@ export const validationSchemaRegister = Yup.object().shape({
   password: Yup.string()
     .required("Password is required")
     .min(4, "The password must have at least 4 caractors"),
-  confirm_password: Yup.string().required("Confirm password is required").oneOf(
-    [Yup.ref("password"), null],
-    "The password must match!"
-  ),
+  confirm_password: Yup.string()
+    .required("Confirm password is required")
+    .oneOf([Yup.ref("password"), null], "The password must match!"),
   gcu: Yup.boolean().oneOf(
     [true],
     "You have to be agree with the terms and privacy of using."
@@ -56,20 +57,20 @@ export const validationCompleteInscription = Yup.object().shape({
     .typeError("You should specify a phone number")
     .required("Phone number is required")
     .min(8, "Input a valid phone number"),
-  mail: Yup.string().required("E-mail is required").email("Input a valid address e-mail"),
+  mail: Yup.string()
+    .required("E-mail is required")
+    .email("Input a valid address e-mail"),
   birth: Yup.string().required("Birth date is required"),
   birth_location: Yup.string().required("Birth location is required"),
   nationality: Yup.string().required("Nationality is required"),
   username: Yup.string().required("Username is required"),
-  old_password: Yup.string()
-    .required("Old Password is required"),
+  old_password: Yup.string().required("Old Password is required"),
   new_password: Yup.string()
     .required("New Password is required")
     .min(4, "The password must have at least 6 caractors"),
-  confirm_password: Yup.string().required("Confirm password is required").oneOf(
-    [Yup.ref("new_password"), null],
-    "The password must match!"
-  ),
+  confirm_password: Yup.string()
+    .required("Confirm password is required")
+    .oneOf([Yup.ref("new_password"), null], "The password must match!"),
 });
 
 export const validationCompleteProgram = Yup.object().shape({
@@ -82,8 +83,12 @@ export const validationCompleteActivation = Yup.object().shape({
 });
 
 export const validationProgram = Yup.object().shape({
-  program_country: Yup.string().required("Choose the country that based the program"),
-  program_language: Yup.string().required("Specify the language of the program"),
+  program_country: Yup.string().required(
+    "Choose the country that based the program"
+  ),
+  program_language: Yup.string().required(
+    "Specify the language of the program"
+  ),
   program_type: Yup.string().required("Specify the type of the program"),
 });
 
@@ -97,13 +102,19 @@ export const validationCourse = Yup.object().shape({
   program: Yup.string().required("Choose the concerned program"),
   level: Yup.string().required("Provide the level of study"),
   title: Yup.string().required("Grab the title of course"),
-  description: Yup.string().required("Procide Description or Summary of the course"),
+  description: Yup.string().required(
+    "Procide Description or Summary of the course"
+  ),
 });
 
 export const validationAddingContent = Yup.object().shape({
   title: Yup.string().required("Grab the title content"),
-  type: Yup.string().required("Provide the type of accessibility to the content"),
+  type: Yup.string().required(
+    "Provide the type of accessibility to the content"
+  ),
   language: Yup.string().required("Provide the langauge of the content"),
-  description: Yup.string().required("Provide Description or Summary of the content"),
+  description: Yup.string().required(
+    "Provide Description or Summary of the content"
+  ),
   thumbnail: Yup.string().required("Grab the content"),
 });

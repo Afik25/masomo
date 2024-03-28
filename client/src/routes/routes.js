@@ -11,7 +11,7 @@ import Admin from "../pages/Admin";
 import Student from "../pages/Student";
 //
 // Layouts
-import Dashboard from "../pages/layouts/student/Dashboard"
+import Dashboard from "../pages/layouts/student/Dashboard";
 import Course from "../pages/layouts/Course";
 import Content from "../pages/layouts/courses/Content";
 import Reading from "../pages/layouts/courses/Reading";
@@ -19,7 +19,7 @@ import Favorite from "../pages/layouts/Favorite";
 import Library from "../pages/layouts/Library";
 import StudyLevel from "../pages/layouts/StudyLevel";
 import Programs from "../pages/layouts/Programs";
-import Setting from "../pages/layouts/Setting"
+import Setting from "../pages/layouts/Setting";
 import NotFound from "../pages/404";
 import Unauthorized from "../pages/Unauthorized";
 
@@ -49,21 +49,21 @@ export const routes = [
                 path: "/admin",
                 element: <Admin />,
                 children: [
-                  { path: "/admin", element: <Dashboard/> },
+                  { path: "/admin", element: <Dashboard /> },
                   {
                     path: "courses",
                     element: <Course />,
                     children: [
-                      { index: true, element: <Content/> },
-                      { path: "reading", element: <Reading/> },
+                      { index: true, element: <Content /> },
+                      { path: "reading/:param1/:param2", element: <Reading /> },
                     ],
                   },
-                  { path: "favorite", element: <Favorite/> },
-                  { path: "library", element: <Library/> },
-                  { path: "levels", element: <StudyLevel/> },
-                  { path: "programs", element: <Programs/> },
+                  { path: "favorite", element: <Favorite /> },
+                  { path: "library", element: <Library /> },
+                  { path: "levels", element: <StudyLevel /> },
+                  { path: "programs", element: <Programs /> },
                   { path: "users", element: <p>Users</p> },
-                  { path: "settings", element: <Setting/> },
+                  { path: "settings", element: <Setting /> },
                 ],
               },
             ],
@@ -75,18 +75,18 @@ export const routes = [
                 path: "/student",
                 element: <Student />,
                 children: [
-                  { path: "/student", element: <Dashboard/> },
+                  { path: "/student", element: <Dashboard /> },
                   {
                     path: "courses",
                     element: <Course />,
                     children: [
-                      { index: true, element: <Content/> },
-                      { path: "reading", element: <Reading/> },
+                      { index: true, element: <Content /> },
+                      { path: "reading/:param1", element: <Reading /> },
                     ],
                   },
-                  { path: "favorite", element: <Favorite/> },
-                  { path: "library", element: <Library/> },
-                  { path: "settings", element: <Setting/> },
+                  { path: "favorite", element: <Favorite /> },
+                  { path: "library", element: <Library /> },
+                  { path: "settings", element: <Setting /> },
                 ],
               },
             ],

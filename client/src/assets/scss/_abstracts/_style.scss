@@ -771,9 +771,19 @@ body {
       width: 100%;
       height: auto;
       max-height: calc(100% - 50px);
-      display: flex;
-      flex-wrap: wrap;
       overflow-y: auto;
+      .t-1{
+        font-size: $size-2;
+      }
+      .course-content-container {
+        width: 100%;
+        margin-bottom: $size-105;
+      }
+      .course-content-item {
+        width: 100%;
+        display: flex;
+        flex-wrap: wrap;
+      }
     }
     .course-reading {
       width: 100%;
@@ -844,6 +854,14 @@ body {
           height: calc(100% - 30px - 40px);
           display: flex;
           flex-direction: column;
+          .button{
+            background-color: $white-color;
+            color: $grey-color-1;
+            text-align: left;
+            &:hover{
+              background-color: $grey-color-3;
+            }
+          }
           .link {
             @include margin($size-04 0);
             @include padding($size-03 0);
@@ -914,6 +932,20 @@ body {
             font-size: $size-107;
             text-align: justify;
           }
+          .reading-content-text{
+            width: 100%;
+          }
+          .reading-content-images{
+            width: 100%;
+            display: flex;
+            justify-content: center;
+
+            img{
+              width: 300px;
+              height: 200px;
+              margin: $size-07;
+            }
+          }
         }
         .outer {
           position: absolute;
@@ -933,6 +965,13 @@ body {
           flex-direction: column;
           img {
             margin-bottom: $size-105;
+          }
+          .t-3{
+            @include padding($size-105);
+            background-color: $grey-color-2;
+            border: 1px solid $color-4;
+            border-radius: $size-04;
+            font-size: $size-1;
           }
         }
       }
@@ -1155,6 +1194,10 @@ body {
             }
             .fl-country {
               width: 100%;
+              display: block;
+            }
+            .fl-country-item {
+              width: 100%;
               border-bottom: 1px solid $grey-color-3;
               margin-bottom: $size-05;
             }
@@ -1174,12 +1217,12 @@ body {
             .fl-lessons {
               width: 100%;
             }
-            .fl-level-item{
+            .fl-level-item {
               margin-bottom: $size-2;
-              .t-3{
+              .t-3 {
                 color: $color-1;
               }
-              .t-2{
+              .t-2 {
                 color: $gold-color;
               }
             }
@@ -1223,41 +1266,130 @@ body {
                 background-color: $red-color !important;
               }
             }
-            // .fl-item {
-            //   width: 32%;
-            //   border: 1px solid $grey-color-2;
-            //   border-radius: $size-05;
-            //   margin: $size-07;
-            //   padding: $size-05;
-            //   .fl-actions {
-            //     display: flex;
-            //     justify-content: center;
-            //     .button {
-            //       border-radius: $size-03;
-            //       color: $white-color;
-            //       margin: 0 $size-03;
-            //       &:first-child {
-            //         background-color: $color-1;
-            //       }
-            //       &:nth-child(2) {
-            //         background-color: $color-2;
-            //       }
-            //       &:nth-child(3) {
-            //         background-color: $color-4;
-            //       }
-            //       &:hover {
-            //         background-color: $grey-color-2;
-            //         color: $black-color;
-            //       }
-            //     }
-            //     .activated {
-            //       background-color: $green-color !important;
-            //     }
-            //     .desactivated {
-            //       background-color: $red-color !important;
-            //     }
-            //   }
-            // }
+          }
+        }
+        .fragment-exercise {
+          width: 100%;
+          height: 100%;
+          display: block;
+          @include padding($size-07);
+          .fl-filter {
+            width: 100%;
+            height: 100px;
+            display: block;
+            .section-1,
+            .section-2 {
+              width: 100%;
+              display: flex;
+              justify-content: space-between;
+              margin-bottom: $size-1;
+              .input-div {
+                margin: 0;
+              }
+            }
+            .section-1 {
+              .input-div {
+                width: 95%;
+              }
+              .button {
+                border-radius: $size-04;
+                color: $white-color;
+              }
+            }
+            .section-2 {
+              .input-div {
+                width: 32%;
+              }
+            }
+          }
+          .fl-container {
+            width: 100%;
+            height: auto;
+            max-height: calc(100% - 100px);
+            overflow-y: auto;
+            display: flex;
+            flex-wrap: wrap;
+            .t-1 {
+              color: $grey-color-1;
+              font-size: $size-105;
+            }
+            .t-2 {
+              color: $grey-color-1;
+              font-size: $size-1;
+            }
+            .t-3 {
+              font-size: $size-09;
+            }
+            .t-4 {
+              font-size: $size-07;
+            }
+            .fl-country {
+              width: 100%;
+              display: block;
+            }
+            .fl-country-item {
+              width: 100%;
+              border-bottom: 1px solid $grey-color-3;
+              margin-bottom: $size-05;
+            }
+            .fl-programs {
+              width: 100%;
+              display: flex;
+              flex-direction: column;
+            }
+            .fl-program-item {
+              width: 100%;
+              display: block;
+            }
+            .fl-courses {
+              width: 100%;
+              display: block;
+            }
+            .fl-course-item {
+              width: 100%;
+            }
+            .fl-exercises,
+            .fl-solutions {
+              width: 100%;
+              display: flex;
+              flex-wrap: wrap;
+            }
+            .fl-exercise-item,
+            .fl-solution-item {
+              width: 24%;
+              margin: $size-05;
+              border-left: 1px solid $grey-color-2;
+              @include padding($size-05);
+            }
+            .fl-actions {
+              display: flex;
+              justify-content: center;
+              .button {
+                border-radius: $size-03;
+                color: $white-color;
+                font-size: $size-07;
+                margin: 0 $size-03;
+                &:first-child {
+                  background-color: $color-1;
+                }
+                &:nth-child(2) {
+                  background-color: $color-2;
+                }
+                &:nth-child(3) {
+                  background-color: $color-4;
+                }
+                &:hover {
+                  background-color: $grey-color-2;
+                  color: $black-color;
+                }
+              }
+              .activated {
+                background-color: $green-color !important;
+              }
+              .desactivated {
+                background-color: $red-color !important;
+              }
+            }
           }
         }
         .add-content {
@@ -1418,6 +1550,35 @@ body {
                     }
                   }
                 }
+              }
+            }
+          }
+        }
+        .preview-component {
+          width: 60%;
+          height: auto;
+          max-height: 100%;
+          margin: auto;
+          overflow: auto;
+          @include padding($size-05 0);
+          .pc-container {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            .pc-item {
+              width: 100%;
+              display: flex;
+              flex-direction: column;
+            }
+            .pc-images {
+              width: 100%;
+              display: flex;
+              justify-content: center;
+              margin-bottom: $size-07;
+              img {
+                width: 300px;
+                height: 150px;
+                margin: $size-07;
               }
             }
           }

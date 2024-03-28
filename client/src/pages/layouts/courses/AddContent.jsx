@@ -71,7 +71,7 @@ const AddContent = () => {
     await wait(300);
     //
     const formData = new FormData();
-    let course_id = "";
+    let key_id = "";
     let title = "";
     let type = "";
     let language = "";
@@ -93,7 +93,7 @@ const AddContent = () => {
           `${sectionUploadItem?.section}#${newFile?.name}`
         );
       });
-      course_id = sectionUploadItem?.keyId;
+      key_id = sectionUploadItem?.keyId;
       title = sectionUploadItem?.title;
       type = sectionUploadItem?.type;
       language = sectionUploadItem?.language;
@@ -101,7 +101,7 @@ const AddContent = () => {
       formData.append("thumbnails", sectionUploadItem?.thumbnail);
     });
     //
-    formData.append("course_id", course_id);
+    formData.append("key_id", key_id); // key_id : course_id/ lesson_id/ exercise_id/ solution_id
     formData.append("title", title);
     formData.append("type", type);
     formData.append("language", language);
@@ -146,15 +146,19 @@ const AddContent = () => {
     <div className="add-content">
       <div className="add-content-head">
         <h2 className="title t-1">
-          Adding new{" "}
+          Adding New{" "}
           {keys.keyTitle === "isLesson"
-            ? "lesson"
+            ? "Lesson"
             : keys.keyTitle === "isExercise"
-            ? "exercise"
-            : "solution"}
+            ? "Exercise"
+            : "Solution"}
         </h2>
         <p className="title t-3">
-          Course and Level : {keys.keyDetails + " / " + keys.keyLevel}
+          {keys.keyTitle === "isLesson"
+            ? `Course and Level : ${keys.keyDetails + " / " + keys.keyLevel}`
+            : keys.keyTitle === "isExercise"
+            ? `Course/ Lesson/ Level : ${keys.keyCourse + " / " + keys.keyDetails + " / " + keys.keyLevel}`
+            : `Course/ Lesson/ Exercise/ Level : ${keys.keyCourse + " / " + keys.keyLesson + " / " + keys.keyDetails + " / " + keys.keyLevel}`}
         </p>
         <p className="title t-3">Program : {keys.keyProgram}</p>
         <p className="title t-3">Country : {keys.keyCountry}</p>

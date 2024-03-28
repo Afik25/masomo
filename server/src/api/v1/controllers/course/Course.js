@@ -4,6 +4,7 @@ const Course = require("../../models/course/Course");
 const Lesson = require("../../models/course/Lesson");
 const Exercice = require("../../models/course/Exercice");
 const Solution = require("../../models/course/Solution");
+const Section = require("../../models/course/Section");
 const { Op } = require("sequelize");
 
 module.exports = {
@@ -103,23 +104,21 @@ module.exports = {
       var _programsLevels = [];
       var _levelsCourses = [];
       for (let i = 0; i < programs.length; i++) {
-        const _levels = levels.filter(
-          (el) => el.program_id == programs[i].id
-        );
+        const _levels = levels.filter((el) => el.program_id == programs[i].id);
 
         for (let j = 0; j < _levels.length; j++) {
           const _getCourses = courses.filter(
             (el) => el.level_id == _levels[j].id
           );
-          _levelsCourses.push({level:_levels[j], courses:_getCourses});
+          _levelsCourses.push({ level: _levels[j], courses: _getCourses });
         }
         _programsLevels.push({
-          program_id:programs[i].id, 
-          program_title:programs[i].title,
-          program_language:programs[i].language,
-          levels: _levelsCourses
-        })
-        
+          program_id: programs[i].id,
+          program_title: programs[i].title,
+          program_language: programs[i].language,
+          levels: _levelsCourses,
+        });
+
         const isFound = customizedCourses?.some((element) => {
           if (element.country === programs[i].country) {
             return true;
@@ -128,7 +127,9 @@ module.exports = {
         });
         //
         if (isFound) {
-          const objIndex = customizedCourses.findIndex(element => element.country === programs[i].country);
+          const objIndex = customizedCourses.findIndex(
+            (element) => element.country === programs[i].country
+          );
           customizedCourses[objIndex].content.push(..._programsLevels);
         } else {
           customizedCourses.push({
@@ -136,8 +137,8 @@ module.exports = {
             content: _programsLevels,
           });
         }
-        _programsLevels = []
-        _levelsCourses = []
+        _programsLevels = [];
+        _levelsCourses = [];
       }
       // sort the customized courses
       const _customizedCourses = customizedCourses.sort((a, b) => {
@@ -153,6 +154,97 @@ module.exports = {
       });
     } catch (error) {
       console.log({ "catch error get customized course ": error });
+    }
+  },
+  async getCustomizedByLevels(req, res) {
+    try {
+      const levels = await Level.findAll();
+      const courses = await Course.findAll();
+      const lessons = await Lesson.findAll();
+      const exercises = await Exercice.findAll();
+      const solutions = await Solution.findAll();
+      const sections = await Section.findAll();
+      if (levels == "" || levels == null || courses == "" || courses == null) {
+        return res.status(200).json({
+          status: 0,
+          length: 0,
+          message: "No information about course available yet.",
+        });
+      }
+      var _levels = [];
+      var _courses = [];
+      var _lessons = [];
+      var _exercises = [];
+      var _solutions = [];
+      //
+      var totalLessons = 0;
+      var totalExercises = 0;
+
+      for (let i = 0; i < levels.length; i++) {
+        const _getCourses = courses.filter((el) => el.level_id == levels[i].id);
+        for (let j = 0; j < _getCourses.length; j++) {
+          const _getLessons = lessons.filter(
+            (el) => el.course_id == _getCourses[j].id
+          );
+          totalLessons = _getLessons.length;
+          for (let k = 0; k < _getLessons.length; k++) {
+            const _getExercises = exercises.filter(
+              (el) => el.lesson_id == _getLessons[k].id
+            );
+            totalExercises = totalExercises + _getExercises.length;
+            const _getSectionLessons = sections.filter(
+              (el) => el.lesson_id == _getLessons[k].id
+            );
+            for (let l = 0; l < _getExercises.length; l++) {
+              const _getSolutions = solutions.filter(
+                (el) => el.exercise_id == _getExercises[l].id
+              );
+              const _getSectionExercises = sections.filter(
+                (el) => el.exercise_id == _getExercises[l].id
+              );
+              for (let m = 0; m < _getSolutions.length; m++) {
+                const _getSectionSolutions = sections.filter(
+                  (el) => el.solution_id == _getSolutions[m].id
+                );
+                _solutions.push({
+                  solution: _getSolutions[m],
+                  solution_sections: _getSectionSolutions,
+                });
+              }
+              _exercises.push({
+                exercise: _getExercises[l],
+                execise_sections: _getSectionExercises,
+                exercise_solutions: _solutions,
+              });
+              _solutions = [];
+            }
+            _lessons.push({
+              lesson: _getLessons[k],
+              lesson_sections: _getSectionLessons,
+              lesson_exercises: _exercises,
+            });
+            _exercises = [];
+          }
+          _courses.push({
+            course: _getCourses[j],
+            total_lessons: totalLessons,
+            total_exercises: totalExercises,
+            course_lessons: _lessons,
+          });
+          _lessons = [];
+          totalLessons = 0;
+          totalExercises = 0;
+        }
+        _levels.push({ level: levels[i], level_courses: _courses });
+        _courses = [];
+      }
+      return res.status(200).json({
+        status: 1,
+        length: _levels.length,
+        customizedCoursesByLevels: _levels,
+      });
+    } catch (error) {
+      console.log({ "catch error get customized course by levels ": error });
     }
   },
   async getAll(req, res) {
@@ -304,7 +396,9 @@ module.exports = {
         }) is not updated.`,
       });
     } catch (error) {
-      console.log({ "Error update activation/desactivation process of course ": error });
+      console.log({
+        "Error update activation/desactivation process of course ": error,
+      });
     }
   },
   async delete(req, res) {

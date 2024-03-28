@@ -10,7 +10,7 @@ module.exports = {
   async create(req, res) {
     try {
       const {
-        course_id,
+        key_id,
         title,
         type,
         language,
@@ -21,19 +21,19 @@ module.exports = {
 
       const check_lesson = await Lesson.findOne({
         where: {
-          [Op.and]: [{ title: title.toLowerCase() }, { course_id: course_id }],
+          [Op.and]: [{ title: title.toLowerCase() }, { course_id: key_id }],
         },
       });
       //
       if (isEmpty(check_lesson)) {
         const course_count = await Lesson.count({
-          where: { course_id: course_id },
+          where: { course_id: key_id },
         });
 
         var code =
           "MCL" +
-          course_id +
-          course_count +
+          key_id +
+          (course_count + 1) +
           "-" +
           (new Date().getMonth() + 1) +
           "" +
@@ -42,7 +42,7 @@ module.exports = {
           new Date().getSeconds();
 
         const lesson = await Lesson.create({
-          course_id,
+          course_id: key_id,
           code,
           title,
           type,
@@ -51,18 +51,21 @@ module.exports = {
           description,
         });
 
-        for (let idx = 0; idx < thumbnails.length; idx++) {
+        const _thumbnails = typeof thumbnails === "string" ? [`${thumbnails}`] : thumbnails
+        for (let idx = 0; idx < _thumbnails.length; idx++) {
           var _fileSectionNames = [];
-          for (let j = 0; j < fileSectionNames.length; j++) {
-            const section_number = fileSectionNames[j].split("#")[0];
-            const section_file = fileSectionNames[j].split("#")[1];
-            if (section_number == idx) {
-              _fileSectionNames.push(section_file);
+          if (!isEmpty(fileSectionNames)) {
+            for (let j = 0; j < fileSectionNames.length; j++) {
+              const section_number = fileSectionNames[j].split("#")[0];
+              const section_file = fileSectionNames[j].split("#")[1];
+              if (section_number == idx) {
+                _fileSectionNames.push(section_file);
+              }
             }
           }
           await Section.create({
             lesson_id: lesson?.id,
-            description: thumbnails[idx],
+            description: _thumbnails[idx],
             thumbnails: `[${_fileSectionNames}]`,
           });
           _fileSectionNames = [];
@@ -70,7 +73,7 @@ module.exports = {
 
         return res.status(200).json({
           status: 1,
-          message: `Lessons ${title.toUpperCase()} saved successfully`,
+          message: `Lesson related to ${title.toUpperCase()} saved successfully`,
           lesson,
         });
       }
@@ -126,9 +129,11 @@ module.exports = {
           message: "No information about lessons available.",
         });
       }
-      const customizedCourses = [];
-      var _programsLevels = [];
-      var _levelsCourses = [];
+      const customizedLessons = [];
+      var _programsTabs = [];
+      var _levelsTab = [];
+      var _coursesTab = [];
+      var _lessonsTab = [];
       for (let i = 0; i < programs.length; i++) {
         const _levels = levels.filter((el) => el.program_id == programs[i].id);
 
@@ -136,16 +141,38 @@ module.exports = {
           const _getCourses = courses.filter(
             (el) => el.level_id == _levels[j].id
           );
-          _levelsCourses.push({ level: _levels[j], courses: _getCourses });
+
+          for (let k = 0; k < _getCourses.length; k++) {
+            const _getLessons = lessons.filter(
+              (el) => el.course_id == _getCourses[k].id
+            );
+
+            for (let l = 0; l < _getLessons.length; l++) {
+              const _getSections = sections.filter(
+                (el) => el.lesson_id == _getLessons[l].id
+              );
+              _lessonsTab.push({
+                lesson: _getLessons[l],
+                lesson_sections: _getSections,
+              });
+            }
+            _coursesTab.push({
+              course: _getCourses[k],
+              course_lessons: _lessonsTab,
+            });
+            _lessonsTab = [];
+          }
+          _levelsTab.push({ level: _levels[j], level_courses: _coursesTab });
+          _coursesTab = [];
         }
-        _programsLevels.push({
+        _programsTabs.push({
           program_id: programs[i].id,
           program_title: programs[i].title,
           program_language: programs[i].language,
-          levels: _levelsCourses,
+          levels: _levelsTab,
         });
 
-        const isFound = customizedCourses?.some((element) => {
+        const isFound = customizedLessons?.some((element) => {
           if (element.country === programs[i].country) {
             return true;
           }
@@ -153,21 +180,21 @@ module.exports = {
         });
         //
         if (isFound) {
-          const objIndex = customizedCourses.findIndex(
+          const objIndex = customizedLessons.findIndex(
             (element) => element.country === programs[i].country
           );
-          customizedCourses[objIndex].content.push(..._programsLevels);
+          customizedLessons[objIndex].content.push(..._programsTabs);
         } else {
-          customizedCourses.push({
+          customizedLessons.push({
             country: programs[i].country,
-            content: _programsLevels,
+            content: _programsTabs,
           });
         }
-        _programsLevels = [];
-        _levelsCourses = [];
+        _programsTabs = [];
+        _levelsTab = [];
       }
-      // sort the customized courses
-      const _customizedCourses = customizedCourses.sort((a, b) => {
+      // sort the customized lessons
+      const _customizedLessons = customizedLessons.sort((a, b) => {
         if (a.country < b.country) return -1;
         if (a.country > b.country) return 1;
 
@@ -175,11 +202,11 @@ module.exports = {
       });
       return res.status(200).json({
         status: 1,
-        length: _customizedCourses.length,
-        customizedCourses: _customizedCourses,
+        length: _customizedLessons.length,
+        customizedLessons: _customizedLessons,
       });
     } catch (error) {
-      console.log({ "catch error get customized course ": error });
+      console.log({ "Error get customized lessons ": error });
     }
   },
   async getByKey(req, res) {
@@ -233,6 +260,32 @@ module.exports = {
       });
     } catch (error) {
       console.log({ "catch error update lesson ": error });
+    }
+  },
+  async activation(req, res) {
+    try {
+      const { id, status } = req.body;
+
+      const course = await Lesson.update(
+        { status: status === 1 ? 0 : 1 },
+        { where: { id: id } }
+      );
+
+      if (course) {
+        return res.status(200).json({
+          status: 1,
+          message: `The related lesson's status is successfully updated.`,
+          course,
+        });
+      }
+      return res.status(400).json({
+        status: 0,
+        message: `The related lesson's status (${
+          status === 1 ? "desactivation" : "activation"
+        }) is not updated.`,
+      });
+    } catch (error) {
+      console.log({ "Error update activation/desactivation process of lesson ": error });
     }
   },
   async delete(req, res) {

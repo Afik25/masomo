@@ -50,11 +50,40 @@ router
   .post("/courses/activation", Course.activation)
   .get("/courses", Course.get);
 router.get("/courses/customized", Course.getCustomized);
+router.get("/courses/customized/by/levels", Course.getCustomizedByLevels);
 router.get("/courses/all", Course.getAll);
 //
 // Lesson
-router.post("/lessons", uploadFiles.upload.array("thumbnailsImages"), Lesson.create).get("/lessons", Lesson.get);
-router.post("/exercises", Exercice.create).get("/exercises", Exercice.get);
-router.post("/solutions", Solution.create).get("/solutions", Solution.get);
+router
+  .post(
+    "/courses/lessons",
+    uploadFiles.upload.array("thumbnailsImages"),
+    Lesson.create
+  )
+  .post("/courses/lessons/activation", Lesson.activation)
+  .get("/courses/lessons", Lesson.get);
+router.get("/courses/lessons/customized", Lesson.getCustomized);
+//
+// Exercises
+router
+  .post(
+    "/courses/lessons/exercises",
+    uploadFiles.upload.array("thumbnailsImages"),
+    Exercice.create
+  )
+  .post("/courses/lessons/exercises/activation", Exercice.activation)
+  .get("/courses/lessons/exercises", Exercice.get);
+router.get("/courses/lessons/exercises/customized", Exercice.getCustomized);
+//
+// Solutions
+router
+  .post(
+    "/courses/lessons/exercises/solutions",
+    uploadFiles.upload.array("thumbnailsImages"),
+    Solution.create
+  )
+  .post("/courses/lessons/exercises/solutions/activation", Solution.activation)
+  .get("/courses/lessons/exercises/solutions", Solution.get);
+router.get("/courses/lessons/exercises/solutions/customized", Solution.getCustomized);
 
 module.exports = router;

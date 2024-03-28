@@ -1,6 +1,7 @@
 import {
   COURSES,
   COURSES_CUSTOMIZED,
+  COURSES_CUSTOMIZED_BY_LEVELS,
   COURSES_ACTIVATION,
   LESSONS,
   EXERCISES,
@@ -45,6 +46,20 @@ export function getCustomizedCourses(axiosPrivate, signal) {
   return new Promise(async (resolve, reject) => {
     await axiosPrivate
       .get(COURSES_CUSTOMIZED, {
+        signal: signal,
+      })
+      .then((response) => {
+        resolve(response);
+      })
+      .catch((error) => {
+        reject(error);
+      });
+  });
+}
+export function getCustomizedCoursesByLevels(axiosPrivate, signal) {
+  return new Promise(async (resolve, reject) => {
+    await axiosPrivate
+      .get(COURSES_CUSTOMIZED_BY_LEVELS, {
         signal: signal,
       })
       .then((response) => {

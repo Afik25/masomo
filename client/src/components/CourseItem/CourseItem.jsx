@@ -11,7 +11,7 @@ const CourseItem = ({ to, courseTitle, totalLessons, totalExercises }) => {
       </div>
       <div className="outer fade-in">
         <p className="title t-3">
-          {totalLessons} lessons & {totalExercises} exercises
+          {totalLessons} {totalLessons > 0 ? " lessons":" lesson"} & {totalExercises} {totalExercises > 0 ? " exercises":" exercise"}
         </p>
       </div>
     </Link>

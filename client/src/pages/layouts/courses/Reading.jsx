@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { NavLink } from "../../../routes/NavLink";
 import {
   FaArrowLeft,
@@ -11,10 +11,20 @@ import {
   MdList,
 } from "../../../middlewares/icons";
 import PREMUIM from "../../../assets/svg/premium.png";
+import { isEmpty, capitalize } from "../../../utils/utils";
 
 const Reading = () => {
   const [isLesson, setIsLesson] = useState(true);
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
+  let { param1, param2 } = useParams();
+  const [content, setContent] = useState({
+    index: 0,
+    type: null,
+    details: null,
+  });
+
+  console.log({ "JSON.parse(param2) ": JSON.parse(param2) });
+
   return (
     <div className="course-reading">
       <div className="left" style={{ zIndex: `${isDrawerOpen ? 1 : 0}` }}>
@@ -22,7 +32,7 @@ const Reading = () => {
           <Link to="" className="link">
             <FaArrowLeft className="icon" />
           </Link>
-          <h3 className="title t-2">Cours's title</h3>
+          <h3 className="title t-2">Course of {capitalize(param1)}</h3>
           <Link to="" className="link">
             <FaArrowRight className="icon" />
           </Link>
@@ -42,63 +52,77 @@ const Reading = () => {
               Exercices
             </button>
           </div>
-          <button className="button btn-close" onClick={() => setIsDrawerOpen(!isDrawerOpen)}>&times;</button>
+          <button
+            className="button btn-close"
+            onClick={() => setIsDrawerOpen(!isDrawerOpen)}
+          >
+            &times;
+          </button>
         </div>
         <div className="reading-content">
           {isLesson && (
             <>
-              <NavLink
-                activeClassName="active-reading"
-                inactiveClassName="inactive-reading"
-                className="link"
-                to=""
-              >
-                lessons title
-              </NavLink>
-              <NavLink
-                activeClassName="active-reading"
-                inactiveClassName="inactive-reading"
-                className="link"
-                to=""
-              >
-                lessons title
-              </NavLink>
-              <NavLink
-                activeClassName="active-reading"
-                inactiveClassName="inactive-reading"
-                className="link"
-                to=""
-              >
-                lessons title
-              </NavLink>
+              {isEmpty(JSON.parse(param2)) ? (
+                <p
+                  className="title t-2"
+                  style={{ padding: "1em", textAlign: "center", color: "red" }}
+                >
+                  No lesson for {param1} course available yet!
+                </p>
+              ) : (
+                JSON.parse(param2).map((itemLesson, i) => {
+                  return (
+                    <button
+                      key={i}
+                      className={
+                        content.index == i ? "button active-reading" : "button"
+                      }
+                      onClick={() =>
+                        setContent({
+                          index: i,
+                          type: itemLesson?.lesson?.type,
+                          details: itemLesson?.lesson_sections,
+                        })
+                      }
+                    >
+                      {itemLesson?.lesson?.title}
+                    </button>
+                  );
+                })
+              )}
             </>
           )}
           {!isLesson && (
             <>
-              <NavLink
-                activeClassName="active-reading"
-                inactiveClassName="inactive-reading"
-                className="link"
-                to=""
-              >
-                exercise title 1
-              </NavLink>
-              <NavLink
-                activeClassName="active-reading"
-                inactiveClassName="inactive-reading"
-                className="link"
-                to=""
-              >
-                exercise title 2
-              </NavLink>
-              <NavLink
-                activeClassName="active-reading"
-                inactiveClassName="inactive-reading"
-                className="link"
-                to=""
-              >
-                exercise title 3
-              </NavLink>
+              {isEmpty(JSON.parse(param2)) ? (
+                <p
+                  className="title t-2"
+                  style={{ padding: "1em", textAlign: "center", color: "red" }}
+                >
+                  No exercise for {param1} course available yet!
+                </p>
+              ) : (
+                JSON.parse(param2).map((itemLesson, _) => {
+                  return (
+                    <>
+                      {!isEmpty(itemLesson?.lesson_exercises) &&
+                        itemLesson?.lesson_exercises.map((exerciseItem, j) => {
+                          return (
+                            <NavLink
+                              activeClassName="active-reading"
+                              inactiveClassName="inactive-reading"
+                              className="link"
+                              to=""
+                              key={j}
+                            >
+                              {exerciseItem?.exercise?.title}
+                            </NavLink>
+                          );
+                        })}
+                    </>
+                  );
+                })
+              )}
             </>
           )}
         </div>
@@ -132,6 +156,31 @@ const Reading = () => {
             </div>
           </div>
           <div className="reading-content">
+            {/* {content.details.map((itemReading, k) => {
+              const _thumbs = itemReading?.thumbnails
+                ?.substring(1, itemReading?.thumbnails.length - 1)
+                .split(",");
+              return (
+                <>
+                  <div className="reading-content-text" key={k}>
+                    {itemReading?.description}
+                  </div>
+                  <div className="reading-content-images">
+                    {!isEmpty(_thumbs) &&
+                      _thumbs.map((element, l) => {
+                        return (
+                          <img
+                            src={`${process.env.REACT_APP_API_SERVER_URL}:${process.env.REACT_APP_API_SERVER_PORT}/images/${element}`}
+                            alt={element}
+                            key={l}
+                          />
+                        );
+                      })
+                    }
+                  </div>
+                </>
+              );
+            })} */}
             What is Lorem Ipsum? Lorem Ipsum is simply dummy text of the
             printing and typesetting industry. Lorem Ipsum has been the
             industry's standard dummy text ever since the 1500s, when an unknown
@@ -159,19 +208,12 @@ const Reading = () => {
             going through the cites of the word in classical literature,
             discovered the undoubtable source. Lorem Ipsum comes from sections
             1.10.32 and 1.10.33 of "de Finibus Bonorum et Malorum" (The Extremes
-            of Good and Evil) by Cicero, written in 45 BC. This book is a
-            treatise on the theory of ethics, very popular during the
-            Renaissance. The first line of Lorem Ipsum, "Lorem ipsum dolor sit
-            amet..", comes from a line in section 1.10.32. The standard chunk of
-            Lorem Ipsum used since the 1500s is reproduced below for those
-            interested. Sections 1.10.32 and 1.10.33 from "de Finibus Bonorum et
-            Malorum" by Cicero are also reproduced in their exact original form,
-            accompanied by English versions from the 1914 translation by H.
-            Rackham
+            of Good and Evil) by Cicero, written in 45 BC.
           </div>
         </div>
         <div className="outer">
           <img src={PREMUIM} alt="premuim" />
+          <h2 className="title t-2">This is the premium content.</h2>
           <p className="title t-3">
             The content required the subscription to date!
           </p>
