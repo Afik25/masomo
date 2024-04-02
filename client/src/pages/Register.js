@@ -65,7 +65,7 @@ const Register = () => {
   return (
     <React.Fragment>
       <Helmet>
-        <title>MASOMO - Inscription.</title>
+        <title>MASOMO - {t("register.text-1")}</title>
         <meta
           name="description"
           content="Inscrivez-vous afin d'Étudier avec le contenu éducatif de qualité basé sur le programme d'étude national relatif à chaque niveau."
@@ -88,11 +88,8 @@ const Register = () => {
             <ControlLanguage />
           </div>
           <form onSubmit={handleSubmit(onSubmit)} className="body m-auto">
-            <h1 className="title t-1">Register now!</h1>
-            <p className="title t-2">
-              The information will be filled in at the first login. And it can
-              also be completed at any time.
-            </p>
+            <h1 className="title t-1">{t("register.text-1")}</h1>
+            <p className="title t-2">{t("register.text-2")}</p>
             <div className={classNameMsg}>
               <span>{responseMessage}</span>
             </div>
@@ -108,7 +105,7 @@ const Register = () => {
                       {...register("prename")}
                     />
                     <label htmlFor="prename" className="label-form">
-                      {t("user.prename")}
+                      {t("register.text-3")}
                     </label>
                     {errors.prename && (
                       <span className="fade-in">{errors.prename.message}</span>
@@ -125,7 +122,7 @@ const Register = () => {
                       {...register("name")}
                     />
                     <label htmlFor="name" className="label-form">
-                      {t("user.name")}
+                      {t("register.text-4")}
                     </label>
                     {errors.name && (
                       <span className="fade-in">{errors.name.message}</span>
@@ -143,7 +140,7 @@ const Register = () => {
                   {...register("username")}
                 />
                 <label htmlFor="username" className="label-form">
-                  {t("component.username")}
+                  {t("register.text-5")}
                 </label>
                 {errors.username && (
                   <span className="fade-in">{errors.username.message}</span>
@@ -158,7 +155,7 @@ const Register = () => {
                   {...register("password")}
                 />
                 <label htmlFor="password" className="label-form">
-                  Password
+                  {t("register.text-6")}
                 </label>
                 <label htmlFor="password" className="label-icon">
                   {showPwd ? (
@@ -186,7 +183,7 @@ const Register = () => {
                   {...register("confirm_password")}
                 />
                 <label htmlFor="confirm_password" className="label-form">
-                  Confirm password
+                  {t("register.text-7")}
                 </label>
                 <label htmlFor="confirm_password" className="label-icon">
                   {showPwd ? (
@@ -235,16 +232,16 @@ const Register = () => {
               type={isSending ? "button" : "submit"}
               className={isSending ? "button normal" : "button validate"}
             >
-              {isSending ? "Register..." : "Sign Up"}
+              {isSending ? "Inscription..." : t("register.text-8")}
             </button>
           </form>
           <div
             className="foot width display-flex justify-content-center align-items-center"
             style={{ marginTop: "0.60rem" }}
           >
-            <span>Are you already registred ?</span>
+            <span>{t("register.text-9")}</span>
             <Link to="/login" className="link">
-              Sign In
+              {t("register.text-10")}
             </Link>
           </div>
         </div>
@@ -265,7 +262,7 @@ const Register = () => {
               />
             </div>
             <p className="title t-1">
-              Take your registration and study at your own pace, and learn more!
+              {t("register.text-11")}
             </p>
             <img
               src={process.env.PUBLIC_URL + "/register.png"}
@@ -275,7 +272,7 @@ const Register = () => {
           </div>
           <div className="foot">
             <span>
-              &copy; {new Date().getFullYear()} MASOMO. All right reserved.
+              &copy; {new Date().getFullYear()} MASOMO. {t("register.text-12")}
             </span>
           </div>
         </div>

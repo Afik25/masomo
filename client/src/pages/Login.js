@@ -63,7 +63,7 @@ const Login = () => {
   return (
     <React.Fragment>
       <Helmet>
-        <title>MASOMO - Sign In.</title>
+        <title>MASOMO - {t("login.text-6")}</title>
         <meta
           name="description"
           content="Connectez-vous afin d'Étudier avec le contenu éducatif de qualité basé sur le programme d'étude national relatif à chaque niveau."
@@ -86,8 +86,8 @@ const Login = () => {
             <ControlLanguage />
           </div>
           <form className="body m-auto" onSubmit={handleSubmit(onSubmit)}>
-            <h1 className="title t-1">Hey, welcome back!</h1>
-            <p className="title t-2">Please enter your details to log in...</p>
+            <h1 className="title t-1">{t("login.text-1")}</h1>
+            <p className="title t-2">{t("login.text-2")}</p>
             <div className={classNameMsg}>
               <span>{responseMessage}</span>
             </div>
@@ -100,7 +100,7 @@ const Login = () => {
                 {...register("username")}
               />
               <label htmlFor="username" className="label-form">
-                Nom d'utilisateur ou E-mail ou Téléphone
+                {t("login.text-3")}
               </label>
               {errors.username && (
                 <span className="fade-in">{errors.username.message}</span>
@@ -115,7 +115,7 @@ const Login = () => {
                 {...register("password")}
               />
               <label htmlFor="password" className="label-form">
-                Mot de passe
+                {t("login.text-4")}
               </label>
               <label htmlFor="password" className="label-icon">
                 {showPwd ? (
@@ -139,20 +139,20 @@ const Login = () => {
               style={{ marginBottom: "0.7rem" }}
             >
               <Link to="" className="link">
-                Mot de passe oublié ?
+                {t("login.text-5")}
               </Link>
             </div>
             <button
               type={isSending ? "button" : "submit"}
               className={isSending ? "button normal" : "button validate"}
             >
-              {isSending ? "Connexion..." : "Sign in"}
+              {isSending ? "Connexion..." : t("login.text-6")}
             </button>
           </form>
           <div className="foot display-flex justify-content-center align-items-center">
-            <span>Don't you have an account yet?</span>
+            <span>{t("login.text-7")}</span>
             <Link to="/register" className="link">
-              Sign Up at
+              {t("login.text-8")}
             </Link>
           </div>
         </div>
@@ -172,9 +172,7 @@ const Login = () => {
                 className="image"
               />
             </div>
-            <p className="title t-1">
-              L'école à votre portée, quand vous voulez, où vous voulez!
-            </p>
+            <p className="title t-1">{t("login.text-9")}</p>
             <img
               src={process.env.PUBLIC_URL + "/pic-1.png"}
               alt="login-banner"
@@ -183,7 +181,7 @@ const Login = () => {
           </div>
           <div className="foot">
             <span>
-              &copy; {new Date().getFullYear()} MASOMO. {t("login.text-8")}
+              &copy; {new Date().getFullYear()} MASOMO. {t("login.text-10")}
             </span>
           </div>
         </div>

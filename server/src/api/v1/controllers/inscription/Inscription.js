@@ -2,10 +2,10 @@ const User = require("../../models/inscription/User");
 const Inscription = require("../../models/inscription/Inscription");
 const Subscription = require("../../models/subscription/Subscription");
 //
-const { generateOTP } = require("../../../../utils/utils");
+const { generateOTP, capitalize } = require("../../../../utils/utils");
 const bcrypt = require("bcrypt");
 const moment = require("moment");
-const { v1: uuid } = require("uuid");
+const uuid = require('uuid');
 
 module.exports = {
   async create(req, res) {
@@ -21,7 +21,7 @@ module.exports = {
           message: "The username is already used!",
         });
       }
-      const sys_id = v1()
+      const sys_id = uuid.v1()
       const user = await User.create({
         prename,
         name,
@@ -35,14 +35,14 @@ module.exports = {
       if (user) {
         return res.status(200).json({
           status: 1,
-          message: `Inscription process for ${prename} ${name} successfully.`,
+          message: `Inscription process for ${capitalize(prename)} ${capitalize(name)} successfully.`,
           user,
         });
       }
 
       return res.status(400).json({
         status: 0,
-        message: `Inscription process for ${prename} ${name} failed.`,
+        message: `Inscription process for ${capitalize(prename)} ${capitalize(name)} failed.`,
       });
     } catch (error) {
       console.log({ "Error create inscription ": error });

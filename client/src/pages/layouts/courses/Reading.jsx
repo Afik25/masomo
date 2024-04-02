@@ -1,9 +1,7 @@
 import React, { useState } from "react";
-import { Link, useParams } from "react-router-dom";
-import { NavLink } from "../../../routes/NavLink";
+import { useParams, useNavigate } from "react-router-dom";
 import {
   FaArrowLeft,
-  FaArrowRight,
   MdFavoriteBorder,
   BsPatchQuestion,
   FaSlackHash,
@@ -12,44 +10,81 @@ import {
 } from "../../../middlewares/icons";
 import PREMUIM from "../../../assets/svg/premium.png";
 import { isEmpty, capitalize } from "../../../utils/utils";
+import useAuth from "../../../hooks/context/state/useAuth";
 
 const Reading = () => {
-  const [isLesson, setIsLesson] = useState(true);
+  const { keys } = useAuth();
+  const [isCurrentAction, setIsCurrentAction] = useState({
+    isLesson: true,
+    isExercise: false,
+    isSolution: false,
+  });
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
-  let { param1, param2 } = useParams();
+  const navigate = useNavigate();
+  let { param1 } = useParams();
   const [content, setContent] = useState({
-    index: 0,
-    type: null,
-    details: null,
+    index: -1,
+    details: [],
   });
 
-  console.log({ "JSON.parse(param2) ": JSON.parse(param2) });
+  React.useEffect(() => {
+    setContent({ index: -1, details: keys?.keyDetails });
+  }, []);
+
+  // console.log({ "check keys details ": keys?.keyDetails });
 
   return (
     <div className="course-reading">
       <div className="left" style={{ zIndex: `${isDrawerOpen ? 1 : 0}` }}>
         <div className="courses-nav">
-          <Link to="" className="link">
+          <button className="button" onClick={() => navigate(-1)}>
             <FaArrowLeft className="icon" />
-          </Link>
+          </button>
           <h3 className="title t-2">Course of {capitalize(param1)}</h3>
-          <Link to="" className="link">
-            <FaArrowRight className="icon" />
-          </Link>
         </div>
         <div className="reading-nav">
           <div className="r-nav">
             <button
-              className={isLesson ? "button btn-active" : "button"}
-              onClick={() => setIsLesson(true)}
+              className={
+                isCurrentAction.isLesson ? "button btn-active" : "button"
+              }
+              onClick={() =>
+                setIsCurrentAction({
+                  isLesson: true,
+                  isExercise: false,
+                  isSolution: false,
+                })
+              }
             >
               Lessons
             </button>
             <button
-              className={!isLesson ? "button btn-active" : "button"}
-              onClick={() => setIsLesson(false)}
+              className={
+                isCurrentAction.isExercise ? "button btn-active" : "button"
+              }
+              onClick={() =>
+                setIsCurrentAction({
+                  isLesson: false,
+                  isExercise: true,
+                  isSolution: false,
+                })
+              }
             >
               Exercices
+            </button>
+            <button
+              className={
+                isCurrentAction.isSolution ? "button btn-active" : "button"
+              }
+              onClick={() =>
+                setIsCurrentAction({
+                  isLesson: false,
+                  isExercise: false,
+                  isSolution: true,
+                })
+              }
+            >
+              Solutions
             </button>
           </div>
           <button
@@ -60,9 +95,9 @@ const Reading = () => {
           </button>
         </div>
         <div className="reading-content">
-          {isLesson && (
+          {isCurrentAction.isLesson && (
             <>
-              {isEmpty(JSON.parse(param2)) ? (
+              {isEmpty(keys?.keyDetails) ? (
                 <p
                   className="title t-2"
                   style={{ padding: "1em", textAlign: "center", color: "red" }}
@@ -70,31 +105,47 @@ const Reading = () => {
                   No lesson for {param1} course available yet!
                 </p>
               ) : (
-                JSON.parse(param2).map((itemLesson, i) => {
-                  return (
-                    <button
-                      key={i}
-                      className={
-                        content.index == i ? "button active-reading" : "button"
-                      }
-                      onClick={() =>
-                        setContent({
-                          index: i,
-                          type: itemLesson?.lesson?.type,
-                          details: itemLesson?.lesson_sections,
-                        })
-                      }
-                    >
-                      {itemLesson?.lesson?.title}
-                    </button>
-                  );
-                })
+                <>
+                  <button
+                    className={
+                      content.index === -1 ? "button active-reading" : "button"
+                    }
+                    onClick={() =>
+                      setContent({
+                        index: -1,
+                        details: keys?.keyDetails,
+                      })
+                    }
+                  >
+                    All lessons of course
+                  </button>
+                  {keys?.keyDetails.map((itemLesson, i) => {
+                    return (
+                      <button
+                        key={i}
+                        className={
+                          content.index === i
+                            ? "button active-reading"
+                            : "button"
+                        }
+                        onClick={() =>
+                          setContent({
+                            index: i,
+                            details: [keys?.keyDetails[i]],
+                          })
+                        }
+                      >
+                        {itemLesson?.lesson?.title}
+                      </button>
+                    );
+                  })}
+                </>
               )}
             </>
           )}
-          {!isLesson && (
+          {isCurrentAction.isExercise && (
             <>
-              {isEmpty(JSON.parse(param2)) ? (
+              {isEmpty(keys?.keyDetails) ? (
                 <p
                   className="title t-2"
                   style={{ padding: "1em", textAlign: "center", color: "red" }}
@@ -102,121 +153,369 @@ const Reading = () => {
                   No exercise for {param1} course available yet!
                 </p>
               ) : (
-                JSON.parse(param2).map((itemLesson, _) => {
-                  return (
-                    <>
-                      {!isEmpty(itemLesson?.lesson_exercises) &&
-                        itemLesson?.lesson_exercises.map((exerciseItem, j) => {
-                          return (
-                            <NavLink
-                              activeClassName="active-reading"
-                              inactiveClassName="inactive-reading"
-                              className="link"
-                              to=""
-                              key={j}
-                            >
-                              {exerciseItem?.exercise?.title}
-                            </NavLink>
-                          );
-                        })}
-                    </>
-                  );
-                })
+                <>
+                  <button
+                    className={
+                      content.index === -1 ? "button active-reading" : "button"
+                    }
+                    onClick={() =>
+                      setContent({
+                        index: -1,
+                        details: keys?.keyDetails,
+                      })
+                    }
+                  >
+                    All exercises
+                  </button>
+                  {keys?.keyDetails.map((itemLesson, _) => {
+                    return (
+                      <>
+                        {!isEmpty(itemLesson?.lesson_exercises) &&
+                          itemLesson?.lesson_exercises.map(
+                            (exerciseItem, j) => {
+                              return (
+                                <button
+                                  key={j}
+                                  className={
+                                    content.index === j
+                                      ? "button active-reading"
+                                      : "button"
+                                  }
+                                  onClick={() =>
+                                    setContent({
+                                      index: j,
+                                      details: [keys?.keyDetails[j]],
+                                    })
+                                  }
+                                >
+                                  {exerciseItem?.exercise?.title}
+                                </button>
+                              );
+                            }
+                          )}
+                      </>
+                    );
+                  })}
+                </>
+              )}
+            </>
+          )}
+          {isCurrentAction.isSolution && (
+            <>
+              {isEmpty(keys?.keyDetails) ? (
+                <p
+                  className="title t-2"
+                  style={{ padding: "1em", textAlign: "center", color: "red" }}
+                >
+                  No solution for {param1} exercises available yet!
+                </p>
+              ) : (
+                <>
+                  <button
+                    className={
+                      content.index === -1 ? "button active-reading" : "button"
+                    }
+                    onClick={() =>
+                      setContent({
+                        index: -1,
+                        details: keys?.keyDetails,
+                      })
+                    }
+                  >
+                    All solutions
+                  </button>
+                  {keys?.keyDetails.map((itemLesson, _) => {
+                    return (
+                      <>
+                        {!isEmpty(itemLesson?.lesson_exercises) &&
+                          itemLesson?.lesson_exercises.map(
+                            (exerciseItem, j) => {
+                              return (
+                                <button
+                                  key={j}
+                                  className={
+                                    content.index === j
+                                      ? "button active-reading"
+                                      : "button"
+                                  }
+                                  onClick={() =>
+                                    setContent({
+                                      index: j,
+                                      details: [keys?.keyDetails[j]],
+                                    })
+                                  }
+                                >
+                                  {exerciseItem?.exercise?.title}
+                                </button>
+                              );
+                            }
+                          )}
+                      </>
+                    );
+                  })}
+                </>
               )}
             </>
           )}
         </div>
       </div>
       <div className="right" style={{ zIndex: `${isDrawerOpen ? 0 : 1}` }}>
-        <div className="inner">
-          <div className="reading-actions">
-            <button
-              className="button btn-open"
-              onClick={() => setIsDrawerOpen(!isDrawerOpen)}
-            >
-              <MdList />
+        <div className="reading-actions">
+          <button
+            className="button btn-open"
+            onClick={() => setIsDrawerOpen(!isDrawerOpen)}
+          >
+            <MdList />
+          </button>
+          <div className="r-actions">
+            <button className="button">
+              <MdFavoriteBorder className="icon" />
+              <span className="fade-in">Add to favorite</span>
             </button>
-            <div className="r-actions">
-              <button className="button">
-                <MdFavoriteBorder className="icon" />
-                <span className="fade-in">Add to favorite</span>
-              </button>
-              <button className="button">
-                <BsPatchQuestion className="icon" />
-                <span className="fade-in">Questions</span>
-              </button>
-              <button className="button">
-                <FaSlackHash className="icon" />
-                <span className="fade-in">Comment</span>
-              </button>
-              <button className="button">
-                <GoCommentDiscussion className="icon" />
-                <span className="fade-in">Recommend</span>
-              </button>
-            </div>
-          </div>
-          <div className="reading-content">
-            {/* {content.details.map((itemReading, k) => {
-              const _thumbs = itemReading?.thumbnails
-                ?.substring(1, itemReading?.thumbnails.length - 1)
-                .split(",");
-              return (
-                <>
-                  <div className="reading-content-text" key={k}>
-                    {itemReading?.description}
-                  </div>
-                  <div className="reading-content-images">
-                    {!isEmpty(_thumbs) &&
-                      _thumbs.map((element, l) => {
-                        return (
-                          <img
-                            src={`${process.env.REACT_APP_API_SERVER_URL}:${process.env.REACT_APP_API_SERVER_PORT}/images/${element}`}
-                            alt={element}
-                            key={l}
-                          />
-                        );
-                      })
-                    }
-                  </div>
-                </>
-              );
-            })} */}
-            What is Lorem Ipsum? Lorem Ipsum is simply dummy text of the
-            printing and typesetting industry. Lorem Ipsum has been the
-            industry's standard dummy text ever since the 1500s, when an unknown
-            printer took a galley of type and scrambled it to make a type
-            specimen book. It has survived not only five centuries, but also the
-            leap into electronic typesetting, remaining essentially unchanged.
-            It was popularised in the 1960s with the release of Letraset sheets
-            containing Lorem Ipsum passages, and more recently with desktop
-            publishing software like Aldus PageMaker including versions of Lorem
-            Ipsum. Why do we use it? It is a long established fact that a reader
-            will be distracted by the readable content of a page when looking at
-            its layout. The point of using Lorem Ipsum is that it has a
-            more-or-less normal distribution of letters, as opposed to using
-            'Content here, content here', making it look like readable English.
-            Many desktop publishing packages and web page editors now use Lorem
-            Ipsum as their default model text, and a search for 'lorem ipsum'
-            will uncover many web sites still in their infancy. Various versions
-            have evolved over the years, sometimes by accident, sometimes on
-            purpose (injected humour and the like). Where does it come from?
-            Contrary to popular belief, Lorem Ipsum is not simply random text.
-            It has roots in a piece of classical Latin literature from 45 BC,
-            making it over 2000 years old. Richard McClintock, a Latin professor
-            at Hampden-Sydney College in Virginia, looked up one of the more
-            obscure Latin words, consectetur, from a Lorem Ipsum passage, and
-            going through the cites of the word in classical literature,
-            discovered the undoubtable source. Lorem Ipsum comes from sections
-            1.10.32 and 1.10.33 of "de Finibus Bonorum et Malorum" (The Extremes
-            of Good and Evil) by Cicero, written in 45 BC.
+            <button className="button">
+              <BsPatchQuestion className="icon" />
+              <span className="fade-in">Questions</span>
+            </button>
+            <button className="button">
+              <FaSlackHash className="icon" />
+              <span className="fade-in">Comment</span>
+            </button>
+            <button className="button">
+              <GoCommentDiscussion className="icon" />
+              <span className="fade-in">Recommend</span>
+            </button>
           </div>
         </div>
-        <div className="outer">
-          <img src={PREMUIM} alt="premuim" />
-          <h2 className="title t-2">This is the premium content.</h2>
-          <p className="title t-3">
-            The content required the subscription to date!
-          </p>
+        <div className="reading-content">
+          {isCurrentAction.isLesson &&
+            content?.details.map((itemContent, idx) => {
+              return (
+                <div key={idx}>
+                  <h2 className="title t-1">
+                    {idx + 1}. {capitalize(itemContent?.lesson?.title)}
+                  </h2>
+                  <div className="inner">
+                    {itemContent?.lesson_sections?.map((_itenLS, idx_ls) => {
+                      const _thumbs = _itenLS?.thumbnails
+                        ?.substring(1, _itenLS?.thumbnails.length - 1)
+                        .split(",");
+                      return (
+                        <>
+                          <div className="reading-content-text" key={idx_ls}>
+                            {_itenLS?.description}
+                          </div>
+                          <div
+                            className="reading-content-images"
+                            key={idx_ls + 1}
+                          >
+                            {_thumbs.map((element, idx_img) => {
+                              return (
+                                !isEmpty(element) && (
+                                  <img
+                                    src={`${process.env.REACT_APP_API_SERVER_URL}:${process.env.REACT_APP_API_SERVER_PORT}/images/${element}`}
+                                    alt={element}
+                                    key={idx_img}
+                                  />
+                                )
+                              );
+                            })}
+                          </div>
+                        </>
+                      );
+                    })}
+                  </div>
+                  {itemContent?.lesson?.type != "freemium" && (
+                    <div className="outer">
+                      <img src={PREMUIM} alt="premuim" />
+                      <h2 className="title t-2">
+                        This is the premium content.
+                      </h2>
+                      <p className="title t-3">
+                        The content required the subscription to date!
+                      </p>
+                    </div>
+                  )}
+                </div>
+              );
+            })}
+          {isCurrentAction.isExercise &&
+            content?.details.map((itemContent, idx_il) => {
+              return (
+                <>
+                  <h2 className="title t-1">
+                    {idx_il + 1}. {capitalize(itemContent?.lesson?.title)}
+                  </h2>
+                  {!isEmpty(itemContent?.lesson_exercises) &&
+                    itemContent?.lesson_exercises.map(
+                      (itemExercise, idx_ie) => {
+                        return (
+                          <>
+                            <h2 className="title t-2">
+                              {idx_il + 1}.{idx_ie + 1}.{" "}
+                              {capitalize(itemExercise?.exercise?.title)}
+                            </h2>
+                            {!isEmpty(itemExercise?.execise_sections) &&
+                              itemExercise?.execise_sections.map(
+                                (itenExerciseSection, idx_ies) => {
+                                  const _thumbs =
+                                    itenExerciseSection?.thumbnails
+                                      ?.substring(
+                                        1,
+                                        itenExerciseSection?.thumbnails.length -
+                                          1
+                                      )
+                                      .split(",");
+                                  return (
+                                    <>
+                                      <div className="inner" key={idx_ies}>
+                                        <div className="reading-content-text">
+                                          {itenExerciseSection?.description}
+                                        </div>
+                                        <div className="reading-content-images">
+                                          {_thumbs.map((element, idx_img) => {
+                                            return (
+                                              !isEmpty(element) && (
+                                                <img
+                                                  src={`${process.env.REACT_APP_API_SERVER_URL}:${process.env.REACT_APP_API_SERVER_PORT}/images/${element}`}
+                                                  alt={element}
+                                                  key={idx_img}
+                                                />
+                                              )
+                                            );
+                                          })}
+                                        </div>
+                                      </div>
+                                      {itemExercise?.exercise?.type !=
+                                        "freemium" && (
+                                        <div className="outer">
+                                          <img src={PREMUIM} alt="premuim" />
+                                          <h2 className="title t-2">
+                                            This is the premium content.
+                                          </h2>
+                                          <p className="title t-3">
+                                            The content required the
+                                            subscription to date!
+                                          </p>
+                                        </div>
+                                      )}
+                                    </>
+                                  );
+                                }
+                              )}
+                          </>
+                        );
+                      }
+                    )}
+                </>
+              );
+            })}
+          {isCurrentAction.isSolution &&
+            content?.details.map((itemContent, idx_il) => {
+              return (
+                <>
+                  <h2 className="title t-1">
+                    {idx_il + 1}. {capitalize(itemContent?.lesson?.title)}
+                  </h2>
+                  {!isEmpty(itemContent?.lesson_exercises) &&
+                    itemContent?.lesson_exercises.map(
+                      (itemExercise, idx_ie) => {
+                        return (
+                          <>
+                            <h2 className="title t-2">
+                              {idx_il + 1}.{idx_ie + 1}.{" "}
+                              {capitalize(itemExercise?.exercise?.title)}
+                            </h2>
+                            {isEmpty(itemContent?.exercise_solutions) ? (
+                              <p className="title t-3" style={{ color: "red" }}>
+                                No solution for this exercise available yet!
+                              </p>
+                            ) : (
+                              itemContent?.exercise_solutions.map(
+                                (itemSolution, idx_is) => {
+                                  return (
+                                    <>
+                                      <h2
+                                        className="title t-2"
+                                        style={{ color: "grey" }}
+                                      >
+                                        {idx_il + 1}.{idx_ie + 1}.{idx_is + 1}.{" "}
+                                        {capitalize(
+                                          itemSolution?.solution?.title
+                                        )}
+                                      </h2>
+                                      {!isEmpty(
+                                        itemSolution?.solution_sections
+                                      ) &&
+                                        itemSolution?.solution_sections.map(
+                                          (itemSolutionSection, idx_iss) => {
+                                            const _thumbs =
+                                            itemSolutionSection?.thumbnails
+                                                ?.substring(
+                                                  1,
+                                                  itemSolutionSection
+                                                    ?.thumbnails.length - 1
+                                                )
+                                                .split(",");
+                                            return (
+                                              <>
+                                                <div
+                                                  className="inner"
+                                                  key={idx_iss}
+                                                >
+                                                  <div className="reading-content-text">
+                                                    {
+                                                      itemSolutionSection?.description
+                                                    }
+                                                  </div>
+                                                  <div className="reading-content-images">
+                                                    {_thumbs.map(
+                                                      (element, idx_img) => {
+                                                        return (
+                                                          !isEmpty(element) && (
+                                                            <img
+                                                              src={`${process.env.REACT_APP_API_SERVER_URL}:${process.env.REACT_APP_API_SERVER_PORT}/images/${element}`}
+                                                              alt={element}
+                                                              key={idx_img}
+                                                            />
+                                                          )
+                                                        );
+                                                      }
+                                                    )}
+                                                  </div>
+                                                </div>
+                                                {itemSolution?.solution?.type !=
+                                                  "freemium" && (
+                                                  <div className="outer">
+                                                    <img
+                                                      src={PREMUIM}
+                                                      alt="premuim"
+                                                    />
+                                                    <h2 className="title t-2">
+                                                      This is the premium
+                                                      content.
+                                                    </h2>
+                                                    <p className="title t-3">
+                                                      The content required the
+                                                      subscription to date!
+                                                    </p>
+                                                  </div>
+                                                )}
+                                              </>
+                                            );
+                                          }
+                                        )}
+                                    </>
+                                  );
+                                }
+                              )
+                            )}
+                          </>
+                        );
+                      }
+                    )}
+                </>
+              );
+            })}
         </div>
       </div>
     </div>

@@ -44,4 +44,6 @@ const isEmpty = (value) => {
   );
 };
 
-module.exports = { generatePassword, generateOTP, createFolder, isEmpty };
+const capitalize = (s) => s && s[0].toUpperCase() + s.slice(1);
+
+module.exports = { generatePassword, generateOTP, createFolder, isEmpty, capitalize };

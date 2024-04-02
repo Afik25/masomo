@@ -23,6 +23,7 @@ import { getPrograms } from "../../services/programs";
 import { getLevels } from "../../services/levels";
 import { useNavigate } from "react-router-dom";
 import useLogout from "../../hooks/context/state/useLogout";
+import { capitalize } from "../../utils/utils";
 
 const CompleteRegister = ({ sys_role }) => {
   const axiosPrivate = useAxiosPrivate();
@@ -109,7 +110,7 @@ const CompleteRegister = ({ sys_role }) => {
           if (response?.data?.status === 1) {
             setIsSubmitting(false);
             swal({
-              title: "Registration completion",
+              title: "Registration Completion",
               text: `${response?.data?.message}. ${
                 sys_role !== "student"
                   ? "Activation's code : " + response?.data?.code
@@ -117,8 +118,6 @@ const CompleteRegister = ({ sys_role }) => {
               }`,
               icon: "success",
               button: "Ok",
-            }).then((res) => {
-              swal("An activation's code was sent to provided number by SMS.");
             });
             setActivationCode(response?.data?.code);
             setValue("inscription_id", response?.data?.inscription_id);
@@ -267,11 +266,11 @@ const CompleteRegister = ({ sys_role }) => {
         </div>
         <div className="input-div">
           <select className="input-form" {...register("role")}>
-            <option value="" style={{ color: "grey" }} selected>
+            <option value="" style={{ color: "grey" }}>
               You are (Role){" "}
             </option>
-            <option value={user.userInfo?.sys_role}>
-              {user.userInfo?.role}
+            <option value={user.userInfo?.sys_role} selected>
+              {capitalize(user.userInfo?.sys_role)}
             </option>
             {/* <option value="parent">Parent</option>
               <option value="teacher">Enseignant</option> */}

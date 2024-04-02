@@ -12,6 +12,7 @@ import {
   IoHelp,
   FiLogOut,
 } from "../../middlewares/icons";
+import { capitalize } from "../../utils/utils";
 
 const Head = () => {
   const [option, setOption] = useState(false);
@@ -71,9 +72,9 @@ const Head = () => {
               />
             </div>
             <h3 className="title t-2">
-              {connectedUser?.userInfo?.prename +
+              {capitalize(connectedUser?.userInfo?.prename) +
                 " " +
-                connectedUser?.userInfo?.name}
+                capitalize(connectedUser?.userInfo?.name)}
             </h3>
             {option ? (
               <BiChevronUp className="icon" />

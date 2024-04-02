@@ -40,6 +40,24 @@ const Navigation = ({ role }) => {
               activeClassName="active-option"
               inactiveClassName="inactive-option"
               className="link"
+              to="/admin/messaging"
+            >
+              <MdMenuBook className="option-icon" />
+              <span>Messaging</span>
+            </NavLink>
+            <NavLink
+              activeClassName="active-option"
+              inactiveClassName="inactive-option"
+              className="link"
+              to="/admin/challenge"
+            >
+              <MdMenuBook className="option-icon" />
+              <span>Challenge</span>
+            </NavLink>
+            <NavLink
+              activeClassName="active-option"
+              inactiveClassName="inactive-option"
+              className="link"
               to="/admin/favorite"
             >
               <MdFavoriteBorder className="option-icon" />
@@ -112,6 +130,24 @@ const Navigation = ({ role }) => {
             >
               <MdMenuBook className="option-icon" />
               <span>Courses</span>
+            </NavLink>
+            <NavLink
+              activeClassName="active-option"
+              inactiveClassName="inactive-option"
+              className="link"
+              to="/student/messaging"
+            >
+              <MdMenuBook className="option-icon" />
+              <span>Messaging</span>
+            </NavLink>
+            <NavLink
+              activeClassName="active-option"
+              inactiveClassName="inactive-option"
+              className="link"
+              to="/student/challenge"
+            >
+              <MdMenuBook className="option-icon" />
+              <span>Challenge</span>
             </NavLink>
             <NavLink
               activeClassName="active-option"

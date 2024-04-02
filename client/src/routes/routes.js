@@ -15,6 +15,8 @@ import Dashboard from "../pages/layouts/student/Dashboard";
 import Course from "../pages/layouts/Course";
 import Content from "../pages/layouts/courses/Content";
 import Reading from "../pages/layouts/courses/Reading";
+import Messaging from "../pages/layouts/Messaging";
+import Challenge from "../pages/layouts/Challenge";
 import Favorite from "../pages/layouts/Favorite";
 import Library from "../pages/layouts/Library";
 import StudyLevel from "../pages/layouts/StudyLevel";
@@ -55,9 +57,11 @@ export const routes = [
                     element: <Course />,
                     children: [
                       { index: true, element: <Content /> },
-                      { path: "reading/:param1/:param2", element: <Reading /> },
+                      { path: "reading/:param1/", element: <Reading /> },
                     ],
                   },
+                  { path: "messaging", element: <Messaging /> },
+                  { path: "challenge", element: <Challenge /> },
                   { path: "favorite", element: <Favorite /> },
                   { path: "library", element: <Library /> },
                   { path: "levels", element: <StudyLevel /> },
@@ -84,6 +88,8 @@ export const routes = [
                       { path: "reading/:param1", element: <Reading /> },
                     ],
                   },
+                  { path: "messaging", element: <Messaging /> },
+                  { path: "challenge", element: <Challenge /> },
                   { path: "favorite", element: <Favorite /> },
                   { path: "library", element: <Library /> },
                   { path: "settings", element: <Setting /> },

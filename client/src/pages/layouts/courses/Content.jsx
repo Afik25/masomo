@@ -13,9 +13,11 @@ import PreviewContent from "./PreviewContent";
 import { isEmpty, capitalize } from "../../../utils/utils";
 import { getCustomizedCoursesByLevels } from "../../../services/courses";
 import useAxiosPrivate from "../../../hooks/context/state/useAxiosPrivate";
+import useAuth from "../../../hooks/context/state/useAuth";
 
 const Content = () => {
   const axiosPrivate = useAxiosPrivate();
+  const { setKeys } = useAuth();
   const [open, setOpen] = React.useState(false);
   const [_courses, setCourses] = React.useState([]);
   const [tab, setTab] = React.useState(0);
@@ -24,12 +26,20 @@ const Content = () => {
     setOpen(!open);
   };
 
+  const user = useSelector(
+    (state) => state.setInitConf.initConnectedUser.connectedUserData
+  );
+
   React.useEffect(() => {
     let isMounted = true;
     const controller = new AbortController();
     const signal = controller.signal;
 
-    getCustomizedCoursesByLevels(axiosPrivate, signal).then((result) => {
+    getCustomizedCoursesByLevels(
+      axiosPrivate,
+      user?.userInfo?.level || "",
+      signal
+    ).then((result) => {
       dispatch({
         type: "setUpCourses/getCustomizedCoursesbyLevels",
         payload: result,
@@ -42,9 +52,6 @@ const Content = () => {
     };
   }, []);
 
-  const user = useSelector(
-    (state) => state.setInitConf.initConnectedUser.connectedUserData
-  );
   const customizedCoursesByLevelsData = useSelector(
     (state) =>
       state.setCourseSlice.initCustomizedCoursesByLevels
@@ -96,7 +103,7 @@ const Content = () => {
               (itemLevel, i) => {
                 return (
                   <div className="course-content-container" key={i}>
-                    <h3 className="title t-1">
+                    <h3 className="title t-1" key={i + 1}>
                       {itemLevel?.level?.title.toUpperCase()}
                     </h3>
                     <div className="course-content-item" key={i}>
@@ -109,12 +116,19 @@ const Content = () => {
                         itemLevel?.level_courses.map((itemCourse, j) => {
                           return (
                             <CourseItem
-                              to={`/${
-                                user.userInfo?.sys_role
-                              }/courses/reading/${
+                              reading={() => {
+                                setKeys({
+                                  keyDetails: itemCourse?.course_lessons,
+                                });
+                              }}
+                              to={
+                                itemCourse?.total_lessons > 0
+                                  ? `/${user.userInfo?.sys_role}/courses/reading/${itemCourse?.course?.title}/`
+                                  : null
+                              }
+                              courseTitle={capitalize(
                                 itemCourse?.course?.title
-                              }/${JSON.stringify(itemCourse?.course_lessons)}`}
-                              courseTitle={capitalize(itemCourse?.course?.title)}
+                              )}
                               totalLessons={itemCourse?.total_lessons}
                               totalExercises={itemCourse?.total_exercises}
                             />

@@ -56,11 +56,14 @@ export function getCustomizedCourses(axiosPrivate, signal) {
       });
   });
 }
-export function getCustomizedCoursesByLevels(axiosPrivate, signal) {
+export function getCustomizedCoursesByLevels(axiosPrivate, level, signal) {
   return new Promise(async (resolve, reject) => {
     await axiosPrivate
       .get(COURSES_CUSTOMIZED_BY_LEVELS, {
         signal: signal,
+        params: {
+          level_id: level,
+        },
       })
       .then((response) => {
         resolve(response);

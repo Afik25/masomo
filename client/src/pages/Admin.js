@@ -18,7 +18,11 @@ const Admin = () => {
       <div className="user">
         <div className="container">
           <Head />
-          <Navigation role={user?.userInfo?.sys_role} open={open} setOpen={setOpen} />
+          <Navigation
+            role={user?.userInfo?.sys_role}
+            open={open}
+            setOpen={setOpen}
+          />
           <div className="body">
             <Outlet />
           </div>

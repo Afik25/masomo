@@ -6,6 +6,7 @@ const Exercice = require("../../models/course/Exercice");
 const Solution = require("../../models/course/Solution");
 const Section = require("../../models/course/Section");
 const { Op } = require("sequelize");
+const { isEmpty } = require("../../../../utils/utils");
 
 module.exports = {
   async create(req, res) {
@@ -158,7 +159,10 @@ module.exports = {
   },
   async getCustomizedByLevels(req, res) {
     try {
-      const levels = await Level.findAll();
+      const { level_id } = req.query;
+      const levels = await (isEmpty(level_id)
+        ? Level.findAll()
+        : Level.findOne({ where: { id: parseInt(level_id) } }));
       const courses = await Course.findAll();
       const lessons = await Lesson.findAll();
       const exercises = await Exercice.findAll();

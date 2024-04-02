@@ -1,5 +1,7 @@
 const User = require("../../models/inscription/User");
 const Login = require("../../models/login/Login");
+const Inscription = require("../../models/inscription/Inscription");
+const { isEmpty } =  require('../../../../utils/utils');
 //
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
@@ -42,6 +44,8 @@ module.exports = {
         });
       }
 
+      const level = await Inscription.findOne({ where: { user_id: user.id } });
+
       if (!bcrypt.compareSync(password, user.password)) {
         return res.status(400).json({
           status: 0,
@@ -60,11 +64,11 @@ module.exports = {
             gender: user?.gender,
             telephone: user?.telephone,
             mail: user?.mail,
-            role: user?.role,
             sys_role: user?.sys_role,
             username: user?.username,
             thumbnails: user?.thumbnails,
             is_completed: user?.is_completed,
+            level: level?.level_id,
           },
         },
         process.env.REFRESH_TOKEN_SECRET,
@@ -95,12 +99,12 @@ module.exports = {
             gender: user?.gender,
             telephone: user?.telephone,
             mail: user?.mail,
-            role: user?.role,
             sys_role: user?.sys_role,
             username: user?.username,
             thumbnails: user?.thumbnails,
             is_completed: user?.is_completed,
-            login: login.id,
+            level: level?.level_id,
+            login: login?.id,
           },
         },
         process.env.ACCESS_TOKEN_SECRET,
@@ -122,10 +126,10 @@ module.exports = {
           isLogged: true,
           message: "Connexion successfully!",
           sys_role: user?.sys_role,
-          accessToken
+          accessToken,
         });
     } catch (error) {
-      console.log({ "Error login student ": error });
+      console.log({ "Error login user ": error });
     }
   },
   async refreshToken(req, res) {
