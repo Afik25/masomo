@@ -30366,3 +30366,4 @@
 20240414	08:39:56	e1c88531-94ae-4cf4-9363-1600c9f2ba59	localhost:5500	GET	http://localhost:3000	/api/v1/programs
 20240414	08:39:58	3a86a213-e105-4f3f-9822-386121c23e80	localhost:5500	GET	http://localhost:3000	/api/v1/courses/customized/by/levels?level_id=
 20240414	08:39:58	ae2b833c-a046-47d5-b21d-839f69228bf7	localhost:5500	GET	http://localhost:3000	/api/v1/courses/customized/by/levels?level_id=
+20240414	08:46:05	3e4a4ead-064b-4839-8a20-a6003c566975	localhost:5500	GET	http://localhost:3000	/api/v1/auth/logout
