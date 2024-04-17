@@ -1098,6 +1098,7 @@ body {
     }
     .left {
       width: 20%;
+      border-right: 1px solid $grey-color-2;
       display: flex;
       flex-direction: column;
       overflow-y: auto;
@@ -1182,6 +1183,20 @@ body {
           .form-head {
             width: 100%;
             @include padding($size-1 0);
+            display: flex;
+            justify-content: flex-end;
+            .button{
+              margin-left: $size-04;
+              &:nth-child(2){
+                background-color: $gold-color;
+              }
+              &:nth-child(3){
+                background-color: $green-color;
+              }
+              &:hover{
+                background-color: $color-4;
+              }
+            }
           }
           .section {
             width: 100%;

@@ -48,110 +48,6 @@ const QuestionAnswers = () => {
             </button>
           </div>
         </div>
-        <div className="question-item">
-          <h3 className="title t-2">1. Question type</h3>
-          <p className="title t-3">Question description</p>
-          <div className="timing-grad">
-            <span>5 Seconds.</span>
-            <span>100 Point.</span>
-          </div>
-          <div className="question-cover">
-            <div className="background">
-              <SlPicture className="icon" />
-            </div>
-            {selectedFile && (
-              <div className="img">
-                <img src={URL.createObjectURL(selectedFile)} alt="pic" />
-              </div>
-            )}
-          </div>
-          <div className="actions">
-            <button type="button" onClick={() => setSelectedFile()}>
-              <FaTrashAlt className="icon" /> <span>Edit</span>
-            </button>
-            <button type="button" onClick={() => setSelectedFile()}>
-              <FaTrashAlt className="icon" /> <span>Remove</span>
-            </button>
-          </div>
-        </div>
-        <div className="question-item">
-          <h3 className="title t-2">1. Question type</h3>
-          <p className="title t-3">Question description</p>
-          <div className="timing-grad">
-            <span>5 Seconds.</span>
-            <span>100 Point.</span>
-          </div>
-          <div className="question-cover">
-            <div className="background">
-              <SlPicture className="icon" />
-            </div>
-            {selectedFile && (
-              <div className="img">
-                <img src={URL.createObjectURL(selectedFile)} alt="pic" />
-              </div>
-            )}
-          </div>
-          <div className="actions">
-            <button type="button" onClick={() => setSelectedFile()}>
-              <FaTrashAlt className="icon" /> <span>Edit</span>
-            </button>
-            <button type="button" onClick={() => setSelectedFile()}>
-              <FaTrashAlt className="icon" /> <span>Remove</span>
-            </button>
-          </div>
-        </div>
-        <div className="question-item">
-          <h3 className="title t-2">1. Question type</h3>
-          <p className="title t-3">Question description</p>
-          <div className="timing-grad">
-            <span>5 Seconds.</span>
-            <span>100 Point.</span>
-          </div>
-          <div className="question-cover">
-            <div className="background">
-              <SlPicture className="icon" />
-            </div>
-            {selectedFile && (
-              <div className="img">
-                <img src={URL.createObjectURL(selectedFile)} alt="pic" />
-              </div>
-            )}
-          </div>
-          <div className="actions">
-            <button type="button" onClick={() => setSelectedFile()}>
-              <FaTrashAlt className="icon" /> <span>Edit</span>
-            </button>
-            <button type="button" onClick={() => setSelectedFile()}>
-              <FaTrashAlt className="icon" /> <span>Remove</span>
-            </button>
-          </div>
-        </div>
-        <div className="question-item">
-          <h3 className="title t-2">1. Question type</h3>
-          <p className="title t-3">Question description</p>
-          <div className="timing-grad">
-            <span>5 Seconds.</span>
-            <span>100 Point.</span>
-          </div>
-          <div className="question-cover">
-            <div className="background">
-              <SlPicture className="icon" />
-            </div>
-            {selectedFile && (
-              <div className="img">
-                <img src={URL.createObjectURL(selectedFile)} alt="pic" />
-              </div>
-            )}
-          </div>
-          <div className="actions">
-            <button type="button" onClick={() => setSelectedFile()}>
-              <FaTrashAlt className="icon" /> <span>Edit</span>
-            </button>
-            <button type="button" onClick={() => setSelectedFile()}>
-              <FaTrashAlt className="icon" /> <span>Remove</span>
-            </button>
-          </div>
-        </div>
       </div>
       <form className="right">
         <div className="right-questions">
@@ -159,6 +55,12 @@ const QuestionAnswers = () => {
             <div className="form-head">
               <button type="button" className="button">
                 Add question
+              </button>
+              <button type="button" className="button">
+                Question Bank
+              </button>
+              <button type="button" className="button">
+                Done & Finish
               </button>
             </div>
             <div className="input-div">
