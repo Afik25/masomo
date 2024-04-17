@@ -18,6 +18,8 @@ import {
   FaArrowLeft,
   FaArrowRight,
   FaSlackHash,
+  FaCamera,
+  FaTrashAlt,
 } from "react-icons/fa";
 import {
   IoNotificationsOutline,
@@ -28,19 +30,21 @@ import {
   IoCloseOutline,
   IoArrowBack,
 } from "react-icons/io5";
-import { FiUser, FiUsers, FiLogOut } from "react-icons/fi";
+import { FiUser, FiUsers, FiLogOut, FiUpload } from "react-icons/fi";
 import {
   MdOutlineDashboard,
   MdMenuBook,
   MdFavoriteBorder,
   MdList,
   MdOutlineArrowForwardIos,
+  MdQuiz,
 } from "react-icons/md";
 import { PiBooksLight } from "react-icons/pi";
 import { GoCommentDiscussion } from "react-icons/go";
 import { GiLevelEndFlag, GiSpellBook } from "react-icons/gi";
 import { RiTimerLine } from "react-icons/ri";
-import { FiUpload } from "react-icons/fi";
+import { TiMessages } from "react-icons/ti";
+import { SlPicture } from "react-icons/sl";
 
 export {
   BiChevronDown,
@@ -62,6 +66,8 @@ export {
   FaArrowLeft,
   FaArrowRight,
   FaSlackHash,
+  FaCamera,
+  FaTrashAlt,
 };
 export {
   IoNotificationsOutline,
@@ -72,13 +78,14 @@ export {
   IoCloseOutline,
   IoArrowBack,
 };
-export { FiUser, FiUsers, FiLogOut };
+export { FiUser, FiUsers, FiLogOut, FiUpload };
 export {
   MdOutlineDashboard,
   MdMenuBook,
   MdFavoriteBorder,
   MdList,
   MdOutlineArrowForwardIos,
+  MdQuiz,
 };
 export {
   PiBooksLight,
@@ -87,4 +94,5 @@ export {
   GiSpellBook,
   RiTimerLine,
 };
-export { FiUpload };
+export { TiMessages };
+export { SlPicture };

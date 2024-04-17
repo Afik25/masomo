@@ -711,7 +711,6 @@ body {
     width: 100%;
     height: 100%;
   }
-
   .student-dashboard {
     width: 100%;
     height: 100%;
@@ -743,6 +742,690 @@ body {
           }
           .t-2 {
             font-size: $size-2;
+          }
+        }
+      }
+    }
+  }
+  .challenges {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    .container {
+      width: 100%;
+      height: 100%;
+      display: block;
+      @include padding($size-1);
+      overflow-y: auto;
+      .t-2 {
+        font-size: $size-2;
+        font-weight: bold;
+      }
+      .block {
+        width: 100%;
+        display: flex;
+      }
+      .block-1 {
+        flex-direction: row;
+        @include padding($size-1 0);
+        .tile {
+          width: auto;
+          background-color: $color-1;
+          border-radius: $size-09;
+          @include padding($size-2);
+          display: flex;
+          align-items: center;
+          cursor: pointer;
+          transition: all 0.3s ease-in-out;
+          .icon {
+            color: $white-color;
+            font-size: $size-3;
+            font-weight: bold;
+            margin-right: $size-1;
+          }
+          .content {
+            display: block;
+            .title {
+              color: $white-color !important;
+            }
+          }
+          &:first-child {
+            margin-right: $size-2;
+          }
+          &:hover {
+            background-color: $black-color;
+          }
+        }
+      }
+      .block-2 {
+        flex-direction: column;
+        @include padding($size-1 0);
+        .container {
+          width: 100%;
+          display: flex;
+          flex-wrap: wrap;
+          @include padding($size-1 0);
+          .tile {
+            width: 320px;
+            height: 200px;
+            border-radius: $size-09;
+            cursor: pointer;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            margin: $size-1;
+            transition: all 0.3s ease-in-out;
+            .icon {
+              font-size: $size-3;
+              margin-bottom: $size-1;
+            }
+            .t-3 {
+              font-size: $size-09;
+            }
+            img {
+              width: 100%;
+              height: 60%;
+            }
+            &:first-child {
+              border: 1px solid $color-2;
+            }
+            &:not(:first-child) {
+              box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 3px,
+                rgba(0, 0, 0, 0.24) 0px 1px 2px;
+            }
+            &:hover {
+              background-color: $grey-color-2;
+            }
+          }
+        }
+      }
+      .block-3 {
+        flex-direction: column;
+        @include padding($size-1 0);
+        .container {
+          width: 100%;
+          display: flex;
+          flex-wrap: wrap;
+          @include padding($size-1 0);
+          .tile {
+            width: 32%;
+            height: 200px;
+            border-radius: $size-09;
+            cursor: pointer;
+            overflow: hidden;
+            display: flex;
+            margin: $size-1;
+            box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 3px,
+              rgba(0, 0, 0, 0.24) 0px 1px 2px;
+            transition: all 0.3s ease-in-out;
+            .left,
+            .right {
+              height: 100%;
+            }
+            .left {
+              width: 40%;
+              display: flex;
+              flex-direction: column;
+              justify-content: center;
+              align-items: center;
+              overflow: hidden;
+              .up {
+                width: 100%;
+                height: 40%;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                font-family: "Times New Roman", Times, serif;
+                font-size: $size-2;
+              }
+              img {
+                width: 100%;
+                height: 60%;
+              }
+            }
+            .right {
+              width: 60%;
+              @include padding($size-09);
+              .t-3 {
+                color: $color-4;
+                font-size: $size-107;
+              }
+              .t-4 {
+                color: $grey-color-1;
+                font-size: $size-1;
+              }
+              .options {
+                width: 100%;
+                .button {
+                  width: 21.5%;
+                  border-radius: $size-02;
+                  margin: $size-04;
+                  &:nth-child(1) {
+                    background-color: $gold-color;
+                  }
+                  &:nth-child(2) {
+                    background-color: $color-4;
+                    color: $white-color;
+                  }
+                  &:nth-child(3) {
+                    background-color: $color-2;
+                  }
+                  &:nth-child(4) {
+                    background-color: $red-color;
+                    color: $white-color;
+                  }
+                  &:hover {
+                    background-color: $white-color;
+                    color: $color-4;
+                  }
+                }
+              }
+            }
+            &:hover {
+              background-color: $grey-color-2;
+            }
+          }
+        }
+      }
+    }
+  }
+  .new-challenge {
+    width: 100%;
+    height: 100%;
+    .nc-head,
+    .nc-body {
+      width: 100%;
+    }
+    .nc-head {
+      height: 40px;
+      background-color: $white-color;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      span {
+        border-radius: $size-05;
+        color: $color-4;
+        padding: $size-05;
+        margin-right: $size-1;
+      }
+      .icon {
+        margin: 0 $size-05;
+      }
+    }
+    .nc-body {
+      height: calc(100% - 40px);
+      border-top: 1px solid $grey-color-2;
+    }
+  }
+  .quiz {
+    width: 100%;
+    height: 100%;
+    .container {
+      width: 60%;
+      max-height: 100%;
+      margin: auto;
+      form {
+        @include padding($size-1);
+        text-align: center;
+        .input-cover {
+          width: 100%;
+          height: 200px;
+          margin-bottom: $size-1;
+          display: flex;
+          justify-content: center;
+          .file {
+            width: 300px;
+            height: 100%;
+            border: 1px solid $grey-color-2;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            .input-file {
+              display: none;
+            }
+            .input-file-label {
+              width: 100%;
+              height: 100%;
+              cursor: pointer;
+              display: flex;
+              justify-content: center;
+              align-items: center;
+              flex-direction: column;
+              .icon {
+                font-size: $size-2;
+                margin-bottom: $size-05;
+              }
+            }
+          }
+          img {
+            width: auto;
+            max-width: 320px;
+            height: auto;
+            max-height: 100%;
+            margin: 0 $size-1;
+          }
+          .button {
+            background-color: $grey-color-2;
+            color: $color-4;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            &:hover {
+              background-color: $white-color;
+              border: 1px solid $grey-color-2;
+            }
+            .icon {
+              font-size: $size-2;
+              margin-bottom: $size-05;
+            }
+            span {
+              font-size: $size-1;
+            }
+          }
+        }
+        .input-radio {
+          width: 100%;
+          margin-bottom: $size-1;
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          .tile {
+            display: flex;
+            justify-content: flex-start;
+            align-items: center;
+            .radio-tile {
+              margin: $size-05;
+              display: flex;
+              align-items: center;
+              label {
+                margin-left: $size-04;
+              }
+            }
+          }
+        }
+        .container-48 {
+          width: 100%;
+          display: flex;
+          justify-content: space-between;
+          .input-div {
+            width: 48%;
+          }
+        }
+        .input-options {
+          width: 100%;
+          margin-bottom: $size-1;
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          flex-wrap: wrap;
+          .tile {
+            width: 47%;
+            margin: $size-07;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            .title {
+              margin: 0;
+            }
+            .icon {
+              font-size: $size-1;
+            }
+          }
+        }
+        .button {
+          width: 50%;
+          background-color: $color-1;
+          border-radius: $size-03;
+          color: $white-color;
+          &:hover {
+            background-color: $color-2;
+          }
+        }
+      }
+    }
+  }
+  .question-answers {
+    width: 100%;
+    height: 100%;
+    @include padding($size-07);
+    display: flex;
+    .left,
+    .right {
+      height: 100%;
+    }
+    .left {
+      width: 20%;
+      display: flex;
+      flex-direction: column;
+      overflow-y: auto;
+      .question-item {
+        width: 100%;
+        margin-bottom: $size-1;
+        display: flex;
+        flex-direction: column;
+        .t-2 {
+          color: $color-4;
+          font-size: $size-102;
+          font-weight: bold;
+        }
+        .t-3 {
+          font-weight: 600;
+        }
+        .timing-grad {
+          width: 100%;
+          display: flex;
+          justify-content: space-around;
+          margin-bottom: $size-1;
+          span {
+            background-color: $color-4;
+            border-radius: $size-04;
+            color: $white-color;
+            padding: $size-03 $size-04;
+            font-family: "Times New Roman", Times, serif;
+          }
+        }
+        .question-cover {
+          position: relative;
+          width: 280px;
+          height: 180px;
+          border: 1px dashed $grey-color-2;
+          border-radius: $size-03;
+          margin: auto;
+          transition: all 0.3s ease-in-out;
+          .background {
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            z-index: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            .icon {
+              font-size: $size-3;
+            }
+          }
+          .img {
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            z-index: 1;
+            img {
+              width: 100%;
+              height: 100%;
+            }
+          }
+        }
+        .actions {
+          width: 100%;
+          display: flex;
+          @include padding($size-07 0);
+          display: flex;
+          justify-content: space-around;
+          button {
+            padding: $size-03;
+          }
+        }
+      }
+    }
+    .right {
+      width: 80%;
+      overflow-y: auto;
+      @include padding($size-03);
+      .right-questions {
+        width: 100%;
+        margin-bottom: $size-1;
+        .form {
+          width: 100%;
+          .form-head {
+            width: 100%;
+            @include padding($size-1 0);
+          }
+          .section {
+            width: 100%;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+          }
+          .question-cover {
+            position: relative;
+            width: 300px;
+            height: 200px;
+            border: 1px dashed $grey-color-2;
+            border-radius: $size-03;
+            transition: all 0.3s ease-in-out;
+            .background {
+              width: 100%;
+              height: 100%;
+              position: absolute;
+              z-index: 0;
+              display: flex;
+              align-items: center;
+              justify-content: center;
+              .icon {
+                font-size: $size-3;
+              }
+            }
+            .img {
+              width: 100%;
+              height: 100%;
+              position: absolute;
+              z-index: 1;
+              img {
+                width: 100%;
+                height: 100%;
+              }
+            }
+            .image-options {
+              width: 100%;
+              height: 100%;
+              position: absolute;
+              z-index: 2;
+              display: flex;
+              flex-direction: row;
+              justify-content: space-around;
+              align-items: flex-end;
+              @include padding($size-05);
+              .file {
+                border: 1px solid $grey-color-2;
+                display: flex;
+                align-items: center;
+                .input-file {
+                  display: none;
+                }
+                .input-file-label {
+                  cursor: pointer;
+                  display: flex;
+                  align-items: center;
+                  flex-direction: row;
+                  padding: $size-03;
+                }
+              }
+              button {
+                display: flex;
+                flex-direction: row;
+                align-items: center;
+                padding: $size-03;
+              }
+              .icon {
+                font-size: $size-1;
+                margin-bottom: $size-05;
+              }
+              span {
+                color: $black-color;
+                font-size: $size-07;
+                margin-left: $size-03;
+              }
+            }
+            &:hover {
+              .image-options {
+                background-color: rgba($color: $grey-color-2, $alpha: 0.25);
+              }
+            }
+          }
+          .section-details {
+            width: 50%;
+          }
+          .span-view {
+            font-family: "Times New Roman", Times, serif;
+            font-size: $size-1;
+            font-weight: bold;
+            color: $color-1;
+          }
+        }
+        .button {
+          background-color: $color-1;
+          color: $white-color;
+        }
+      }
+      hr {
+        width: 100%;
+        height: 1px;
+        background-color: $grey-color-2;
+        margin: $size-1 0;
+      }
+      .right-answers {
+        width: 100%;
+        margin: 0;
+        padding: 0 $size-05;
+        text-align: center;
+        .tile {
+          width: 100%;
+          margin-bottom: $size-1;
+          display: flex;
+          justify-content: flex-start;
+          align-items: center;
+          .radio-tile {
+            width: 48%;
+            margin: $size-05;
+            padding: $size-1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: $size-2;
+            input{
+              cursor: pointer;
+            }
+            label {
+              margin-left: $size-04;
+            }
+          }
+        }
+        .answer-div {
+          width: 100%;
+          display: flex;
+          flex-wrap: wrap;
+          .answer-item {
+            width: 48.5%;
+            margin: $size-05;
+            padding: $size-04;
+            border-radius: $size-04;
+            display: flex;
+            justify-content: space-between;
+            .question-cover {
+              position: relative;
+              width: 150px;
+              height: 100px;
+              border: 1px dashed $grey-color-2;
+              border-radius: $size-03;
+              transition: all 0.3s ease-in-out;
+              .background {
+                width: 100%;
+                height: 100%;
+                position: absolute;
+                z-index: 0;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                .icon {
+                  font-size: $size-2;
+                }
+              }
+              .img {
+                width: 100%;
+                height: 100%;
+                position: absolute;
+                z-index: 1;
+                img {
+                  width: 100%;
+                  height: 100%;
+                }
+              }
+              .image-options {
+                width: 100%;
+                height: 100%;
+                position: absolute;
+                z-index: 2;
+                display: flex;
+                flex-direction: row;
+                justify-content: space-around;
+                align-items: flex-end;
+                @include padding($size-05);
+                .file {
+                  border: 1px solid $grey-color-2;
+                  display: flex;
+                  align-items: center;
+                  .input-file {
+                    display: none;
+                  }
+                  .input-file-label {
+                    cursor: pointer;
+                    display: flex;
+                    align-items: center;
+                    flex-direction: row;
+                    padding: $size-02;
+                  }
+                }
+                button {
+                  display: flex;
+                  flex-direction: row;
+                  align-items: center;
+                  padding: $size-02;
+                }
+                .icon {
+                  font-size: $size-04;
+                }
+                span {
+                  color: $black-color;
+                  font-size: $size-07;
+                  margin-left: $size-03;
+                }
+              }
+              &:hover {
+                .image-options {
+                  background-color: rgba($color: $grey-color-2, $alpha: 0.25);
+                }
+              }
+            }
+            .text-answer {
+              width: calc(100% - 160px);
+              .input-div {
+                margin: 0;
+              }
+              .tile {
+                .radio-tile {
+                  width: unset;
+                  font-size: $size-1;
+                  input{
+                    cursor: pointer;
+                  }
+                }
+              }
+              button {
+                margin-left: auto;
+                padding: $size-02;
+                cursor: pointer;
+              }
+            }
+          }
+        }
+        .button {
+          color: $color-4;
+          &:hover{
+            background-color: $color-4;
+            color: $white-color;
           }
         }
       }
@@ -929,7 +1612,7 @@ body {
         .reading-content {
           height: calc(100% - 40px);
           font-size: $size-107;
-          font-family: 'Times New Roman', Times, sans-serif;
+          font-family: "Times New Roman", Times, sans-serif;
           text-align: justify;
           overflow-y: auto;
           @include padding($size-07 0);

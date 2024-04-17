@@ -18,6 +18,17 @@ export const wait = (duration = 1000) => {
 
 export const capitalize = (s) => s && s[0].toUpperCase() + s.slice(1);
 
+export const colors = [
+  "#0FA3B1",
+  "#B5E2FA",
+  "#F9F7F3",
+  "#EDDEA4",
+  "#F7A072",
+  "#4DE2EF",
+  "#8C3608",
+  "#594B12",
+];
+
 export const validationSchemaRegister = Yup.object().shape({
   prename: Yup.string()
     .required("First Name is required")

@@ -22,7 +22,7 @@ const Header = () => {
     <div className={fix ? "header fixed" : "header"}>
       <div className="container">
         <Link to="/">
-          <img src={process.env.PUBLIC_URL + "/logo.png"} className="logo" />
+          <img src={process.env.PUBLIC_URL + "/logo.png"} alt="masomo-logo" className="logo" />
         </Link>
         <div
           className={open ? "menu-drawer open" : "menu-drawer"}

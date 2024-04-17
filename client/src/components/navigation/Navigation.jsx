@@ -2,7 +2,8 @@ import React from "react";
 import { NavLink } from "../../routes/NavLink";
 import {
   MdOutlineDashboard,
-  MdMenuBook,
+  MdMenuBook,MdQuiz,
+  TiMessages,
   MdFavoriteBorder,
   PiBooksLight,
   GiLevelEndFlag,
@@ -15,7 +16,7 @@ const Navigation = ({ role }) => {
   return (
     <div className="navigations">
       <div className="container">
-        {role == "admin" && (
+        {role === "admin" && (
           <>
             <NavLink
               activeClassName="active-option"
@@ -26,6 +27,15 @@ const Navigation = ({ role }) => {
             >
               <MdOutlineDashboard className="option-icon" />
               <span>Dashboard</span>
+            </NavLink>
+            <NavLink
+              activeClassName="active-option"
+              inactiveClassName="inactive-option"
+              className="link"
+              to="/admin/challenge"
+            >
+              <MdQuiz className="option-icon" />
+              <span>Challenge</span>
             </NavLink>
             <NavLink
               activeClassName="active-option"
@@ -42,17 +52,8 @@ const Navigation = ({ role }) => {
               className="link"
               to="/admin/messaging"
             >
-              <MdMenuBook className="option-icon" />
+              <TiMessages className="option-icon" />
               <span>Messaging</span>
-            </NavLink>
-            <NavLink
-              activeClassName="active-option"
-              inactiveClassName="inactive-option"
-              className="link"
-              to="/admin/challenge"
-            >
-              <MdMenuBook className="option-icon" />
-              <span>Challenge</span>
             </NavLink>
             <NavLink
               activeClassName="active-option"
@@ -110,7 +111,7 @@ const Navigation = ({ role }) => {
             </NavLink>
           </>
         )}
-        {role == "student" && (
+        {role === "student" && (
           <>
             <NavLink
               activeClassName="active-option"
@@ -121,6 +122,15 @@ const Navigation = ({ role }) => {
             >
               <MdOutlineDashboard className="option-icon" />
               <span>Dashboard</span>
+            </NavLink>
+            <NavLink
+              activeClassName="active-option"
+              inactiveClassName="inactive-option"
+              className="link"
+              to="/student/challenge"
+            >
+              <MdQuiz className="option-icon" />
+              <span>Challenge</span>
             </NavLink>
             <NavLink
               activeClassName="active-option"
@@ -138,16 +148,7 @@ const Navigation = ({ role }) => {
               to="/student/messaging"
             >
               <MdMenuBook className="option-icon" />
-              <span>Messaging</span>
-            </NavLink>
-            <NavLink
-              activeClassName="active-option"
-              inactiveClassName="inactive-option"
-              className="link"
-              to="/student/challenge"
-            >
-              <MdMenuBook className="option-icon" />
-              <span>Challenge</span>
+              <span>TiMessages</span>
             </NavLink>
             <NavLink
               activeClassName="active-option"
