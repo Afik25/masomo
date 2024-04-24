@@ -1,67 +1,302 @@
 import React, { useState } from "react";
-import { FaCamera, FaTrashAlt, SlPicture } from "../../../middlewares/icons";
+import {
+  FaCamera,
+  FaTrashAlt,
+  SlPicture,
+  RiImageEditLine,
+} from "../../../middlewares/icons";
 import { colors } from "../../../utils/utils";
+import useAxiosPrivate from "../../../hooks/context/state/useAxiosPrivate";
+import useAuth from "../../../hooks/context/state/useAuth";
+import { useForm } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
+import {
+  validationSchemaQuestionAnswers,
+  wait,
+  isEmpty,
+  onHandleFile,
+} from "../../../utils/utils";
+//
+import { onCreateQuestionsAnswers } from "../../../services/challenge";
+import swal from "sweetalert";
 
 const QuestionAnswers = () => {
-  const [selectedFile, setSelectedFile] = useState();
+  const { keys } = useAuth();
+  const axiosPrivate = useAxiosPrivate();
+  const [questionCover, setQuestionCover] = useState();
   const [timing, setTiming] = useState(5);
   const [grading, setGrading] = useState(10);
   const [questionType, setQuestionType] = useState("");
-  const [currentQuestion, setCurrentQuestion] = useState();
-  const [visibility, setVisibility] = useState("");
-
-  const handleFile = (e) => {
+  const [answers, setAnswers] = useState([
+    { cover: "", text: "", isGoodOne: false },
+    { cover: "", text: "", isGoodOne: false },
+  ]);
+  const [questionsAnswers, setQuestionsAnswers] = useState([]);
+  const [currentQuestionAnswers, setCurrentQuestionAnswers] = useState({
+    question_type: questionType,
+    question_description: "",
+    question_cover: questionCover,
+    question_timing: timing,
+    question_grading: grading,
+    answers: [],
+  });
+  const [trueOrFalse, setIsTrueOrFalse] = useState("");
+  const [isSending, setIsSending] = useState(false);
+  //
+  // Question cover
+  const handleQuestionCover = (e) => {
     if (e.target.files && e.target.files.length !== 0) {
-      setSelectedFile(e.target.files[0]);
+      setQuestionCover(e.target.files[0]);
     }
   };
-  const isVisibility = (value) => value === visibility;
-  const onChangeVisibility = ({ target: { value } }) => {
-    setVisibility(value);
+  // Question's Answers covers handling
+  const handleAnswersCovers = (e, coverOption) => {
+    if (e.target.files && e.target.files.length !== 0) {
+      for (let i = 0; i < answers.length; i++) {
+        if (coverOption === i) {
+          setAnswers((prev) => {
+            const newAnswers = [...prev];
+            newAnswers[i].cover = e.target.files[0];
+            return newAnswers;
+          });
+        }
+      }
+    }
+  };
+  const onRemoveAnswersCover = (coverOption) => {
+    for (let i = 0; i < answers.length; i++) {
+      if (coverOption === i) {
+        setAnswers((prev) => {
+          const newAnswers = [...prev];
+          newAnswers[i].cover = "";
+          return newAnswers;
+        });
+      }
+    }
+  };
+  const onChangeGoodAnswer = (coverOption) => {
+    for (let i = 0; i < answers.length; i++) {
+      if (coverOption === i) {
+        setAnswers((prev) => {
+          const newAnswers = [...prev];
+          newAnswers[i].isGoodOne = true;
+          return newAnswers;
+        });
+      } else {
+        setAnswers((prev) => {
+          const newAnswers = [...prev];
+          newAnswers[i].isGoodOne = false;
+          return newAnswers;
+        });
+      }
+    }
+  };
+  //
+  const isTrueOrFalse = (value) => value === trueOrFalse;
+  const onChangeTrueOrFalse = ({ target: { value } }) => {
+    setIsTrueOrFalse(value);
+    if (questionType === "tf") {
+      setCurrentQuestionAnswers({
+        question_descriptio: currentQuestionAnswers.question_descriptio,
+        question_type: currentQuestionAnswers.question_type,
+        question_timing: currentQuestionAnswers.question_timing,
+        question_grading: currentQuestionAnswers.question_grading,
+        answers: value,
+      });
+    }
+  };
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({
+    mode: "onTouched",
+    resolver: yupResolver(validationSchemaQuestionAnswers),
+    defaultValues: {
+      quiz_id: keys?.keyDetails?.id,
+    },
+  });
+
+  const onAdd = (data) => {
+    if (questionType === "tf") {
+      if (trueOrFalse === "") {
+        swal(
+          "Answer Missing",
+          "The answer should be specified (True or False)",
+          "warning"
+        );
+        return;
+      }
+      // setCurrentQuestionAnswers({
+      //   question_type: data?.question_type,
+      //   question_description: data?.question_description,
+      //   question_timing: parseInt(timing),
+      //   question_grading: parseInt(grading),
+      //   answers: trueOrFalse,
+      // });
+    }
+    if (questionType === "quiz") {
+      for (let index = 0; index < answers.length; index++) {
+        if (answers[index].text === "") {
+          swal(
+            "Answer Option Missing",
+            "The answer option " + (index + 1) + " should be filled out.",
+            "warning"
+          );
+          return;
+        }
+      }
+      const checkGoodOne = answers.some((elmnt) => elmnt.isGoodOne === true);
+      if (!checkGoodOne) {
+        swal(
+          "Good Answer Missing",
+          "Please specified the good answer for the question among answer's options.",
+          "warning"
+        );
+        return;
+      }
+      // console.log({ "answers ": answers });
+      // setCurrentQuestionAnswers({
+      //   question_description: data?.question_description,
+      //   question_type: questionType,
+      //   question_timing: parseInt(timing),
+      //   question_grading: parseInt(grading),
+      //   answers: answers,
+      // });
+    }
+    setQuestionsAnswers([
+      ...questionsAnswers,
+      {
+        question_type: data?.question_type,
+        question_description: data?.question_description,
+        question_cover: questionCover,
+        question_timing: parseInt(timing),
+        question_grading: parseInt(grading),
+        answers: questionType === "tf" ? trueOrFalse : answers,
+      },
+    ]);
+    return;
+  };
+  const onRemoveQuestion = (i) => {
+    setQuestionsAnswers((prevState) => {
+      const newQuestions = [...prevState];
+      newQuestions.splice(i, 1);
+      return newQuestions;
+    });
+  };
+  //
+  const onAddAnswer = async () => {
+    setAnswers([...answers, { cover: "", text: "", isGoodOne: false }]);
+  };
+  const onRemoveAnswer = (i) => {
+    setAnswers((prevState) => {
+      const newAnswers = [...prevState];
+      newAnswers.splice(i, 1);
+      return newAnswers;
+    });
+  };
+  const handleOnChange = (e, idx) => {
+    const inputData = [...answers];
+    inputData[idx].text = e.target.value;
+    setAnswers(inputData);
+  };
+  //
+  const onSubmit = async () => {
+    setIsSending(true);
+    await wait(500);
+    const formData = new FormData();
+    //
+    for (let idx = 0; idx < questionsAnswers.length; idx++) {
+      console.log({
+        "questionsAnswers[idx].question_type ":
+          questionsAnswers[idx],
+      });
+    }
   };
   return (
     <div className="question-answers">
       <div className="left">
-        <div className="question-item">
-          <h3 className="title t-2">1. Question type</h3>
-          <p className="title t-3">Question description</p>
-          <div className="timing-grad">
-            <span>5 Seconds.</span>
-            <span>100 Point.</span>
-          </div>
-          <div className="question-cover">
-            <div className="background">
-              <SlPicture className="icon" />
-            </div>
-            {selectedFile && (
-              <div className="img">
-                <img src={URL.createObjectURL(selectedFile)} alt="pic" />
+        {isEmpty(questionsAnswers) ? (
+          <p className="title t-2">No question setup yet!</p>
+        ) : (
+          questionsAnswers.map((el, i) => {
+            return (
+              <div key={i} className="question-item">
+                <h3 className="title t-2">
+                  {i + 1}. {el?.question_type}
+                </h3>
+                <p className="title t-3">{el?.question_description}</p>
+                <div className="timing-grad">
+                  <span>{el?.question_timing} Seconds.</span>
+                  <span>{el?.question_grading} Point.</span>
+                </div>
+                <div className="question-cover">
+                  <div className="background">
+                    <SlPicture className="icon" />
+                  </div>
+                  {el?.question_cover && (
+                    <div className="img">
+                      <img
+                        src={URL.createObjectURL(el?.question_cover)}
+                        alt="pic"
+                      />
+                    </div>
+                  )}
+                </div>
+                <div className="actions">
+                  <button type="button" onClick={(e) => null}>
+                    <RiImageEditLine className="icon" /> <span>Edit</span>
+                  </button>
+                  <button type="button" onClick={() => onRemoveQuestion(i)}>
+                    <FaTrashAlt className="icon" /> <span>Remove</span>
+                  </button>
+                </div>
               </div>
-            )}
-          </div>
-          <div className="actions">
-            <button type="button" onClick={() => setSelectedFile()}>
-              <FaTrashAlt className="icon" /> <span>Edit</span>
-            </button>
-            <button type="button" onClick={() => setSelectedFile()}>
-              <FaTrashAlt className="icon" /> <span>Remove</span>
-            </button>
-          </div>
-        </div>
+            );
+          })
+        )}
       </div>
-      <form className="right">
+      <form className="right" onSubmit={handleSubmit(onAdd)}>
         <div className="right-questions">
           <div className="form">
             <div className="form-head">
-              <button type="button" className="button">
+              <button type="submit" className="button">
                 Add question
               </button>
               <button type="button" className="button">
                 Question Bank
               </button>
-              <button type="button" className="button">
+              <button type="button" className="button" onClick={onSubmit}>
                 Done & Finish
               </button>
+            </div>
+            <div className="input-div">
+              <select
+                className="input-select"
+                // onChange={(e) => setQuestionType(e.target.value)}
+                {...register("question_type", {
+                  onChange: (e) => {
+                    setQuestionType(e.target.value);
+                    if (e.target.value === "") {
+                      setIsTrueOrFalse("");
+                      setAnswers([
+                        { cover: "", text: "", isGoodOne: false },
+                        { cover: "", text: "", isGoodOne: false },
+                      ]);
+                    }
+                  },
+                })}
+              >
+                <option value={""} selected>
+                  Type
+                </option>
+                <option value={"quiz"}>Quiz</option>
+                <option value={"tf"}>True or False</option>
+              </select>
+              {errors.question_type && (
+                <span className="fade-in">{errors.question_type.message}</span>
+              )}
             </div>
             <div className="input-div">
               <textarea
@@ -69,61 +304,55 @@ const QuestionAnswers = () => {
                 className="input-textarea"
                 autoComplete="none"
                 placeholder=" "
-                // {...register("description")}
+                {...register("question_description")}
                 rows={5}
               />
-              <label htmlFor="description" className="label-form">
-                Question text
+              <label htmlFor="question_description" className="label-form">
+                Question Description
               </label>
-              {/* {errors.description && (
-                <span className="fade-in">{errors.description.message}</span>
-              )} */}
+              {errors.question_description && (
+                <span className="fade-in">
+                  {errors.question_description.message}
+                </span>
+              )}
             </div>
             <div className="input-div section">
               <div className="question-cover">
                 <div className="background">
                   <SlPicture className="icon" />
                 </div>
-                {selectedFile && (
+                {questionCover && (
                   <div className="img">
-                    <img src={URL.createObjectURL(selectedFile)} alt="pic" />
+                    <img src={URL.createObjectURL(questionCover)} alt="pic" />
                   </div>
                 )}
                 <div className="image-options">
                   <div className="file">
                     <input
                       type="file"
-                      id="thumbnails"
+                      id="question_cover"
                       className="input-file"
                       autoComplete="none"
                       placeholder=" "
-                      onChange={handleFile}
-                      //   {...register("thumbnails")}
+                      onChange={handleQuestionCover}
                       accept="image/*"
                     />
-                    <label htmlFor="thumbnails" className="input-file-label">
+                    <label
+                      htmlFor="question_cover"
+                      className="input-file-label"
+                    >
                       <FaCamera className="icon" />
                       <span>Insert image</span>
                     </label>
                   </div>
-                  <button type="button" onClick={() => setSelectedFile()}>
-                    <FaTrashAlt className="icon" /> <span>Remove</span>
-                  </button>
+                  {questionCover && (
+                    <button type="button" onClick={() => setQuestionCover()}>
+                      <FaTrashAlt className="icon" /> <span>Remove</span>
+                    </button>
+                  )}
                 </div>
               </div>
               <div className="section-details">
-                <div className="input-div">
-                  <select
-                    className="input-select"
-                    onChange={(e) => setQuestionType(e.target.value)}
-                  >
-                    <option value={""} selected>
-                      Type
-                    </option>
-                    <option value={"quiz"}>Quiz</option>
-                    <option value={"tf"}>True or False</option>
-                  </select>
-                </div>
                 <div className="input-div">
                   <label className="">
                     Timing -{" "}
@@ -172,8 +401,8 @@ const QuestionAnswers = () => {
                 <input
                   type="radio"
                   value={"true"}
-                  checked={isVisibility("true")}
-                  onChange={onChangeVisibility}
+                  checked={isTrueOrFalse("true")}
+                  onChange={onChangeTrueOrFalse}
                 />
                 <label>True</label>
               </div>
@@ -187,8 +416,8 @@ const QuestionAnswers = () => {
                 <input
                   type="radio"
                   value={"false"}
-                  checked={isVisibility("false")}
-                  onChange={onChangeVisibility}
+                  checked={isTrueOrFalse("false")}
+                  onChange={onChangeTrueOrFalse}
                 />
                 <label>False</label>
               </div>
@@ -197,310 +426,99 @@ const QuestionAnswers = () => {
           {questionType === "quiz" && (
             <>
               <div className="answer-div">
-                <div
-                  className="answer-item"
-                  style={{
-                    backgroundColor:
-                      colors[Math.floor(Math.random() * colors.length)],
-                  }}
-                >
-                  <div className="question-cover">
-                    <div className="background">
-                      <SlPicture className="icon" />
-                    </div>
-                    {selectedFile && (
-                      <div className="img">
-                        <img
-                          src={URL.createObjectURL(selectedFile)}
-                          alt="pic"
-                        />
+                {answers.map((elmnt, i) => {
+                  return (
+                    <div
+                      key={i}
+                      className="answer-item"
+                      style={{
+                        backgroundColor:
+                          colors[Math.floor(Math.random() * colors.length)],
+                      }}
+                    >
+                      <div className="question-cover">
+                        <div className="background">
+                          <SlPicture className="icon" />
+                        </div>
+                        {elmnt.cover && (
+                          <div className="img">
+                            <img
+                              src={URL.createObjectURL(elmnt.cover)}
+                              alt="pic"
+                            />
+                          </div>
+                        )}
+                        <div className="image-options">
+                          <div className="file">
+                            <input
+                              type="file"
+                              id={`answer_cover-${i}`}
+                              className="input-file"
+                              autoComplete="none"
+                              placeholder=" "
+                              onChange={(e) => handleAnswersCovers(e, i)}
+                              accept="image/*"
+                            />
+                            <label
+                              htmlFor={`answer_cover-${i}`}
+                              className="input-file-label"
+                            >
+                              <FaCamera className="icon" />
+                              <span>Insert image</span>
+                            </label>
+                          </div>
+                          {elmnt.cover && (
+                            <button
+                              type="button"
+                              onClick={() => onRemoveAnswersCover(i)}
+                            >
+                              <FaTrashAlt className="icon" />{" "}
+                              <span>Remove</span>
+                            </button>
+                          )}
+                        </div>
                       </div>
-                    )}
-                    <div className="image-options">
-                      <div className="file">
-                        <input
-                          type="file"
-                          id="thumbnails"
-                          className="input-file"
-                          autoComplete="none"
-                          placeholder=" "
-                          onChange={handleFile}
-                          //   {...register("thumbnails")}
-                          accept="image/*"
-                        />
-                        <label
-                          htmlFor="thumbnails"
-                          className="input-file-label"
-                        >
-                          <FaCamera className="icon" />
-                          <span>Insert image</span>
-                        </label>
-                      </div>
-                      <button type="button" onClick={() => setSelectedFile()}>
-                        <FaTrashAlt className="icon" /> <span>Remove</span>
-                      </button>
-                    </div>
-                  </div>
-                  <div className="text-answer">
-                    <div className="input-div">
-                      <textarea
-                        type="text"
-                        className="input-textarea"
-                        autoComplete="none"
-                        placeholder=" "
-                        // {...register("username")}
-                        rows={4}
-                      />
-                      <label htmlFor="username" className="label-form">
-                        Answer text
-                      </label>
-                      {/* {errors.username && (
-                <span className="fade-in">{errors.username.message}</span>
-              )} */}
-                    </div>
-                    <div className="tile">
-                      <h3 className="t-2">Is the good answer ?</h3>
-                      <div className="radio-tile">
-                        <input
-                          type="radio"
-                          value={"true"}
-                          checked={isVisibility("true")}
-                          onChange={onChangeVisibility}
-                        />
-                        <label>True</label>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div
-                  className="answer-item"
-                  style={{
-                    backgroundColor:
-                      colors[Math.floor(Math.random() * colors.length)],
-                  }}
-                >
-                  <div className="question-cover">
-                    <div className="background">
-                      <SlPicture className="icon" />
-                    </div>
-                    {selectedFile && (
-                      <div className="img">
-                        <img
-                          src={URL.createObjectURL(selectedFile)}
-                          alt="pic"
-                        />
-                      </div>
-                    )}
-                    <div className="image-options">
-                      <div className="file">
-                        <input
-                          type="file"
-                          id="thumbnails"
-                          className="input-file"
-                          autoComplete="none"
-                          placeholder=" "
-                          onChange={handleFile}
-                          //   {...register("thumbnails")}
-                          accept="image/*"
-                        />
-                        <label
-                          htmlFor="thumbnails"
-                          className="input-file-label"
-                        >
-                          <FaCamera className="icon" />
-                          <span>Insert image</span>
-                        </label>
-                      </div>
-                      <button type="button" onClick={() => setSelectedFile()}>
-                        <FaTrashAlt className="icon" /> <span>Remove</span>
-                      </button>
-                    </div>
-                  </div>
-                  <div className="text-answer">
-                    <div className="input-div">
-                      <textarea
-                        type="text"
-                        className="input-textarea"
-                        autoComplete="none"
-                        placeholder=" "
-                        // {...register("username")}
-                        rows={4}
-                      />
-                      <label htmlFor="username" className="label-form">
-                        Answer text
-                      </label>
-                      {/* {errors.username && (
-                <span className="fade-in">{errors.username.message}</span>
-              )} */}
-                    </div>
-                    <div className="tile">
-                      <h3 className="t-2">Is the good answer ?</h3>
-                      <div className="radio-tile">
-                        <input
-                          type="radio"
-                          value={"true"}
-                          checked={isVisibility("true")}
-                          onChange={onChangeVisibility}
-                        />
-                        <label>True</label>
+                      <div className="text-answer">
+                        <div className="input-div">
+                          <textarea
+                            type="text"
+                            className="input-textarea"
+                            autoComplete="none"
+                            placeholder=" "
+                            rows={4}
+                            onChange={(e) => handleOnChange(e, i)}
+                          />
+                          <label htmlFor="username" className="label-form">
+                            Answer text
+                          </label>
+                        </div>
+                        <div className="tile">
+                          <h3 className="t-2">Is the good answer ?</h3>
+                          <div className="radio-tile">
+                            <input
+                              type="radio"
+                              name="isGoodOne"
+                              value={elmnt.isGoodOne}
+                              checked={elmnt.isGoodOne ? true : false}
+                              onChange={() => onChangeGoodAnswer(i)}
+                            />
+                            <label>True</label>
+                          </div>
+                          {i > 1 && (
+                            <button
+                              type="button"
+                              onClick={() => onRemoveAnswer(i)}
+                            >
+                              Remove option
+                            </button>
+                          )}
+                        </div>
                       </div>
                     </div>
-                  </div>
-                </div>
-                <div
-                  className="answer-item"
-                  style={{
-                    backgroundColor:
-                      colors[Math.floor(Math.random() * colors.length)],
-                  }}
-                >
-                  <div className="question-cover">
-                    <div className="background">
-                      <SlPicture className="icon" />
-                    </div>
-                    {selectedFile && (
-                      <div className="img">
-                        <img
-                          src={URL.createObjectURL(selectedFile)}
-                          alt="pic"
-                        />
-                      </div>
-                    )}
-                    <div className="image-options">
-                      <div className="file">
-                        <input
-                          type="file"
-                          id="thumbnails"
-                          className="input-file"
-                          autoComplete="none"
-                          placeholder=" "
-                          onChange={handleFile}
-                          //   {...register("thumbnails")}
-                          accept="image/*"
-                        />
-                        <label
-                          htmlFor="thumbnails"
-                          className="input-file-label"
-                        >
-                          <FaCamera className="icon" />
-                          <span>Insert image</span>
-                        </label>
-                      </div>
-                      <button type="button" onClick={() => setSelectedFile()}>
-                        <FaTrashAlt className="icon" /> <span>Remove</span>
-                      </button>
-                    </div>
-                  </div>
-                  <div className="text-answer">
-                    <div className="input-div">
-                      <textarea
-                        type="text"
-                        className="input-textarea"
-                        autoComplete="none"
-                        placeholder=" "
-                        // {...register("username")}
-                        rows={4}
-                      />
-                      <label htmlFor="username" className="label-form">
-                        Answer text
-                      </label>
-                      {/* {errors.username && (
-                <span className="fade-in">{errors.username.message}</span>
-              )} */}
-                    </div>
-                    <div className="tile">
-                      <h3 className="t-2">Is the good answer ?</h3>
-                      <div className="radio-tile">
-                        <input
-                          type="radio"
-                          value={"true"}
-                          checked={isVisibility("true")}
-                          onChange={onChangeVisibility}
-                        />
-                        <label>True</label>
-                      </div>
-                      <button>Remove option</button>
-                    </div>
-                  </div>
-                </div>
-                <div
-                  className="answer-item"
-                  style={{
-                    backgroundColor:
-                      colors[Math.floor(Math.random() * colors.length)],
-                  }}
-                >
-                  <div className="question-cover">
-                    <div className="background">
-                      <SlPicture className="icon" />
-                    </div>
-                    {selectedFile && (
-                      <div className="img">
-                        <img
-                          src={URL.createObjectURL(selectedFile)}
-                          alt="pic"
-                        />
-                      </div>
-                    )}
-                    <div className="image-options">
-                      <div className="file">
-                        <input
-                          type="file"
-                          id="thumbnails"
-                          className="input-file"
-                          autoComplete="none"
-                          placeholder=" "
-                          onChange={handleFile}
-                          //   {...register("thumbnails")}
-                          accept="image/*"
-                        />
-                        <label
-                          htmlFor="thumbnails"
-                          className="input-file-label"
-                        >
-                          <FaCamera className="icon" />
-                          <span>Insert image</span>
-                        </label>
-                      </div>
-                      <button type="button" onClick={() => setSelectedFile()}>
-                        <FaTrashAlt className="icon" /> <span>Remove</span>
-                      </button>
-                    </div>
-                  </div>
-                  <div className="text-answer">
-                    <div className="input-div">
-                      <textarea
-                        type="text"
-                        className="input-textarea"
-                        autoComplete="none"
-                        placeholder=" "
-                        // {...register("username")}
-                        rows={4}
-                      />
-                      <label htmlFor="username" className="label-form">
-                        Answer text
-                      </label>
-                      {/* {errors.username && (
-                <span className="fade-in">{errors.username.message}</span>
-              )} */}
-                    </div>
-                    <div className="tile">
-                      <h3 className="t-2">Is the good answer ?</h3>
-                      <div className="radio-tile">
-                        <input
-                          type="radio"
-                          value={"true"}
-                          checked={isVisibility("true")}
-                          onChange={onChangeVisibility}
-                        />
-                        <label>True</label>
-                      </div>
-                      <button>Remove option</button>
-                    </div>
-                  </div>
-                </div>
+                  );
+                })}
               </div>
-              <button type="button" className="button">
+              <button type="button" className="button" onClick={onAddAnswer}>
                 Add response
               </button>
             </>

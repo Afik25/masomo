@@ -4,7 +4,7 @@ import Quiz from "./Quiz";
 import QuestionAnswers from "./QuestionAnswers";
 
 const NewChallenge = ({ key }) => {
-  const [step, setStep] = useState(1);
+  const [step, setStep] = useState(0);
   return (
     <div className="new-challenge">
       <div className="nc-head">
@@ -28,8 +28,8 @@ const NewChallenge = ({ key }) => {
         Setup Questions & Answers
       </div>
       <div className="nc-body">
-        {step === 0 && <Quiz/>}
-        {step === 1 && <QuestionAnswers/>}
+        {step === 0 && <Quiz setStep={setStep} />}
+        {step === 1 && <QuestionAnswers />}
       </div>
     </div>
   );

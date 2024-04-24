@@ -9,6 +9,10 @@ const Challenge = () => {
     key: null,
   });
 
+  const onOpenNewChallengeWindows = (value) => {
+    setIsNewChallengeWindows({ state: true, key: value });
+  };
+
   return (
     <>
       <div className="challenges">
@@ -17,13 +21,7 @@ const Challenge = () => {
             All of your quiz and challenges appear here.
           </p>
           <div className="block block-1">
-            <div
-              className="tile"
-              onClick={()=>
-                // setIsNewChallengeWindows({ state: true, key: 0 });
-                console.log("check test")
-              }
-            >
+            <div className="tile">
               <FiUser className="icon" />
               <div className="content">
                 <h3 className="title t-2">Compete in Solo</h3>
@@ -43,7 +41,10 @@ const Challenge = () => {
           <div className="block block-2">
             <h3 className="title t-2">Create a new MASSE (MASOMO-Assess)</h3>
             <div className="container">
-              <div className="tile">
+              <div
+                className="tile"
+                onClick={() => onOpenNewChallengeWindows(0)}
+              >
                 <FiUser className="icon" />
                 <p className="title t-3">new empty MASSE</p>
               </div>
@@ -80,13 +81,14 @@ const Challenge = () => {
           </div>
         </div>
       </div>
-      {true && (
+      {isNewChallengeWindows.state && (
         <Modal
           visibility={true}
           height="98%"
           width="95%"
           title="New MASSE (MASOMO ASSESSMENT)"
           content={<NewChallenge key={isNewChallengeWindows.key} />}
+          open={() => setIsNewChallengeWindows({ state: false, key: null })}
         />
       )}
     </>

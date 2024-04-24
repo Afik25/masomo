@@ -62,6 +62,11 @@ class User extends Model {
       as: "user_configuration",
       allowNull: false,
     });
+    this.hasMany(models.Quiz, {
+      foreignKey: "user_id",
+      as: "user_quiz",
+      allowNull: false,
+    });
   }
 }
 module.exports = User;

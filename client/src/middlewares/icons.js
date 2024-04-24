@@ -42,7 +42,7 @@ import {
 import { PiBooksLight } from "react-icons/pi";
 import { GoCommentDiscussion } from "react-icons/go";
 import { GiLevelEndFlag, GiSpellBook } from "react-icons/gi";
-import { RiTimerLine } from "react-icons/ri";
+import { RiTimerLine, RiImageEditLine } from "react-icons/ri";
 import { TiMessages } from "react-icons/ti";
 import { SlPicture } from "react-icons/sl";
 
@@ -93,6 +93,7 @@ export {
   GiLevelEndFlag,
   GiSpellBook,
   RiTimerLine,
+  RiImageEditLine,
 };
 export { TiMessages };
 export { SlPicture };

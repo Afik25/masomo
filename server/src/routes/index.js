@@ -13,6 +13,7 @@ const Lesson = require("../api/v1/controllers/course/Lesson");
 const Exercice = require("../api/v1/controllers/course/Exercice");
 const Solution = require("../api/v1/controllers/course/Solution");
 const Login = require("../api/v1/controllers/login/Login");
+const Quiz = require("../api/v1/controllers/challenge/Quiz");
 //
 // root configure
 router.get("/auth/config", User.config);
@@ -84,6 +85,18 @@ router
   )
   .post("/courses/lessons/exercises/solutions/activation", Solution.activation)
   .get("/courses/lessons/exercises/solutions", Solution.get);
-router.get("/courses/lessons/exercises/solutions/customized", Solution.getCustomized);
+router.get(
+  "/courses/lessons/exercises/solutions/customized",
+  Solution.getCustomized
+);
+//
+// Challenge
+router
+  .post(
+    "/learning/challenge/quiz",
+    uploadFiles.upload.single("thumbnail"),
+    Quiz.create
+  )
+  .get("/learning/challenge/quiz", () => console.log("get quiz"));
 
 module.exports = router;

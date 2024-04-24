@@ -13,6 +13,9 @@ const Exercice = require("../api/v1/models/course/Exercice");
 const Solution = require("../api/v1/models/course/Solution");
 const Section = require("../api/v1/models/course/Section");
 const Subscription = require("../api/v1/models/subscription/Subscription");
+const Quiz = require("../api/v1/models/challenge/Quiz");
+const Question = require("../api/v1/models/challenge/Question");
+const Answers = require("../api/v1/models/challenge/Answers");
 //
 // Models connection links
 //
@@ -27,5 +30,8 @@ Exercice.init(connection);
 Solution.init(connection);
 Section.init(connection);
 Subscription.init(connection);
+Quiz.init(connection);
+Question.init(connection);
+Answers.init(connection);
 
 module.exports = connection;

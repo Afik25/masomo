@@ -25,3 +25,5 @@ export const EXERCISES_ACTIVATION = "/courses/lessons/exercises/activation";
 export const SOLUTIONS = "/courses/lessons/exercises/solutions";
 export const SOLUTIONS_CUSTOMIZED = "/courses/lessons/exercises/solutions/customized";
 export const SOLUTIONS_ACTIVATION = "/courses/lessons/exercises/solutions/activation";
+// 
+export const QUIZ = "/learning/challenge/quiz";

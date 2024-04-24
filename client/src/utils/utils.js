@@ -29,6 +29,15 @@ export const colors = [
   "#594B12",
 ];
 
+export const onHandleFile = (_file, _newName) => {
+  const ext = _file?.name.split(".").pop();
+  const newName = `${_newName}.${ext}`;
+  const newFile = new File([_file], newName, {
+    type: _file?.type,
+  });
+  return newFile;
+};
+
 export const validationSchemaRegister = Yup.object().shape({
   prename: Yup.string()
     .required("First Name is required")
@@ -128,4 +137,24 @@ export const validationAddingContent = Yup.object().shape({
     "Provide Description or Summary of the content"
   ),
   thumbnail: Yup.string().required("Grab the content"),
+});
+
+export const validationSchemaQuiz = Yup.object().shape({
+  quiz_title: Yup.string().required("The title of quiz is required."),
+  visibility: Yup.string().required("required."),
+  mode: Yup.string().required("required."),
+  timing: Yup.string().required("required."),
+});
+export const validationSchemaQuizWithDelayed = Yup.object().shape({
+  quiz_title: Yup.string().required("The title of quiz is required."),
+  visibility: Yup.string().required("required."),
+  mode: Yup.string().required("required."),
+  timing: Yup.string().required("required."),
+  start: Yup.string().required("The start date is required."),
+  end: Yup.string().required("The end date is required."),
+});
+
+export const validationSchemaQuestionAnswers = Yup.object().shape({
+  question_description: Yup.string().required("The question is required."),
+  question_type: Yup.string().required("The type of question is required."),
 });
