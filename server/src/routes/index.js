@@ -14,6 +14,7 @@ const Exercice = require("../api/v1/controllers/course/Exercice");
 const Solution = require("../api/v1/controllers/course/Solution");
 const Login = require("../api/v1/controllers/login/Login");
 const Quiz = require("../api/v1/controllers/challenge/Quiz");
+const QuestionAnswers = require("../api/v1/controllers/challenge/QuestionAnswers");
 //
 // root configure
 router.get("/auth/config", User.config);
@@ -98,5 +99,13 @@ router
     Quiz.create
   )
   .get("/learning/challenge/quiz", () => console.log("get quiz"));
-
+router
+  .post(
+    "/learning/challenge/quiz/question_answers",
+    uploadFiles.upload.fields([{name: "question_cover",maxCount: 100},{name: "answer_cover",maxCount: 100}]),
+    QuestionAnswers.create
+  )
+  .get("/learning/challenge/quiz/question_answers", () =>
+    console.log("get question_answers")
+  );
 module.exports = router;
