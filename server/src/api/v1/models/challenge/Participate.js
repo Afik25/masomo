@@ -1,33 +1,39 @@
 const { Model, DataTypes } = require("sequelize");
 
-class QuizDetails extends Model {
+class Participate extends Model {
   static init(sequelize) {
     super.init(
       {
         quiz_id: DataTypes.INTEGER,
-        question_id: DataTypes.INTEGER,
-        is_completed: DataTypes.BOOLEAN,
-        status: DataTypes.INTEGER,
-        updated_at: DataTypes.DATE,
+        user_id: DataTypes.INTEGER,
+        pseudo: DataTypes.STRING,
+        request_dates: DataTypes.DATE,
+        response_dates: DataTypes.DATE,
+        status: DataTypes.BOOLEAN,
       },
       {
         sequelize,
         freezeTableName: true,
-        tableName: "quiz_details",
+        tableName: "participates",
       }
     );
   }
   static associate(models) {
     this.belongsTo(models.Quiz, {
       foreignKey: "quiz_id",
-      as: "quiz-details_quiz",
+      as: "participate_quiz",
       allowNull: false,
     });
-    this.belongsTo(models.Question, {
-      foreignKey: "question_id",
-      as: "quiz-details_question",
+    this.belongsTo(models.User, {
+      foreignKey: "user_id",
+      as: "participate_user",
+      allowNull: false,
+    });
+    this.hasMany(models.Play, {
+      foreignKey: "participate_id",
+      as: "participate_play",
       allowNull: false,
     });
   }
 }
-module.exports = QuizDetails;
+module.exports = Participate;

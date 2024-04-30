@@ -39,6 +39,11 @@ class Quiz extends Model {
       as: "quiz_quiz-details",
       allowNull: false,
     });
+    this.hasMany(models.Participate, {
+      foreignKey: "quiz_id",
+      as: "quiz_participate",
+      allowNull: false,
+    });
   }
 }
 module.exports = Quiz;

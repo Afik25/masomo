@@ -22,6 +22,11 @@ class Answer extends Model {
       as: "answer_question",
       allowNull: false,
     });
+    this.hasMany(models.Play, {
+      foreignKey: "answer_id",
+      as: "answer_play",
+      allowNull: false,
+    });
   }
 }
 module.exports = Answer;

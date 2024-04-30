@@ -28,6 +28,11 @@ class QuizDetails extends Model {
       as: "quiz-details_question",
       allowNull: false,
     });
+    this.hasMany(models.Play, {
+      foreignKey: "quiz_details_id",
+      as: "quiz-details_play",
+      allowNull: false,
+    });
   }
 }
 module.exports = QuizDetails;
