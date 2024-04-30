@@ -70,14 +70,12 @@ module.exports = {
           });
           _fileSectionNames = [];
         }
-
         return res.status(200).json({
           status: 1,
           message: `Lesson related to ${title.toUpperCase()} saved successfully`,
           lesson,
         });
       }
-
       return res.status(400).json({
         status: 0,
         message: `Saving lessons ${title.toUpperCase()} failed.`,

@@ -4,12 +4,10 @@ class Question extends Model {
   static init(sequelize) {
     super.init(
       {
-        quiz_id: DataTypes.INTEGER,
         description: DataTypes.TEXT,
         type: DataTypes.STRING,
         timing: DataTypes.INTEGER,
         grading: DataTypes.INTEGER,
-        isCompleted: DataTypes.BOOLEAN,
         thumbnail: DataTypes.STRING,
       },
       {
@@ -20,9 +18,9 @@ class Question extends Model {
     );
   }
   static associate(models) {
-    this.belongsTo(models.Quiz, {
-      foreignKey: "quiz_id",
-      as: "question_quiz",
+    this.hasMany(models.QuizDetails, {
+      foreignKey: "question_id",
+      as: "question_quiz-details",
       allowNull: false,
     });
     this.hasMany(models.Answer, {

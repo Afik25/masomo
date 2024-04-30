@@ -34,9 +34,9 @@ class Quiz extends Model {
       as: "quiz_user",
       allowNull: false,
     });
-    this.hasMany(models.Question, {
+    this.hasMany(models.QuizDetails, {
       foreignKey: "quiz_id",
-      as: "quiz_question",
+      as: "quiz_quiz-details",
       allowNull: false,
     });
   }

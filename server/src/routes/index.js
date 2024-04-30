@@ -102,7 +102,10 @@ router
 router
   .post(
     "/learning/challenge/quiz/question_answers",
-    uploadFiles.upload.fields([{name: "question_cover",maxCount: 100},{name: "answer_cover",maxCount: 100}]),
+    uploadFiles.upload.fields([
+      { name: "question_cover" },
+      { name: "answer_cover" },
+    ]),
     QuestionAnswers.create
   )
   .get("/learning/challenge/quiz/question_answers", () =>

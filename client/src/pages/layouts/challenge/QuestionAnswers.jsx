@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useLocation } from "react-router-dom";
 import {
   FaCamera,
   FaTrashAlt,
@@ -7,7 +8,6 @@ import {
 } from "../../../middlewares/icons";
 import { colors } from "../../../utils/utils";
 import useAxiosPrivate from "../../../hooks/context/state/useAxiosPrivate";
-import useAuth from "../../../hooks/context/state/useAuth";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import {
@@ -21,7 +21,7 @@ import { onCreateQuestionsAnswers } from "../../../services/challenge";
 import swal from "sweetalert";
 
 const QuestionAnswers = () => {
-  const { keys } = useAuth();
+  const location = useLocation();
   const axiosPrivate = useAxiosPrivate();
   const [questionCover, setQuestionCover] = useState();
   const [timing, setTiming] = useState(5);
@@ -32,14 +32,6 @@ const QuestionAnswers = () => {
     { cover: "", text: "", isGoodOne: false },
   ]);
   const [questionsAnswers, setQuestionsAnswers] = useState([]);
-  const [currentQuestionAnswers, setCurrentQuestionAnswers] = useState({
-    question_type: questionType,
-    question_description: "",
-    question_cover: questionCover,
-    question_timing: timing,
-    question_grading: grading,
-    answers: [],
-  });
   const [trueOrFalse, setIsTrueOrFalse] = useState("");
   const [isSending, setIsSending] = useState(false);
   //
@@ -95,27 +87,16 @@ const QuestionAnswers = () => {
   const isTrueOrFalse = (value) => value === trueOrFalse;
   const onChangeTrueOrFalse = ({ target: { value } }) => {
     setIsTrueOrFalse(value);
-    if (questionType === "tf") {
-      setCurrentQuestionAnswers({
-        question_descriptio: currentQuestionAnswers.question_descriptio,
-        question_type: currentQuestionAnswers.question_type,
-        question_timing: currentQuestionAnswers.question_timing,
-        question_grading: currentQuestionAnswers.question_grading,
-        answers: value,
-      });
-    }
   };
 
   const {
     register,
     handleSubmit,
     formState: { errors },
+    reset,
   } = useForm({
     mode: "onTouched",
     resolver: yupResolver(validationSchemaQuestionAnswers),
-    defaultValues: {
-      quiz_id: keys?.keyDetails?.id,
-    },
   });
 
   const onAdd = (data) => {
@@ -176,6 +157,15 @@ const QuestionAnswers = () => {
         answers: questionType === "tf" ? trueOrFalse : answers,
       },
     ]);
+    reset();
+    setQuestionCover();
+    setTiming(5);
+    setGrading(10);
+    setIsTrueOrFalse("");
+    setAnswers([
+      { cover: "", text: "", isGoodOne: false },
+      { cover: "", text: "", isGoodOne: false },
+    ]);
     return;
   };
   const onRemoveQuestion = (i) => {
@@ -185,7 +175,7 @@ const QuestionAnswers = () => {
       return newQuestions;
     });
   };
-  //
+  // Adding answer option for quiz/multiple choice
   const onAddAnswer = async () => {
     setAnswers([...answers, { cover: "", text: "", isGoodOne: false }]);
   };
@@ -203,17 +193,93 @@ const QuestionAnswers = () => {
   };
   //
   const onSubmit = async () => {
-    setIsSending(true);
-    await wait(500);
+    setIsSending(!isSending);
+    await wait(300);
     const formData = new FormData();
     //
+    formData.append("quiz_id", location.state.quiz.id);
     for (let idx = 0; idx < questionsAnswers.length; idx++) {
-      console.log({
-        "questionsAnswers[idx].question_type ":
-          questionsAnswers[idx],
-      });
+      const _newQuestionCover = onHandleFile(
+        questionsAnswers[idx]?.question_cover,
+        `mf-question-cover-${
+          questionsAnswers[idx]?.question_cover?.name?.split(".")[0]
+        }-${Date.now()}`
+      );
+      formData.append("question_cover", _newQuestionCover || "");
+      formData.append("question_cover_name", _newQuestionCover?.name || "");
+      formData.append(
+        "question_description",
+        questionsAnswers[idx]?.question_description
+      );
+      formData.append(
+        "question_grading",
+        questionsAnswers[idx]?.question_grading
+      );
+      formData.append(
+        "question_timing",
+        questionsAnswers[idx]?.question_timing
+      );
+      formData.append("question_type", questionsAnswers[idx]?.question_type);
+      //
+      if (typeof questionsAnswers[idx]?.answers === "object") {
+        for (let j = 0; j < questionsAnswers[idx]?.answers.length; j++) {
+          const _newAnswerCover = onHandleFile(
+            questionsAnswers[idx]?.answers[j].cover,
+            `mf-answer-cover-${
+              questionsAnswers[idx]?.answers[j].cover?.name?.split(".")[0]
+            }-${Date.now()}`
+          );
+          //
+          formData.append("answer_cover", _newAnswerCover || "");
+          formData.append(
+            "answer_cover_name",
+            _newAnswerCover?.name !== ""
+              ? idx + "#" + _newAnswerCover?.name
+              : ""
+          );
+          formData.append(
+            "answer_text",
+            idx + "#" + questionsAnswers[idx]?.answers[j].text
+          );
+          formData.append(
+            "answer_isGoodOne",
+            idx + "#" + questionsAnswers[idx]?.answers[j].isGoodOne
+          );
+        }
+      } else {
+        formData.append("answers", idx + "#" + questionsAnswers[idx]?.answers);
+      }
     }
+    onCreateQuestionsAnswers(axiosPrivate, formData)
+      .then((response) => {
+        if (response?.data?.success) {
+          setIsSending(!isSending);
+          swal({
+            title: "Quiz : Questions - Answers creation process",
+            text: response?.data?.message,
+            icon: "success",
+          });
+          setQuestionsAnswers([]);
+        }
+      })
+      .catch((error) => {
+        setIsSending(false);
+        if (!error?.response) {
+          swal({
+            title: "Quiz : Questions - Answers creation process",
+            text: "No server response",
+            icon: "warning",
+          });
+        } else {
+          swal({
+            title: "Quiz : Questions - Answers creation process",
+            text: error?.response?.data?.message,
+            icon: "error",
+          });
+        }
+      });
   };
+
   return (
     <div className="question-answers">
       <div className="left">
@@ -224,7 +290,10 @@ const QuestionAnswers = () => {
             return (
               <div key={i} className="question-item">
                 <h3 className="title t-2">
-                  {i + 1}. {el?.question_type}
+                  {i + 1}.{" "}
+                  {el?.question_type === "tf"
+                    ? "True or False"
+                    : "Multiple Choice"}
                 </h3>
                 <p className="title t-3">{el?.question_description}</p>
                 <div className="timing-grad">
@@ -274,7 +343,7 @@ const QuestionAnswers = () => {
             <div className="input-div">
               <select
                 className="input-select"
-                // onChange={(e) => setQuestionType(e.target.value)}
+                defaultValue={''}
                 {...register("question_type", {
                   onChange: (e) => {
                     setQuestionType(e.target.value);
@@ -288,7 +357,7 @@ const QuestionAnswers = () => {
                   },
                 })}
               >
-                <option value={""} selected>
+                <option value={""}>
                   Type
                 </option>
                 <option value={"quiz"}>Quiz</option>

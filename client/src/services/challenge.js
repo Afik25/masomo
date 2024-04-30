@@ -1,4 +1,4 @@
-import { QUIZ } from "../routes";
+import { QUIZ, QUESTIONS_ANSWERS } from "../routes";
 
 // Challenge
 export function onCreateChallenge(axiosPrivate, data) {
@@ -19,7 +19,7 @@ export function onCreateChallenge(axiosPrivate, data) {
 export function onCreateQuestionsAnswers(axiosPrivate, data) {
   return new Promise(async (resolve, reject) => {
     await axiosPrivate
-      .post(QUIZ, data, {
+      .post(QUESTIONS_ANSWERS, data, {
         headers: { "Content-Type": "multipart/form-data" },
         withCredentials: true,
       })

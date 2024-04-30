@@ -1,5 +1,6 @@
 const Question = require("../../models/challenge/Question");
 const Answers = require("../../models/challenge/Answers");
+const QuizDetails = require("../../models/challenge/QuizDetails");
 const { Op } = require("sequelize");
 const { isEmpty, generateOTP } = require("../../../../utils/utils");
 
@@ -7,48 +8,75 @@ module.exports = {
   async create(req, res) {
     try {
       const {
-        user_id,
-        quiz_title,
-        visibility,
-        mode,
-        timing,
-        description,
-        start,
-        end,
-        random_order_questions,
-        random_order_answers,
-        auto_move_questions,
-        player_anonymat,
+        quiz_id,
+        question_cover_name,
+        question_description,
+        question_grading,
+        question_timing,
+        question_type,
+        answers,
+        answer_cover_name,
+        answer_text,
+        answer_isGoodOne,
       } = req.body;
-      const thumbnail = req?.file?.filename;
 
-      const quiz_count = await Quiz.count();
-      //
-      var code = generateOTP(6) + "" + (quiz_count + 1);
-      //
-      const quiz = await Quiz.create({
-        user_id,
-        code,
-        title: quiz_title.toLowerCase(),
-        visibility,
-        mode,
-        timing,
-        description: description.toLowerCase(),
-        start,
-        end,
-        random_order_questions,
-        random_order_answers,
-        auto_move_questions,
-        player_anonymat,
-        thumbnail: thumbnail,
-      });
-      return res.status(200).json({
-        success: true,
-        message: `The quiz based on ${quiz_title.toLowerCase()} have been successfully created.`,
-        quiz,
-      });
+      console.log({ "1. Check req.body ": req.body });
+      if (typeof question_type === "object"){
+
+      }else{
+        if(question_type === "tf"){}
+      }
+
+      // for (let idx = 0; idx < question_type.length; idx++) {
+      //   const question = await Question.create({
+      //     quiz_id: parseInt(quiz_id),
+      //     description: question_description[idx],
+      //     type: question_type[idx],
+      //     timing: parseInt(question_timing[idx]),
+      //     grading: parseInt(question_grading[idx]),
+      //     thumbnail: question_cover_name[idx],
+      //   });
+      //   if (!isEmpty(answers)) {
+      //     if (typeof answers === "string") {
+      //       const _currentAnswer = answers.split("#")[1];
+      //       await Answers.create({
+      //         question_id: question.id,
+      //         description: _currentAnswer,
+      //         type: true,
+      //       });
+      //     }
+      //     if (typeof answers === "object") {
+      //       for (let j = 0; j < answers.length; j++) {
+      //         const _currentAnswer = answers[j].split("#")[1];
+      //         await Answers.create({
+      //           question_id: question.id,
+      //           description: _currentAnswer,
+      //           type: true,
+      //           thumbnail,
+      //         });
+      //       }
+      //     }
+      //   } else {
+      //     for (let k = 0; k < answer_text.length; k++) {
+      //       const _currentCover = answer_cover_name[k].split("#")[1];
+      //       const _currentText = answer_text[k].split("#")[1];
+      //       const _currentIsGoodOne = answer_isGoodOne[k].split("#")[1];
+      //       await Answers.create({
+      //         question_id: question.id,
+      //         description: _currentText,
+      //         type: _currentIsGoodOne,
+      //         thumbnail:_currentCover,
+      //       });
+      //     }
+      //   }
+      // }
+      // return res.status(200).json({
+      //   success: true,
+      //   message: `The quiz questions-answers set have been successfully created.`,
+      // });
     } catch (error) {
-      console.log({ "Error create quiz ": error });
+      // console.log({ "Error create quiz ": error });
+      res.json(error)
     }
   },
   async get(req, res) {

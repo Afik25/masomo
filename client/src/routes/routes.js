@@ -17,6 +17,11 @@ import Content from "../pages/layouts/courses/Content";
 import Reading from "../pages/layouts/courses/Reading";
 import Messaging from "../pages/layouts/Messaging";
 import Challenge from "../pages/layouts/Challenge";
+//
+import InitChallenge from "../pages/layouts/challenge/InitChallenge";
+import Quiz from "../pages/layouts/challenge/Quiz";
+import QuestionAnswers from "../pages/layouts/challenge/QuestionAnswers";
+//
 import Favorite from "../pages/layouts/Favorite";
 import Library from "../pages/layouts/Library";
 import StudyLevel from "../pages/layouts/StudyLevel";
@@ -61,7 +66,15 @@ export const routes = [
                     ],
                   },
                   { path: "messaging", element: <Messaging /> },
-                  { path: "challenge", element: <Challenge /> },
+                  {
+                    path: "challenge",
+                    element: <Challenge />,
+                    children: [
+                      { index: true, element: <InitChallenge /> },
+                      { path: "quiz", element: <Quiz /> },
+                      { path: "questions", element: <QuestionAnswers /> },
+                    ],
+                  },
                   { path: "favorite", element: <Favorite /> },
                   { path: "library", element: <Library /> },
                   { path: "levels", element: <StudyLevel /> },

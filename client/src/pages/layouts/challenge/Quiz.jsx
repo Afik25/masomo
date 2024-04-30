@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import {
   FaCamera,
   FaTrashAlt,
@@ -6,23 +7,21 @@ import {
   IoCloseOutline,
 } from "../../../middlewares/icons";
 import useAxiosPrivate from "../../../hooks/context/state/useAxiosPrivate";
-import useAuth from "../../../hooks/context/state/useAuth";
 import { useSelector } from "react-redux";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import {
-  isEmpty,
+  onHandleFile,
   validationSchemaQuiz,
   validationSchemaQuizWithDelayed,
   wait,
 } from "../../../utils/utils";
 //
 import { onCreateChallenge } from "../../../services/challenge";
-import swal from "sweetalert";
 
-const Quiz = ({ setStep }) => {
+const Quiz = () => {
   const axiosPrivate = useAxiosPrivate();
-  const { setKeys } = useAuth();
+  const navigate = useNavigate();
   const [selectedFile, setSelectedFile] = useState();
   const [visibility, setVisibility] = useState("");
   const [mode, setMode] = useState("");
@@ -101,15 +100,12 @@ const Quiz = ({ setStep }) => {
     const formData = new FormData();
     setValue("options", switched);
     //
-    const ext = selectedFile?.name.split(".").pop();
-    const newName = `mf-quiz-cover-img-${
-      selectedFile?.name?.split(".")[0]
-    }-${Date.now()}.${ext}`;
-    const newFile = new File([selectedFile], newName, {
-      type: selectedFile?.type,
-    });
+    const newFile = onHandleFile(
+      selectedFile,
+      `mf-quiz-cover-${selectedFile?.name?.split(".")[0]}-${Date.now()}`
+    );
     formData.append("user_id", user?.userInfo?.user_id);
-    formData.append("thumbnail", isEmpty(selectedFile) ? "" : newFile);
+    formData.append("thumbnail", newFile || "");
     formData.append("quiz_title", data.quiz_title);
     formData.append("visibility", data.visibility);
     formData.append("mode", data.mode);
@@ -131,10 +127,8 @@ const Quiz = ({ setStep }) => {
           setIsSending(false);
           setClassNameMsg("msg-box msg-box-success fade-in");
           setResponseMessage(response?.data?.message);
-          setKeys({
-            keyDetails: response?.data?.quiz,
-          });
           reset();
+          setSelectedFile("");
           setVisibility("");
           setMode("");
           setTiming("");
@@ -147,7 +141,10 @@ const Quiz = ({ setStep }) => {
         }
         const timer = setTimeout(() => {
           setClassNameMsg("display-none");
-          setStep(1);
+          navigate(`/${user?.userInfo?.sys_role}/challenge/questions`, {
+            state: { quiz: response?.data?.quiz },
+            replace: true,
+          });
         }, 4000);
         return () => clearTimeout(timer);
       })
