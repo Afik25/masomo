@@ -20,63 +20,55 @@ module.exports = {
         answer_isGoodOne,
       } = req.body;
 
-      console.log({ "1. Check req.body ": req.body });
-      if (typeof question_type === "object"){
-
-      }else{
-        if(question_type === "tf"){}
+      if (question_type === "tf") {
+        const question = await Question.create({
+          description: question_description,
+          type: question_type,
+          timing: parseInt(question_timing),
+          grading: parseInt(question_grading),
+          thumbnail: question_cover_name,
+        });
+        if (question) {
+          await Answers.create({
+            question_id: question.id,
+            description: answers,
+            type: true,
+          });
+          await QuizDetails.create({
+            quiz_id: parseInt(quiz_id),
+            question_id: parseInt(question.id),
+          });
+        }
+      } else {
+        const question = await Question.create({
+          description: question_description,
+          type: question_type,
+          timing: parseInt(question_timing),
+          grading: parseInt(question_grading),
+          thumbnail: question_cover_name,
+        });
+        if (question) {
+          for (let _idx = 0; _idx < answers.length; _idx++) {
+            await Answers.create({
+              question_id: question.id,
+              description: answer_text[_idx],
+              type: answer_isGoodOne[_idx],
+              thumbnail: answer_cover_name[_idx],
+            });
+          }
+          await QuizDetails.create({
+            quiz_id: parseInt(quiz_id),
+            question_id: parseInt(question.id),
+          });
+        }
       }
-
-      // for (let idx = 0; idx < question_type.length; idx++) {
-      //   const question = await Question.create({
-      //     quiz_id: parseInt(quiz_id),
-      //     description: question_description[idx],
-      //     type: question_type[idx],
-      //     timing: parseInt(question_timing[idx]),
-      //     grading: parseInt(question_grading[idx]),
-      //     thumbnail: question_cover_name[idx],
-      //   });
-      //   if (!isEmpty(answers)) {
-      //     if (typeof answers === "string") {
-      //       const _currentAnswer = answers.split("#")[1];
-      //       await Answers.create({
-      //         question_id: question.id,
-      //         description: _currentAnswer,
-      //         type: true,
-      //       });
-      //     }
-      //     if (typeof answers === "object") {
-      //       for (let j = 0; j < answers.length; j++) {
-      //         const _currentAnswer = answers[j].split("#")[1];
-      //         await Answers.create({
-      //           question_id: question.id,
-      //           description: _currentAnswer,
-      //           type: true,
-      //           thumbnail,
-      //         });
-      //       }
-      //     }
-      //   } else {
-      //     for (let k = 0; k < answer_text.length; k++) {
-      //       const _currentCover = answer_cover_name[k].split("#")[1];
-      //       const _currentText = answer_text[k].split("#")[1];
-      //       const _currentIsGoodOne = answer_isGoodOne[k].split("#")[1];
-      //       await Answers.create({
-      //         question_id: question.id,
-      //         description: _currentText,
-      //         type: _currentIsGoodOne,
-      //         thumbnail:_currentCover,
-      //       });
-      //     }
-      //   }
-      // }
-      // return res.status(200).json({
-      //   success: true,
-      //   message: `The quiz questions-answers set have been successfully created.`,
-      // });
+      return res.status(200).json({
+        success: true,
+        message: `The quiz questions-answers set have been successfully created.`,
+      });
     } catch (error) {
-      // console.log({ "Error create quiz ": error });
-      res.json(error)
+      console.log({ "Error create quiz ": error });
+      res.json(error);
     }
   },
   async get(req, res) {

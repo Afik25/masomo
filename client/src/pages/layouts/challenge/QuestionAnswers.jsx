@@ -31,6 +31,7 @@ const QuestionAnswers = () => {
     { cover: "", text: "", isGoodOne: false },
     { cover: "", text: "", isGoodOne: false },
   ]);
+  const [submittedQuestionCount, setSubmittedQuestionCount] = useState(0);
   const [questionsAnswers, setQuestionsAnswers] = useState([]);
   const [trueOrFalse, setIsTrueOrFalse] = useState("");
   const [isSending, setIsSending] = useState(false);
@@ -193,9 +194,22 @@ const QuestionAnswers = () => {
   };
   //
   const onSubmit = async () => {
-    setIsSending(!isSending);
+    setIsSending(true);
     await wait(300);
     const formData = new FormData();
+    //
+    swal({
+      title: "Quiz : Questions - Answers creation process...",
+      text: `===> ${submittedQuestionCount} Question${
+        submittedQuestionCount > 0 ? "s" : ""
+      } over ${questionsAnswers.length} Question${
+        questionsAnswers.length > 1 ? "s" : ""
+      } <===`,
+      icon: "warning",
+      closeOnClickOutside: false,
+      closeOnEsc: false,
+      buttons: isSending ? false : true,
+    });
     //
     formData.append("quiz_id", location.state.quiz.id);
     for (let idx = 0; idx < questionsAnswers.length; idx++) {
@@ -220,64 +234,60 @@ const QuestionAnswers = () => {
         questionsAnswers[idx]?.question_timing
       );
       formData.append("question_type", questionsAnswers[idx]?.question_type);
+      formData.append("answers", questionsAnswers[idx]?.answers);
       //
       if (typeof questionsAnswers[idx]?.answers === "object") {
         for (let j = 0; j < questionsAnswers[idx]?.answers.length; j++) {
-          const _newAnswerCover = onHandleFile(
-            questionsAnswers[idx]?.answers[j].cover,
-            `mf-answer-cover-${
-              questionsAnswers[idx]?.answers[j].cover?.name?.split(".")[0]
-            }-${Date.now()}`
-          );
+          const _newAnswerCover =
+            questionsAnswers[idx]?.answers[j].cover &&
+            onHandleFile(
+              questionsAnswers[idx]?.answers[j].cover,
+              `mf-answer-cover-${
+                questionsAnswers[idx]?.answers[j].cover?.name?.split(".")[0]
+              }-${Date.now()}`
+            );
           //
           formData.append("answer_cover", _newAnswerCover || "");
           formData.append(
             "answer_cover_name",
-            _newAnswerCover?.name !== ""
-              ? idx + "#" + _newAnswerCover?.name
-              : ""
+            _newAnswerCover?.name ? _newAnswerCover?.name : null
           );
           formData.append(
             "answer_text",
-            idx + "#" + questionsAnswers[idx]?.answers[j].text
+            questionsAnswers[idx]?.answers[j].text
           );
           formData.append(
             "answer_isGoodOne",
-            idx + "#" + questionsAnswers[idx]?.answers[j].isGoodOne
+            questionsAnswers[idx]?.answers[j].isGoodOne
           );
         }
-      } else {
-        formData.append("answers", idx + "#" + questionsAnswers[idx]?.answers);
       }
+      //
+      onCreateQuestionsAnswers(axiosPrivate, formData)
+        .then((response) => {
+          if (response?.data?.success) {
+            setSubmittedQuestionCount((prev) => prev + 1);
+          }
+        })
+        .catch((error) => {
+          setIsSending(false);
+          if (!error?.response) {
+            swal({
+              title: "Quiz : Questions - Answers creation process",
+              text: "No server response",
+              icon: "warning",
+            });
+          } else {
+            swal({
+              title: "Quiz : Questions - Answers creation process",
+              text: error?.response?.data?.message,
+              icon: "error",
+            });
+          }
+        });
     }
-    onCreateQuestionsAnswers(axiosPrivate, formData)
-      .then((response) => {
-        if (response?.data?.success) {
-          setIsSending(!isSending);
-          swal({
-            title: "Quiz : Questions - Answers creation process",
-            text: response?.data?.message,
-            icon: "success",
-          });
-          setQuestionsAnswers([]);
-        }
-      })
-      .catch((error) => {
-        setIsSending(false);
-        if (!error?.response) {
-          swal({
-            title: "Quiz : Questions - Answers creation process",
-            text: "No server response",
-            icon: "warning",
-          });
-        } else {
-          swal({
-            title: "Quiz : Questions - Answers creation process",
-            text: error?.response?.data?.message,
-            icon: "error",
-          });
-        }
-      });
+    setIsSending(false);
+    setQuestionsAnswers([]);
   };
 
   return (
@@ -336,14 +346,16 @@ const QuestionAnswers = () => {
               <button type="button" className="button">
                 Question Bank
               </button>
-              <button type="button" className="button" onClick={onSubmit}>
-                Done & Finish
-              </button>
+              {questionsAnswers.length > 0 && (
+                <button type="button" className="button" onClick={onSubmit}>
+                  Done & Finish
+                </button>
+              )}
             </div>
             <div className="input-div">
               <select
                 className="input-select"
-                defaultValue={''}
+                defaultValue={""}
                 {...register("question_type", {
                   onChange: (e) => {
                     setQuestionType(e.target.value);
@@ -357,9 +369,7 @@ const QuestionAnswers = () => {
                   },
                 })}
               >
-                <option value={""}>
-                  Type
-                </option>
+                <option value={""}>Type</option>
                 <option value={"quiz"}>Quiz</option>
                 <option value={"tf"}>True or False</option>
               </select>

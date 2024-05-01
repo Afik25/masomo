@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
-import { FiUser, FiUsers } from "../../../middlewares/icons";
+import { MdAirplay, FiUser, FiUsers } from "../../../middlewares/icons";
 
 const InitChallenge = () => {
   const user = useSelector(
@@ -14,6 +14,13 @@ const InitChallenge = () => {
           All of your quiz and challenges appear here.
         </p>
         <div className="block block-1">
+          <div className="tile">
+            <MdAirplay className="icon" />
+            <div className="content">
+              <h3 className="title t-2">Join a Quiz</h3>
+              <p className="title t-3">Your will be competing in quiz design for a specific host.</p>
+            </div>
+          </div>
           <div className="tile">
             <FiUser className="icon" />
             <div className="content">

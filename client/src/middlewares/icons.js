@@ -37,7 +37,7 @@ import {
   MdFavoriteBorder,
   MdList,
   MdOutlineArrowForwardIos,
-  MdQuiz,
+  MdQuiz,MdAirplay
 } from "react-icons/md";
 import { PiBooksLight } from "react-icons/pi";
 import { GoCommentDiscussion } from "react-icons/go";
@@ -85,7 +85,7 @@ export {
   MdFavoriteBorder,
   MdList,
   MdOutlineArrowForwardIos,
-  MdQuiz,
+  MdQuiz,MdAirplay
 };
 export {
   PiBooksLight,
