@@ -196,7 +196,6 @@ const QuestionAnswers = () => {
   const onSubmit = async () => {
     setIsSending(true);
     await wait(300);
-    const formData = new FormData();
     //
     swal({
       title: "Quiz : Questions - Answers creation process...",
@@ -211,8 +210,10 @@ const QuestionAnswers = () => {
       buttons: isSending ? false : true,
     });
     //
-    formData.append("quiz_id", location.state.quiz.id);
     for (let idx = 0; idx < questionsAnswers.length; idx++) {
+      const formData = new FormData();
+      formData.append("quiz_id", location.state.quiz.id);
+      // 
       const _newQuestionCover = onHandleFile(
         questionsAnswers[idx]?.question_cover,
         `mf-question-cover-${
