@@ -106,6 +106,10 @@ router
       { name: "question_cover" },
       { name: "answer_cover" },
     ]),
+    (req, res, next) => {
+      console.log("Tala soki ezo koma question_answers");
+      next();
+    },
     QuestionAnswers.create
   )
   .get("/learning/challenge/quiz/question_answers", () =>

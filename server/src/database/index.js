@@ -16,6 +16,10 @@ const Subscription = require("../api/v1/models/subscription/Subscription");
 const Quiz = require("../api/v1/models/challenge/Quiz");
 const Question = require("../api/v1/models/challenge/Question");
 const Answers = require("../api/v1/models/challenge/Answers");
+const QuizDetails = require("../api/v1/models/challenge/QuizDetails");
+const Participate = require("../api/v1/models/challenge/Participate");
+const Play = require("../api/v1/models/challenge/Play");
+const AccumulatedPoints = require("../api/v1/models/challenge/AccumulatedPoints");
 //
 // Models connection links
 //
@@ -33,5 +37,9 @@ Subscription.init(connection);
 Quiz.init(connection);
 Question.init(connection);
 Answers.init(connection);
+QuizDetails.init(connection);
+Participate.init(connection);
+Play.init(connection);
+AccumulatedPoints.init(connection);
 
 module.exports = connection;

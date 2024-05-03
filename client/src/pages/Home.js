@@ -83,14 +83,7 @@ const Home = () => {
           </div>
         </div>
         <div className="section illustration">
-          <img src={BANNER} alt="banner" />
-          <div className="text">
-            <p className="title t-1">
-              Best quality of Education via best quality of content based on
-              National or Standard Education's program for every study level;
-              from High school to University!
-            </p>
-          </div>
+          <img src={BANNER} alt="illustr" />
         </div>
         <div className="section countable">
           <h2 className="title t-2">
@@ -99,22 +92,22 @@ const Home = () => {
           </h2>
           <div className="container margin-auto">
             <div className="item">
-              <img src={Program} className="icon" />
+              <img src={Program} alt="program" className="icon" />
               <h2 className="title t-2">5+</h2>
               <p className="title t-3">Programs</p>
             </div>
             <div className="item">
-              <img src={Course} className="icon" />
+              <img src={Course} alt="course" className="icon" />
               <h2 className="title t-2">25+</h2>
               <p className="title t-3">Courses</p>
             </div>
             <div className="item">
-              <img src={Lesson} className="icon" />
+              <img src={Lesson} alt="lesson" className="icon" />
               <h2 className="title t-2">500+</h2>
               <p className="title t-3">Lessons</p>
             </div>
             <div className="item">
-              <img src={Exercice} className="icon" />
+              <img src={Exercice} alt="exercise" className="icon" />
               <h2 className="title t-2">1500+</h2>
               <p className="title t-3">Exercices</p>
             </div>
@@ -122,7 +115,7 @@ const Home = () => {
         </div>
         <div className="section accessibility">
           <div className="container margin-auto">
-            <img src={DEVICES} className="devices" />
+            <img src={DEVICES} alt="device" className="devices" />
             <div className="details">
               <h2 className="title t-2">
                 Platform responsive and easily accessible, get access to the
@@ -162,7 +155,7 @@ const Home = () => {
                 </div>
               </div>
             </div>
-            <img src={ECOLIER} className="outer" />
+            <img src={ECOLIER} alt="ecolier" className="outer" />
           </div>
         </div>
         <div className="partnership">
@@ -170,89 +163,11 @@ const Home = () => {
             Based on a convincing vision, they decided to work with us.
           </h1>
           <div className="container">
-            <img src={process.env.PUBLIC_URL + "/afik_foundation-logo.png"} />
-            <img src={process.env.PUBLIC_URL + "/shop-logo.png"} />
+            <img src={process.env.PUBLIC_URL + "/afik_foundation-logo.png"} alt="af-logo" />
+            <img src={process.env.PUBLIC_URL + "/shop-logo.png"} alt="shop-logo"/>
           </div>
         </div>
         <Footer />
-        {/* 
-        <div className="section-four">
-          <h3 className="title t-2">Why you should study with MASOMO ?</h3>
-          <p className="title t-3">
-            Masomo is a numerical school that offers a lot of ressources,
-            according to different national education program, to people in need
-            in order to facilitate and promoting quality education regardless of
-            social status.
-          </p>
-          <div className="container">
-            <div className="item">
-              <span>
-                <FaChalkboardTeacher className="icon" />
-              </span>
-              <h2 className="title t-2">Best Teachers</h2>
-              <p className="title t-3">
-                Lorem Ipsum is simply dummy text of the printing and typesetting
-                industry. Lorem Ipsum has been the industry's standard dummy
-                text ever since the 1500s, when an unknown printer took a galley
-                of type and scrambled it to make a type specimen book.
-              </p>
-            </div>
-            <div className="item">
-              <span>
-                <MdMenuBook className="icon" />
-              </span>
-              <h2 className="title t-2">Contents of Quality</h2>
-              <p className="title t-3">
-                Lorem Ipsum is simply dummy text of the printing and typesetting
-                industry. Lorem Ipsum has been the industry's standard dummy
-                text ever since the 1500s, when an unknown printer took a galley
-                of type and scrambled it to make a type specimen book.
-              </p>
-            </div>
-            <div className="item">
-              <span>
-                <MdFreeBreakfast className="icon" />
-              </span>
-              <h2 className="title t-2">Freedom Learning</h2>
-              <p className="title t-3">
-                Lorem Ipsum is simply dummy text of the printing and typesetting
-                industry. Lorem Ipsum has been the industry's standard dummy
-                text ever since the 1500s, when an unknown printer took a galley
-                of type and scrambled it to make a type specimen book.
-              </p>
-            </div>
-            <div className="item">
-              <span>
-                <FaHandsHelping className="icon" />
-              </span>
-              <h2 className="title t-2">Be Helped</h2>
-              <p className="title t-3">
-                Lorem Ipsum is simply dummy text of the printing and typesetting
-                industry. Lorem Ipsum has been the industry's standard dummy
-                text ever since the 1500s, when an unknown printer took a galley
-                of type and scrambled it to make a type specimen book.
-              </p>
-            </div>
-          </div>
-        </div>
-        <div className="slogan">
-          <div className="container">
-            <div className="inner">
-              <img src={process.env.PUBLIC_URL + "/back_to_school.png"} />
-            </div>
-            <div className="outer">
-              <h2 className="title t-2">500+ inscrits</h2>
-              <p className="title t-3">
-                Dedicated registration for a class, with content in line with
-                teaching standards
-              </p>
-              <Link to="/register" className="link">
-                Inscris-toi maintenant !
-              </Link>
-            </div>
-          </div>
-        </div>
-         */}
       </div>
     </React.Fragment>
   );

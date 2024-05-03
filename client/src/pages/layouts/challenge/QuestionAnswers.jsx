@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import {
   FaCamera,
   FaTrashAlt,
@@ -16,13 +16,18 @@ import {
   isEmpty,
   onHandleFile,
 } from "../../../utils/utils";
+import { useSelector } from "react-redux";
 //
 import { onCreateQuestionsAnswers } from "../../../services/challenge";
 import swal from "sweetalert";
 
 const QuestionAnswers = () => {
   const location = useLocation();
+  const navigate = useNavigate();
   const axiosPrivate = useAxiosPrivate();
+  const user = useSelector(
+    (state) => state.setInitConf.initConnectedUser.connectedUserData
+  );
   const [questionCover, setQuestionCover] = useState();
   const [timing, setTiming] = useState(5);
   const [grading, setGrading] = useState(10);
@@ -31,7 +36,6 @@ const QuestionAnswers = () => {
     { cover: "", text: "", isGoodOne: false },
     { cover: "", text: "", isGoodOne: false },
   ]);
-  const [submittedQuestionCount, setSubmittedQuestionCount] = useState(0);
   const [questionsAnswers, setQuestionsAnswers] = useState([]);
   const [trueOrFalse, setIsTrueOrFalse] = useState("");
   const [isSending, setIsSending] = useState(false);
@@ -197,31 +201,22 @@ const QuestionAnswers = () => {
     setIsSending(true);
     await wait(300);
     //
-    swal({
-      title: "Quiz : Questions - Answers creation process...",
-      text: `===> ${submittedQuestionCount} Question${
-        submittedQuestionCount > 0 ? "s" : ""
-      } over ${questionsAnswers.length} Question${
-        questionsAnswers.length > 1 ? "s" : ""
-      } <===`,
-      icon: "warning",
-      closeOnClickOutside: false,
-      closeOnEsc: false,
-      buttons: isSending ? false : true,
-    });
+    isSending &&
+      swal({
+        title: "Quiz : Questions - Answers creation process...",
+        text: `===> Creating ${questionsAnswers.length} Question${
+          questionsAnswers.length > 1 ? "s" : ""
+        }... <===`,
+        icon: "warning",
+        closeOnClickOutside: false,
+        closeOnEsc: false,
+        buttons: false,
+      });
     //
     for (let idx = 0; idx < questionsAnswers.length; idx++) {
       const formData = new FormData();
       formData.append("quiz_id", location.state.quiz.id);
-      // 
-      const _newQuestionCover = onHandleFile(
-        questionsAnswers[idx]?.question_cover,
-        `mf-question-cover-${
-          questionsAnswers[idx]?.question_cover?.name?.split(".")[0]
-        }-${Date.now()}`
-      );
-      formData.append("question_cover", _newQuestionCover || "");
-      formData.append("question_cover_name", _newQuestionCover?.name || "");
+      //
       formData.append(
         "question_description",
         questionsAnswers[idx]?.question_description
@@ -239,20 +234,6 @@ const QuestionAnswers = () => {
       //
       if (typeof questionsAnswers[idx]?.answers === "object") {
         for (let j = 0; j < questionsAnswers[idx]?.answers.length; j++) {
-          const _newAnswerCover =
-            questionsAnswers[idx]?.answers[j].cover &&
-            onHandleFile(
-              questionsAnswers[idx]?.answers[j].cover,
-              `mf-answer-cover-${
-                questionsAnswers[idx]?.answers[j].cover?.name?.split(".")[0]
-              }-${Date.now()}`
-            );
-          //
-          formData.append("answer_cover", _newAnswerCover || "");
-          formData.append(
-            "answer_cover_name",
-            _newAnswerCover?.name ? _newAnswerCover?.name : null
-          );
           formData.append(
             "answer_text",
             questionsAnswers[idx]?.answers[j].text
@@ -261,13 +242,35 @@ const QuestionAnswers = () => {
             "answer_isGoodOne",
             questionsAnswers[idx]?.answers[j].isGoodOne
           );
+          //
+          const _newAnswerCover =
+            questionsAnswers[idx]?.answers[j].cover &&
+            onHandleFile(
+              questionsAnswers[idx]?.answers[j].cover,
+              `mf-answer-cover-${
+                questionsAnswers[idx]?.answers[j].cover?.name?.split(".")[0]
+              }-${Date.now()}`
+            );
+          formData.append(
+            "answer_cover_name",
+            _newAnswerCover?.name ? _newAnswerCover?.name : null
+          );
+          formData.append("answer_cover", _newAnswerCover || "");
         }
       }
+      //
+      const _newQuestionCover = onHandleFile(
+        questionsAnswers[idx]?.question_cover,
+        `mf-question-cover-${
+          questionsAnswers[idx]?.question_cover?.name?.split(".")[0]
+        }-${Date.now()}`
+      );
+      formData.append("question_cover_name", _newQuestionCover?.name || "");
+      formData.append("question_cover", _newQuestionCover || "");
       //
       onCreateQuestionsAnswers(axiosPrivate, formData)
         .then((response) => {
           if (response?.data?.success) {
-            setSubmittedQuestionCount((prev) => prev + 1);
           }
         })
         .catch((error) => {
@@ -285,10 +288,24 @@ const QuestionAnswers = () => {
               icon: "error",
             });
           }
+          return;
         });
     }
     setIsSending(false);
-    setQuestionsAnswers([]);
+    // setQuestionsAnswers([]);
+    swal({
+      title: "Quiz : Questions - Answers creation process...",
+      text: `===> Quiz created successfully. <===`,
+      icon: "success",
+      closeOnClickOutside: false,
+      closeOnEsc: false,
+    });
+    const timer = setTimeout(() => {
+      navigate(`/${user?.userInfo?.sys_role}/challenge/`, {
+        replace: true,
+      });
+    }, 4000);
+    return () => clearTimeout(timer);
   };
 
   return (

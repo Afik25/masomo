@@ -48,12 +48,15 @@ module.exports = {
           thumbnail: question_cover_name,
         });
         if (question) {
-          for (let _idx = 0; _idx < answers.length; _idx++) {
+          for (let _idx = 0; _idx < answer_text.length; _idx++) {
             await Answers.create({
               question_id: question.id,
               description: answer_text[_idx],
               type: answer_isGoodOne[_idx],
-              thumbnail: answer_cover_name[_idx],
+              thumbnail:
+                answer_cover_name[_idx] == "null"
+                  ? null
+                  : answer_cover_name[_idx],
             });
           }
           await QuizDetails.create({
