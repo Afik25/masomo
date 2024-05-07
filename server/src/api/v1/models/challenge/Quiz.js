@@ -18,6 +18,7 @@ class Quiz extends Model {
         auto_move_questions: DataTypes.BOOLEAN,
         player_anonymat: DataTypes.BOOLEAN,
         thumbnail: DataTypes.STRING,
+        is_completed: DataTypes.BOOLEAN,
         status: DataTypes.INTEGER,
         updated_at: DataTypes.DATE,
       },

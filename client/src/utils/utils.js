@@ -29,6 +29,37 @@ export const colors = [
   "#594B12",
 ];
 
+export const shapes = [
+  "triangle-up",
+  "triangle-down",
+  "triangle-left",
+  "triangle-right",
+  "heart",
+  "point-burst-12",
+  "point-burst-8",
+  "diamond-square",
+  "diamond",
+  "cone",
+  "base",
+  "octagon",
+  "pac-man",
+  "space-invader",
+  "moon",
+  "flag",
+  "triangle-top-left",
+  "triangle-top-right",
+  "triangle-bottom-left",
+  "triangle-bottom-right",
+  "trapezoid",
+  "parallelogram",
+  "points-star-6",
+  "hexagon",
+  "pentagon",
+  "infinity",
+  "egg",
+  "badge-ribbon",
+];
+
 export const onHandleFile = (_file, _newName) => {
   const ext = _file?.name.split(".").pop();
   const newName = `${_newName}.${ext}`;

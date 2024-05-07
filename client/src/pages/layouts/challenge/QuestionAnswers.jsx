@@ -217,6 +217,20 @@ const QuestionAnswers = () => {
       const formData = new FormData();
       formData.append("quiz_id", location.state.quiz.id);
       //
+      if (questionsAnswers[idx]?.question_cover) {
+        const _newQuestionCover = onHandleFile(
+          questionsAnswers[idx]?.question_cover,
+          `mf-question-cover-${
+            questionsAnswers[idx]?.question_cover?.name?.split(".")[0]
+          }-${Date.now()}`
+        );
+        formData.append("question_cover_name", _newQuestionCover?.name);
+        formData.append("question_cover", _newQuestionCover);
+      } else {
+        formData.append("question_cover_name", "");
+        formData.append("question_cover", "");
+      }
+      //
       formData.append(
         "question_description",
         questionsAnswers[idx]?.question_description
@@ -234,6 +248,20 @@ const QuestionAnswers = () => {
       //
       if (typeof questionsAnswers[idx]?.answers === "object") {
         for (let j = 0; j < questionsAnswers[idx]?.answers.length; j++) {
+          if (questionsAnswers[idx]?.answers[j].cover) {
+            const _newAnswerCover = onHandleFile(
+              questionsAnswers[idx]?.answers[j].cover,
+              `mf-answer-cover-${
+                questionsAnswers[idx]?.answers[j].cover?.name?.split(".")[0]
+              }-${Date.now()}`
+            );
+            formData.append("answer_cover_name", _newAnswerCover?.name);
+            formData.append("answer_cover", _newAnswerCover);
+          } else {
+            formData.append("answer_cover_name", "");
+            formData.append("answer_cover", "");
+          }
+          //
           formData.append(
             "answer_text",
             questionsAnswers[idx]?.answers[j].text
@@ -242,33 +270,10 @@ const QuestionAnswers = () => {
             "answer_isGoodOne",
             questionsAnswers[idx]?.answers[j].isGoodOne
           );
-          //
-          const _newAnswerCover =
-            questionsAnswers[idx]?.answers[j].cover &&
-            onHandleFile(
-              questionsAnswers[idx]?.answers[j].cover,
-              `mf-answer-cover-${
-                questionsAnswers[idx]?.answers[j].cover?.name?.split(".")[0]
-              }-${Date.now()}`
-            );
-          formData.append(
-            "answer_cover_name",
-            _newAnswerCover?.name ? _newAnswerCover?.name : null
-          );
-          formData.append("answer_cover", _newAnswerCover || "");
         }
       }
       //
-      const _newQuestionCover = onHandleFile(
-        questionsAnswers[idx]?.question_cover,
-        `mf-question-cover-${
-          questionsAnswers[idx]?.question_cover?.name?.split(".")[0]
-        }-${Date.now()}`
-      );
-      formData.append("question_cover_name", _newQuestionCover?.name || "");
-      formData.append("question_cover", _newQuestionCover || "");
-      //
-      onCreateQuestionsAnswers(axiosPrivate, formData)
+      await onCreateQuestionsAnswers(axiosPrivate, formData)
         .then((response) => {
           if (response?.data?.success) {
           }
@@ -292,7 +297,7 @@ const QuestionAnswers = () => {
         });
     }
     setIsSending(false);
-    // setQuestionsAnswers([]);
+    setQuestionsAnswers([]);
     swal({
       title: "Quiz : Questions - Answers creation process...",
       text: `===> Quiz created successfully. <===`,
@@ -300,12 +305,12 @@ const QuestionAnswers = () => {
       closeOnClickOutside: false,
       closeOnEsc: false,
     });
-    const timer = setTimeout(() => {
-      navigate(`/${user?.userInfo?.sys_role}/challenge/`, {
-        replace: true,
-      });
-    }, 4000);
-    return () => clearTimeout(timer);
+    // const timer = setTimeout(() => {
+    //   navigate(`/${user?.userInfo?.sys_role}/challenge/`, {
+    //     replace: true,
+    //   });
+    // }, 4000);
+    // return () => clearTimeout(timer);
   };
 
   return (

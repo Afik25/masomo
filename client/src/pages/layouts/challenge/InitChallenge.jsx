@@ -14,13 +14,15 @@ const InitChallenge = () => {
           All of your quiz and challenges appear here.
         </p>
         <div className="block block-1">
-          <div className="tile">
+          <Link to={`/${user?.userInfo?.sys_role}/challenge/join-quiz`} className="tile link">
             <MdAirplay className="icon" />
             <div className="content">
               <h3 className="title t-2">Join a Quiz</h3>
-              <p className="title t-3">Your will be competing in quiz design for a specific host.</p>
+              <p className="title t-3">
+                Your will be competing in quiz design for a specific host.
+              </p>
             </div>
-          </div>
+          </Link>
           <div className="tile">
             <FiUser className="icon" />
             <div className="content">
@@ -49,8 +51,10 @@ const InitChallenge = () => {
               <p className="title t-3">new empty MASSE</p>
             </Link>
             <div className="tile">
-              <img src={process.env.PUBLIC_URL + "/logo.png"} alt="tile1" />
-              <p className="title t-3">Learning the congolese culture.</p>
+              <img src={process.env.PUBLIC_URL + "/ecoliers.jpg"} alt="tile1" />
+              <div className="outer">
+                <p className="title t-3">Learning the congolese culture.</p>
+              </div>
             </div>
           </div>
         </div>
@@ -62,7 +66,7 @@ const InitChallenge = () => {
                 <div className="up">
                   <h2 className="title t-2">1234567</h2>
                 </div>
-                <img src={process.env.PUBLIC_URL + "/logo.png"} alt="tile1" />
+                <img src={process.env.PUBLIC_URL + "/ecoliers.jpg"} alt="tile1" className="img"/>
               </div>
               <div className="right">
                 <h3 className="title t-3">Assessment title</h3>
@@ -71,7 +75,7 @@ const InitChallenge = () => {
                 <span className="msg-box msg-box-success">Ongoing</span>
                 <div className="options">
                   <button className="button">Start</button>
-                  <button className="button">View</button>
+                  <Link to={`/${user?.userInfo?.sys_role}/challenge/quiz-play`} className="button link">View</Link>
                   <button className="button">Update</button>
                   <button className="button">Cancel</button>
                 </div>

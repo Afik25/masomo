@@ -2,6 +2,7 @@
   "name": "server",
   "version": "1.0.0",
   "description": "Masomo server",
+  "type": "module",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "node --watch src/server.js",
@@ -33,7 +34,7 @@
     "postgres": "^3.4.3",
     "sequelize": "^6.25.3",
     "sequelize-cli": "^6.5.2",
-    "socket.io": "^4.5.3",
+    "socket.io": "^4.7.5",
     "twilio": "^3.83.0",
     "uuid": "^9.0.0"
   },

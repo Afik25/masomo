@@ -19,8 +19,13 @@ import Messaging from "../pages/layouts/Messaging";
 import Challenge from "../pages/layouts/Challenge";
 //
 import InitChallenge from "../pages/layouts/challenge/InitChallenge";
+import JoinQuiz from "../pages/layouts/challenge/play/JoinQuiz";
+import Play from "../pages/layouts/challenge/play/Play";
 import Quiz from "../pages/layouts/challenge/Quiz";
 import QuestionAnswers from "../pages/layouts/challenge/QuestionAnswers";
+import QuizPlay from "../pages/layouts/challenge/QuizPlay";
+// Quiz-Play fragments
+import LeaderBoard from "../pages/layouts/challenge/play/LeaderBoard";
 //
 import Favorite from "../pages/layouts/Favorite";
 import Library from "../pages/layouts/Library";
@@ -71,8 +76,18 @@ export const routes = [
                     element: <Challenge />,
                     children: [
                       { index: true, element: <InitChallenge /> },
+                      { path: "join-quiz", element: <JoinQuiz /> },
+                      { path: "play", element: <Play /> },
                       { path: "quiz", element: <Quiz /> },
                       { path: "questions", element: <QuestionAnswers /> },
+                      {
+                        path: "quiz-play",
+                        element: <QuizPlay />,
+                        children: [
+                          { index: true, element: <LeaderBoard /> },
+                          { path: "qa", element: <p>QA</p> },
+                        ],
+                      },
                     ],
                   },
                   { path: "favorite", element: <Favorite /> },

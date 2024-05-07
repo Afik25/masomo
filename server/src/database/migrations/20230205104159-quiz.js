@@ -67,10 +67,15 @@ module.exports = {
         type: Sequelize.STRING,
         allowNull: true,
       },
+      is_completed: {
+        type: Sequelize.BOOLEAN,
+        allowNull: false,
+        defaultValue: false,
+      },
       status: {
         type: Sequelize.INTEGER,
         allowNull: false,
-        defaultValue: 1,
+        defaultValue: 0,
         validate: {
           isIn: [[0, 1]],
         },

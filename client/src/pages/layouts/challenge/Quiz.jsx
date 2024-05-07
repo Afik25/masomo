@@ -100,12 +100,14 @@ const Quiz = () => {
     const formData = new FormData();
     setValue("options", switched);
     //
-    const newFile = onHandleFile(
-      selectedFile,
-      `mf-quiz-cover-${selectedFile?.name?.split(".")[0]}-${Date.now()}`
-    );
+    const newFile = selectedFile
+      ? onHandleFile(
+          selectedFile,
+          `mf-quiz-cover-${selectedFile?.name?.split(".")[0]}-${Date.now()}`
+        )
+      : "";
     formData.append("user_id", user?.userInfo?.user_id);
-    formData.append("thumbnail", newFile || "");
+    formData.append("thumbnail", newFile);
     formData.append("quiz_title", data.quiz_title);
     formData.append("visibility", data.visibility);
     formData.append("mode", data.mode);
@@ -121,7 +123,7 @@ const Quiz = () => {
     formData.append("auto_move_questions", data.options.auto_move_questions);
     formData.append("player_anonymat", data.options.player_anonymat);
     //
-    onCreateChallenge(axiosPrivate, formData)
+    await onCreateChallenge(axiosPrivate, formData)
       .then((response) => {
         if (response?.data?.success) {
           setIsSending(false);

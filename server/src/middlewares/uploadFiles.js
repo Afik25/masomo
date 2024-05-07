@@ -6,36 +6,24 @@ const pdfArray = ["audio/pdf"];
 const audioArray = ["audio/mp3", "audio/wav"];
 
 const storage = multer.diskStorage({
-  destination: (req, file, next, cb) => {
-    if (req?.file || req.files) {
-      if (imgArray.includes(file?.mimetype?.toLowerCase()))
-        cb(null, path.join(__dirname, "../files/", "images"));
-      if (pdfArray.includes(file?.mimetype?.toLowerCase()))
-        cb(null, path.join(__dirname, "../files/", "pdf"));
-    } else {
-      next();
-    }
+  destination: (req, file, cb) => {
+    if (imgArray.includes(file?.mimetype?.toLowerCase()))
+      cb(null, path.join(__dirname, "../files/", "images"));
+    if (pdfArray.includes(file?.mimetype?.toLowerCase()))
+      cb(null, path.join(__dirname, "../files/", "pdf"));
   },
-  filename: (req, file, next, cb) => {
-    if (req?.file || req.files) {
-      if (imgArray.includes(file?.mimetype?.toLowerCase()))
-        cb(null, file?.originalname);
-      if (pdfArray.includes(file?.mimetype?.toLowerCase()))
-        cb(null, file?.originalname);
-    } else {
-      next();
-    }
+  filename: (req, file, cb) => {
+    if (imgArray.includes(file?.mimetype?.toLowerCase()))
+      cb(null, file?.originalname);
+    if (pdfArray.includes(file?.mimetype?.toLowerCase()))
+      cb(null, file?.originalname);
   },
 });
 
 const uploadImage = multer({
   storage: storage,
-  fileFilter: (req, file, next, cb) => {
-    if (req?.file || req.files) {
-      if (imgArray.includes(file?.mimetype?.toLowerCase())) cb(null, true);
-    } else {
-      next();
-    }
+  fileFilter: (req, file, cb) => {
+    if (imgArray.includes(file?.mimetype?.toLowerCase())) cb(null, true);
   },
 });
 

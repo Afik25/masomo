@@ -1,0 +1,450 @@
+.triangle-up {
+  width: 0;
+  height: 0;
+  border-left: 25px solid transparent;
+  border-right: 25px solid transparent;
+  border-bottom: 50px solid #333;
+}
+.triangle-down {
+  width: 0;
+  height: 0;
+  border-left: 25px solid transparent;
+  border-right: 25px solid transparent;
+  border-top: 50px solid #333;
+}
+.triangle-left {
+  width: 0;
+  height: 0;
+  border-top: 25px solid transparent;
+  border-right: 50px solid #333;
+  border-bottom: 25px solid transparent;
+}
+.triangle-right {
+  width: 0;
+  height: 0;
+  border-top: 25px solid transparent;
+  border-left: 50px solid #333;
+  border-bottom: 25px solid transparent;
+}
+.heart {
+  /* Modify size here: */
+  --size: 50px;
+  position: relative;
+  width: var(--size);
+  height: calc(var(--size) * 0.3);
+}
+
+.heart:before,
+.heart:after {
+  position: absolute;
+  content: "";
+  left: calc(var(--size) * 0.55);
+  top: 0;
+  width: calc(var(--size) * 0.55);
+  height: calc(var(--size) * 0.85);
+  background: #333;
+  border-radius: calc(var(--size) * 0.55) calc(var(--size) * 0.55) 0 0;
+  transform: rotate(-45deg);
+  transform-origin: 0 100%;
+}
+.heart:after {
+  left: 0;
+  transform: rotate(45deg);
+  transform-origin: 100% 100%;
+}
+.point-burst-12 {
+  background: #333;
+  width: 40px;
+  height: 40px;
+  position: relative;
+  text-align: center;
+}
+.point-burst-12:before,
+.point-burst-12:after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 40px;
+  width: 40px;
+  background: #333;
+}
+.point-burst-12:before {
+  transform: rotate(30deg);
+}
+.point-burst-12:after {
+  transform: rotate(60deg);
+}
+.point-burst-8 {
+  background: #333;
+  width: 40px;
+  height: 40px;
+  position: relative;
+  text-align: center;
+  transform: rotate(20deg);
+}
+.point-burst-8:before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 40px;
+  width: 40px;
+  background: #333;
+  transform: rotate(135deg);
+}
+.diamond-square {
+  width: 0;
+  height: 0;
+  border: 25px solid transparent;
+  border-bottom-color: #333;
+  position: relative;
+  top: -25px;
+}
+.diamond-square:after {
+  content: "";
+  position: absolute;
+  left: -25px;
+  top: 25px;
+  width: 0;
+  height: 0;
+  border: 25px solid transparent;
+  border-top-color: #333;
+}
+.diamond {
+  /* Modify size here: */
+  --size: 50px;
+  --quarter-size: calc(var(--size) / 4);
+
+  border-style: solid;
+  border-color: transparent transparent #333 transparent;
+  border-width: 0 var(--quarter-size) var(--quarter-size) var(--quarter-size);
+  height: 0;
+  width: calc(var(--size) / 2);
+  box-sizing: content-box;
+  position: relative;
+  margin: 0 0 calc(var(--size) / 2) 0;
+}
+.diamond:after {
+  content: "";
+  position: absolute;
+  top: var(--quarter-size);
+  left: calc(var(--quarter-size) * -1);
+  width: 0;
+  height: 0;
+  border-style: solid;
+  border-color: #333 transparent transparent transparent;
+  border-width: calc(var(--size) * 0.7) calc(var(--size) / 2) 0
+    calc(var(--size) / 2);
+}
+.cone {
+  width: 0;
+  height: 0;
+  border-left: 35px solid transparent;
+  border-right: 35px solid transparent;
+  border-top: 50px solid #333;
+  border-radius: 50%;
+}
+.base {
+  background: #333;
+  display: inline-block;
+  height: 27.5px;
+  position: relative;
+  width: 50px;
+}
+.base:before {
+  border-bottom: 17.5px solid #333;
+  border-left: 25px solid transparent;
+  border-right: 25px solid transparent;
+  content: "";
+  height: 0;
+  left: 0;
+  position: absolute;
+  top: -17.5px;
+  width: 0;
+}
+.octagon {
+  width: 50px;
+  height: 50px;
+  background: #333;
+  position: relative;
+}
+.octagon:before {
+  content: "";
+  width: 20px;
+  height: 0;
+  position: absolute;
+  top: 0;
+  left: 0;
+  border-bottom: 15px solid #333;
+  border-left: 15px solid #fff;
+  border-right: 15px solid #fff;
+}
+.octagon:after {
+  content: "";
+  width: 20px;
+  height: 0;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  border-top: 15px solid #333;
+  border-left: 15px solid #fff;
+  border-right: 15px solid #fff;
+}
+.pac-man {
+  width: 0px;
+  height: 0px;
+  border-right: 29px solid transparent;
+  border-top: 29px solid #333;
+  border-left: 29px solid #333;
+  border-bottom: 29px solid #333;
+  border-top-left-radius: 29px;
+  border-top-right-radius: 29px;
+  border-bottom-left-radius: 29px;
+  border-bottom-right-radius: 29px;
+}
+.space-invader {
+  /* Modify size here: */
+  --block-size: 5px;
+
+  box-shadow: 0 0 0 var(--block-size) #333,
+    0 var(--block-size) 0 var(--block-size) #333,
+    calc(var(--block-size) * -2.5) calc(var(--block-size) * 1.5) 0
+      calc(var(--block-size) * 0.5) #333,
+    calc(var(--block-size) * 2.5) calc(var(--block-size) * 1.5) 0
+      calc(var(--block-size) * 0.5) #333,
+    calc(var(--block-size) * -3) calc(var(--block-size) * -3) 0 0 #333,
+    calc(var(--block-size) * 3) calc(var(--block-size) * -3) 0 0 #333,
+    calc(var(--block-size) * -2) calc(var(--block-size) * -2) 0 0 #333,
+    calc(var(--block-size) * 2) calc(var(--block-size) * -2) 0 0 #333,
+    calc(var(--block-size) * -3) calc(var(--block-size) * -1) 0 0 #333,
+    calc(var(--block-size) * -2) calc(var(--block-size) * -1) 0 0 #333,
+    calc(var(--block-size) * 2) calc(var(--block-size) * -1) 0 0 #333,
+    calc(var(--block-size) * 3) calc(var(--block-size) * -1) 0 0 #333,
+    calc(var(--block-size) * -4) 0 0 0 #333,
+    calc(var(--block-size) * -3) 0 0 0 #333,
+    calc(var(--block-size) * 3) 0 0 0 #333,
+    calc(var(--block-size) * 4) 0 0 0 #333,
+    calc(var(--block-size) * -5) var(--block-size) 0 0 #333,
+    calc(var(--block-size) * -4) var(--block-size) 0 0 #333,
+    calc(var(--block-size) * 4) var(--block-size) 0 0 #333,
+    calc(var(--block-size) * 5) var(--block-size) 0 0 #333,
+    calc(var(--block-size) * -5) calc(var(--block-size) * 2) 0 0 #333,
+    calc(var(--block-size) * 5) calc(var(--block-size) * 2) 0 0 #333,
+    calc(var(--block-size) * -5) calc(var(--block-size) * 3) 0 0 #333,
+    calc(var(--block-size) * -3) calc(var(--block-size) * 3) 0 0 #333,
+    calc(var(--block-size) * 3) calc(var(--block-size) * 3) 0 0 #333,
+    calc(var(--block-size) * 5) calc(var(--block-size) * 3) 0 0 #333,
+    calc(var(--block-size) * -2) calc(var(--block-size) * 4) 0 0 #333,
+    calc(var(--block-size) * -1) calc(var(--block-size) * 4) 0 0 #333,
+    var(--block-size) calc(var(--block-size) * 4) 0 0 #333,
+    calc(var(--block-size) * 2) calc(var(--block-size) * 4) 0 0 #333;
+  background: #333;
+  width: var(--block-size);
+  height: var(--block-size);
+  overflow: hidden;
+}
+.moon {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  box-shadow: 9px 9px 0 0 #333;
+  margin-left: -25px;
+  margin-top: -25px;
+}
+.flag {
+  width: 50px;
+  height: 50px;
+  box-sizing: content-box;
+  padding-top: 15px;
+  position: relative;
+  background: #333;
+}
+.flag:after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 0;
+  height: 0;
+  border-bottom: 13px solid #fff;
+  border-left: 25px solid transparent;
+  border-right: 25px solid transparent;
+}
+.triangle-top-left {
+  width: 0;
+  height: 0;
+  border-top: 50px solid #333;
+  border-right: 50px solid transparent;
+}
+.triangle-top-right {
+  width: 0;
+  height: 0;
+  border-top: 50px solid #333;
+  border-left: 50px solid transparent;
+}
+.triangle-bottom-left {
+  width: 0;
+  height: 0;
+  border-bottom: 50px solid #333;
+  border-right: 50px solid transparent;
+}
+.triangle-bottom-right {
+  width: 0;
+  height: 0;
+  border-bottom: 50px solid #333;
+  border-left: 50px solid transparent;
+}
+.trapezoid {
+  border-bottom: 40px solid #333;
+  border-left: 20px solid transparent;
+  border-right: 20px solid transparent;
+  height: 0;
+  width: 40px;
+}
+.parallelogram {
+  width: 50px;
+  height: 50px;
+  transform: skew(20deg);
+  background: #333;
+}
+.points-star-6 {
+  /* Modify size here: */
+  --size: 25px;
+
+  width: 0;
+  height: 0;
+  border-left: var(--size) solid transparent;
+  border-right: var(--size) solid transparent;
+  border-bottom: calc(var(--size) * 2) solid #333;
+  position: relative;
+}
+.points-star-6:after {
+  width: 0;
+  height: 0;
+  border-left: var(--size) solid transparent;
+  border-right: var(--size) solid transparent;
+  border-top: calc(var(--size) * 2) solid #333;
+  position: absolute;
+  content: "";
+  top: calc(var(--size) / 2);
+  left: calc(var(--size) * -1);
+}
+.hexagon {
+  /* Modify size here: */
+  --size: 50px;
+
+  width: var(--size);
+  height: calc(var(--size) * 0.57735);
+  background: #333;
+  position: relative;
+}
+.hexagon::before {
+  content: "";
+  position: absolute;
+  top: calc(var(--size) * -0.288675);
+  left: 0;
+  width: 0;
+  height: 0;
+  border-left: calc(var(--size) / 2) solid transparent;
+  border-right: calc(var(--size) / 2) solid transparent;
+  border-bottom: calc(var(--size) * 0.288675) solid #333;
+}
+.hexagon::after {
+  content: "";
+  position: absolute;
+  bottom: calc(var(--size) * -0.288675);
+  left: 0;
+  width: 0;
+  height: 0;
+  border-left: calc(var(--size) / 2) solid transparent;
+  border-right: calc(var(--size) / 2) solid transparent;
+  border-top: calc(var(--size) * 0.288675) solid #333;
+}
+.pentagon {
+  --size: 30px;
+
+  position: relative;
+  width: var(--size);
+  box-sizing: content-box;
+  border-width: calc(var(--size) * 0.925) calc(var(--size) * 0.333) 0;
+  border-style: solid;
+  border-color: #333 transparent;
+}
+.pentagon:before {
+  content: "";
+  position: absolute;
+  height: 0;
+  width: 0;
+  top: calc(var(--size) * -1.574);
+  left: calc(var(--size) * -0.333);
+  border-width: 0 calc(var(--size) * 0.833) calc(var(--size) * 0.648);
+  border-style: solid;
+  border-color: transparent transparent #333;
+}
+.infinity {
+  /* Modify size here: */
+  --size: 50px;
+  --thickness: calc(var(--size) * 0.1);
+
+  position: relative;
+  width: var(--size);
+  height: calc(var(--size) * 0.47);
+  box-sizing: content-box;
+}
+.infinity:before,
+.infinity:after {
+  content: "";
+  box-sizing: content-box;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: calc(var(--size) * 0.28);
+  height: calc(var(--size) * 0.28);
+  border: var(--thickness) solid #333;
+  border-radius: 50px 50px 0 50px;
+  transform: rotate(-45deg);
+}
+.infinity:after {
+  left: calc(44% + var(--thickness));
+  right: 0;
+  border-radius: 50px 50px 50px 0;
+  transform: rotate(45deg);
+}
+.egg {
+  /* Modify size here: */
+  --size: 50px;
+
+  display: block;
+  width: var(--size);
+  height: calc(var(--size) * 1.44);
+  background-color: #333;
+  border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
+}
+.badge-ribbon {
+  /* Modify size here: */
+  --size: 50px;
+
+  position: relative;
+  background: #333;
+  height: var(--size);
+  width: var(--size);
+  border-radius: 50px;
+}
+
+.badge-ribbon:before,
+.badge-ribbon:after {
+  content: "";
+  position: absolute;
+  border-bottom: calc(var(--size) * 0.7) solid #333;
+  border-left: calc(var(--size) * 0.4) solid transparent;
+  border-right: calc(var(--size) * 0.4) solid transparent;
+  top: calc(var(--size) * 0.7);
+  left: calc(var(--size) * -0.1);
+  transform: rotate(-140deg);
+}
+.badge-ribbon:after {
+  left: auto;
+  right: calc(var(--size) * -0.1);
+  transform: rotate(140deg);
+}
