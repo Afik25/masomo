@@ -22,6 +22,7 @@ import {
   FaTrashAlt,
   FaPlus,
   FaCheck,
+  FaBookReader,
 } from "react-icons/fa";
 import {
   IoNotificationsOutline,
@@ -75,6 +76,7 @@ export {
   FaTrashAlt,
   FaPlus,
   FaCheck,
+  FaBookReader,
 };
 export {
   IoNotificationsOutline,

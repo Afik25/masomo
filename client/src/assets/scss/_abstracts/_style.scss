@@ -724,7 +724,7 @@ body {
             p {
               font-size: $size-105;
             }
-            span{
+            span {
               color: $color-1;
               font-weight: bold;
               margin: 0 $size-05;
@@ -733,21 +733,21 @@ body {
               font-size: $size-2;
             }
           }
-          &:nth-child(3){
-            .t-2{
+          &:nth-child(3) {
+            .t-2 {
               color: $color-4;
               font-size: $size-3;
               font-weight: 800;
             }
-            .t-3{
+            .t-3 {
               font-size: $size-2;
-              span{
+              span {
                 color: $grey-color-1;
                 font-weight: 800;
               }
             }
           }
-          .chart{
+          .chart {
             width: 100%;
             height: 600px;
           }
@@ -756,7 +756,6 @@ body {
       .sd-right {
         width: 40%;
         display: flex;
-        justify-content: space-between;
         flex-wrap: wrap;
         .item {
           @include margin($size-1);
@@ -774,19 +773,120 @@ body {
               font-size: $size-4;
               margin-right: $size-07;
             }
-            span{
+            span {
               color: $color-1;
               font-size: $size-2;
               font-weight: bold;
             }
           }
-          &:nth-child(3){
+          &:nth-child(3) {
             width: 100%;
             height: calc(100% - 110px);
             border-color: $grey-color-3;
           }
         }
-        .timeline{}
+        .timeline {
+          position: relative;
+          overflow-y: auto;
+          .timeline-container {
+            position: relative;
+            width: 50%;
+            // background-color: rgba($color: $black-color, $alpha: 0.3);
+            padding: $size-1 $size-5;
+            animation: movedown 1s linear forwards;
+            opacity: 0;
+            .icon-container {
+              position: absolute;
+              width: 40px;
+              height: 40px;
+              display: flex;
+              align-items: center;
+              justify-content: center;
+              background-color: $color-1;
+              border-radius: 50%;
+              right: -20px;
+              top: 32px;
+              z-index: 9;
+              .icon {
+                color: $white-color;
+                font-size: $size-2;
+              }
+            }
+            .text-box {
+              position: relative;
+              background-color: $white-color;
+              border-radius: $size-08;
+              border: 1px solid $grey-color-2;
+              padding: $size-08 $size-1;
+              .t-2 {
+                font-size: $size-105;
+                font-weight: bold;
+              }
+              p{
+                color: $color-4;
+                text-align: justify;
+              }
+            }
+            &:nth-child(1) {
+              animation-delay: 0s;
+            }
+            &:nth-child(2) {
+              animation-delay: 1s;
+            }
+            &:nth-child(3) {
+              animation-delay: 2s;
+            }
+            &:nth-child(4) {
+              animation-delay: 3s;
+            }
+            &:nth-child(5) {
+              animation-delay: 4s;
+            }
+          }
+          .tc-left,
+          .tc-right {
+            .left-arrow,
+            .right-arrow {
+              width: 0;
+              height: 0;
+              position: absolute;
+              top: 28px;
+              z-index: 1;
+              border-top: 15px solid transparent;
+              border-bottom: 15px solid transparent;
+            }
+          }
+          .tc-left {
+            left: 0;
+            .left-arrow {
+              border-left: 15px solid $color-1;
+              right: -15px;
+            }
+          }
+          .tc-right {
+            left: 50%;
+            .icon-container {
+              left: -20px;
+            }
+            .right-arrow {
+              border-right: 15px solid $color-1;
+              left: -15px;
+            }
+          }
+          &::after {
+            content: "";
+            position: absolute;
+            width: 6px;
+            height: auto;
+            max-height: 100%;
+            background: $color-1;
+            top: 0;
+            left: 50%;
+            margin-left: -3px;
+            animation: moveline 6s linear forwards;
+            z-index: 0;
+          }
+        }
       }
     }
   }
@@ -3466,6 +3566,24 @@ body {
 @keyframes zoomImg {
   to {
     transform: scale(1.5);
+  }
+}
+@keyframes movedown {
+  0% {
+    opacity: 1;
+    transform: translateY(-30px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0px);
+  }
+}
+@keyframes moveline {
+  0% {
+    height: 0;
+  }
+  100% {
+    height: 100%;
   }
 }
 

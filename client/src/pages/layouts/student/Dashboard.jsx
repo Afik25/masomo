@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { MdMenuBook, MdQuiz } from "../../../middlewares/icons";
+import { MdMenuBook, MdQuiz, FaBookReader } from "../../../middlewares/icons";
 import Chart from "react-apexcharts";
 
 const Dashboard = () => {
@@ -89,47 +89,30 @@ const Dashboard = () => {
           </div>
           <div className="item timeline">
             <div className="timeline-container tc-left">
+              <div className="icon-container">
+                <FaBookReader className="icon" />
+              </div>
               <div className="text-box">
                 <h2 className="title t-2">Course title 1</h2>
                 <p>
                   Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nam,
-                  accusamus debitis. Et sint laudantium nobis voluptatum nostrum
-                  magnam voluptas sequi repudiandae voluptatibus deleniti iste
-                  rerum cum quidem, quis doloremque ea.
+                  accusamus debitis.
                 </p>
+                <span className="left-arrow"></span>
               </div>
             </div>
             <div className="timeline-container tc-right">
-              <div className="text-box">
-                <h2 className="title t-2">Course title 1</h2>
-                <p>
-                  Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nam,
-                  accusamus debitis. Et sint laudantium nobis voluptatum nostrum
-                  magnam voluptas sequi repudiandae voluptatibus deleniti iste
-                  rerum cum quidem, quis doloremque ea.
-                </p>
+              <div className="icon-container">
+                <FaBookReader className="icon" />
               </div>
-            </div>
-            <div className="timeline-container tc-left">
               <div className="text-box">
                 <h2 className="title t-2">Course title 1</h2>
                 <p>
                   Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nam,
                   accusamus debitis. Et sint laudantium nobis voluptatum nostrum
-                  magnam voluptas sequi repudiandae voluptatibus deleniti iste
-                  rerum cum quidem, quis doloremque ea.
+                  magnam voluptas sequi repudiandae.
                 </p>
-              </div>
-            </div>
-            <div className="timeline-container tc-right">
-              <div className="text-box">
-                <h2 className="title t-2">Course title 1</h2>
-                <p>
-                  Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nam,
-                  accusamus debitis. Et sint laudantium nobis voluptatum nostrum
-                  magnam voluptas sequi repudiandae voluptatibus deleniti iste
-                  rerum cum quidem, quis doloremque ea.
-                </p>
+                <span className="right-arrow"></span>
               </div>
             </div>
           </div>
