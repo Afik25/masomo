@@ -45,9 +45,6 @@ const JoinQuiz = () => {
           )}
           {step === 1 && (
             <div className="step">
-              <h3 className="title t-2">
-                Enter your {isClassicMode ? "Nickname" : "Team Nickname"}
-              </h3>
               <h3 className="title t-3">
                 Challenge in {isClassicMode ? "Classic Mode" : "Team Mode"}
               </h3>
@@ -57,6 +54,9 @@ const JoinQuiz = () => {
                     <div className="emojis-item">Emojis Item</div>
                 </div>
               </div>
+              <h3 className="title t-2">
+                Enter your {isClassicMode ? "Nickname" : "Team Nickname"}
+              </h3>
               <div className="content">
                 <div className="input-div">
                   <input
@@ -85,8 +85,8 @@ const JoinQuiz = () => {
           )}
           {step === 2 && (
             <div className="step">
-              <h3 className="title t-2">Enter the players Nickname(Pseudo)</h3>
-              <h3 className="title t-3">The Pseudo of every team member</h3>
+              <h3 className="title t-2">Enter the players Nickname</h3>
+              <h3 className="title t-3">The nickname of every team member</h3>
               <div className="input-div">
                 <input
                   type="text"

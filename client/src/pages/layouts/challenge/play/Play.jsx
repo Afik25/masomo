@@ -141,13 +141,13 @@ const Play = () => {
               <h3 className="t-1">Answer Sent!</h3>
               <p>&#128519;</p>
             </div> */}
-            <div className="fade-in">
+            {/* <div className="fade-in">
               <h3 className="t-1-failed">Correct! /Incorrect!</h3>
               <GiCheckMark className="t-1-failed"/>
               <h3 className="t-1-success">Correct answer is : xxxxxxx</h3>
               <button className="button">Next question</button>
-            </div>
-            {/* <div  className="fade-in">
+            </div> */}
+            <div  className="fade-in">
               <h1 className="t-1">14th Place</h1>
               <p>&#129321;</p>
               <h2 className="t-2">Totally Rad :</h2>
@@ -155,7 +155,7 @@ const Play = () => {
               <h2 className="t-2">Accuracy :</h2>
               <h2 className="t-1">11/15</h2>
               <p>73%</p>
-            </div> */}
+            </div>
           </div>
         </div>
       </div>
