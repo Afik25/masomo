@@ -1,9 +1,15 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { MdMenuBook, MdQuiz, FaBookReader } from "../../../middlewares/icons";
 import ReactApexCharts from "react-apexcharts";
 import Chart from "react-apexcharts";
+import { onGetStudentDashboard } from "../../../services/user";
+import { useDispatch, useSelector } from "react-redux";
+import useAxiosPrivate from "../../../hooks/context/state/useAxiosPrivate";
+import moment from "moment";
 
 const Dashboard = () => {
+  const axiosPrivate = useAxiosPrivate();
+  const dispatch = useDispatch();
   const [data, setData] = useState({
     challenge_progress: {
       series: [10],
@@ -83,6 +89,37 @@ const Dashboard = () => {
       // ],
     },
   });
+
+  const user = useSelector(
+    (state) => state.setInitConf.initConnectedUser.connectedUserData
+  );
+
+  useEffect(() => {
+    let isMounted = true;
+    const controller = new AbortController();
+    const signal = controller.signal;
+
+    onGetStudentDashboard(user?.userInfo?.user_id, axiosPrivate, signal).then(
+      (result) => {
+        dispatch({
+          type: "setUpUser/getStudentDashboard",
+          payload: result,
+        });
+      }
+    );
+
+    return () => {
+      isMounted = false;
+      isMounted && controller.abort();
+    };
+  }, []);
+
+  const studentDashboard = useSelector(
+    (state) => state.setUserSlice.initStudentDashboard?.studentDashboardsData
+  );
+
+  console.log({ 'studentDashboard': studentDashboard });
+
   return (
     <div className="student-dashboard">
       <div className="container">

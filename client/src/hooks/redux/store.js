@@ -1,5 +1,6 @@
 import { configureStore } from "@reduxjs/toolkit";
 import { configurationSlice } from "./slices/configuration";
+import { userSlice } from "./slices/user";
 import { programSlice } from "./slices/programs";
 import { levelSlice } from "./slices/levels";
 import { courseSlice } from "./slices/courses";
@@ -10,6 +11,7 @@ import { solutionSlice } from "./slices/solutions";
 export const store = configureStore({
   reducer: {
     setInitConf: configurationSlice.reducer,
+    setUserSlice: userSlice.reducer,
     setProgramSlice: programSlice.reducer,
     setLevelSlice: levelSlice.reducer,
     setCourseSlice: courseSlice.reducer,

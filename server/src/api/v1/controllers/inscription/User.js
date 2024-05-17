@@ -291,10 +291,12 @@ module.exports = {
       console.log({ "Error initial configure process ": error });
     }
   },
-  async dashboardStudent(req, res) {
+  async dashboardAdmin(req, res) {
     try {
       // student id
       const { key } = req.params;
+
+      console.log({ "req.params": req.params });
 
       const inscription = await Inscription.findOne({
         where: { user_id: parseInt(key) },
@@ -305,8 +307,12 @@ module.exports = {
           message: "The student is not inscribed.",
         });
       }
-      const level = await Level.findByPk(parseInt(inscription.level_id));
-      const program = await Program.findByPk(parseInt(level.program_id));
+      const level = await Level.findOne({
+        where: { id: parseInt(inscription.level_id) },
+      });
+      const program = await Program.findOne({
+        where: { id: parseInt(level.program_id) },
+      });
       const subscription = await Subscription.findAll({
         limit: 1,
         where: { student_id: parseInt(key) },
@@ -331,7 +337,7 @@ module.exports = {
           const _countExercises = await Exercice.count({
             where: { lesson_id: parseInt(lessons.rows[j].id) },
           });
-          total_exercise = total_exercise + _countExercises
+          total_exercise = total_exercise + _countExercises;
         }
       }
 
@@ -358,7 +364,84 @@ module.exports = {
 
       return res.status(200).json({ status: true, dashboardData });
     } catch (error) {
-      console.log({ "catch error get User by key ": error });
+      console.log({ "catch error get Student Dashboard ": error });
+      return res.status(400).json({ status: false, error });
+    }
+  },
+  async dashboardStudent(req, res) {
+    try {
+      // student id
+      const { key } = req.params;
+
+      console.log({ "req.params": req.params });
+
+      const inscription = await Inscription.findOne({
+        where: { user_id: parseInt(key) },
+      });
+      if (!inscription) {
+        return res.status.json({
+          status: false,
+          message: "The student is not inscribed.",
+        });
+      }
+      const level = await Level.findOne({
+        where: { id: parseInt(inscription.level_id) },
+      });
+      const program = await Program.findOne({
+        where: { id: parseInt(level.program_id) },
+      });
+      const subscription = await Subscription.findAll({
+        limit: 1,
+        where: { student_id: parseInt(key) },
+        order: [["id", "DESC"]],
+      });
+      const logins = await Login.findAll({
+        where: { user_id: parseInt(key) },
+      });
+      //
+      const { count, rows } = await Course.findAndCountAll({
+        where: { level_id: level.id },
+      });
+      var total_lesson = 0;
+      var total_exercise = 0;
+      for (let i = 0; i < rows.length; i++) {
+        const lessons = await Lesson.findAndCountAll({
+          where: { course_id: parseInt(rows[i].id) },
+        });
+        total_lesson = total_lesson + lessons.count;
+
+        for (let j = 0; j < lessons.rows.length; j++) {
+          const _countExercises = await Exercice.count({
+            where: { lesson_id: parseInt(lessons.rows[j].id) },
+          });
+          total_exercise = total_exercise + _countExercises;
+        }
+      }
+
+      const total_challenge = await Participate.count({
+        where: {
+          [Op.and]: [{ user_id: parseInt(key) }, { status: true }],
+        },
+      });
+
+      const dashboardData = {
+        level: level.title,
+        program_country: program.country,
+        program_language: program.language,
+        program_title: program.title,
+        subscription_end: subscription.end_sub,
+        last_login: logins[logins.length - 1],
+        logins: logins,
+        total_course: count,
+        courses: rows,
+        total_lesson: total_lesson,
+        total_exercise: total_exercise,
+        total_challenge: total_challenge,
+      };
+
+      return res.status(200).json({ status: true, dashboardData });
+    } catch (error) {
+      console.log({ "catch error get Student Dashboard ": error });
       return res.status(400).json({ status: false, error });
     }
   },
