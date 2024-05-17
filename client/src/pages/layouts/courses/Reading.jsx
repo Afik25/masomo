@@ -324,7 +324,7 @@ const Reading = () => {
                       );
                     })}
                   </div>
-                  {itemContent?.lesson?.type != "freemium" && (
+                  {itemContent?.lesson?.type !== "freemium" && (
                     <div className="outer">
                       <img src={PREMUIM} alt="premuim" />
                       <h2 className="title t-2">
@@ -385,7 +385,7 @@ const Reading = () => {
                                           })}
                                         </div>
                                       </div>
-                                      {itemExercise?.exercise?.type !=
+                                      {itemExercise?.exercise?.type !==
                                         "freemium" && (
                                         <div className="outer">
                                           <img src={PREMUIM} alt="premuim" />
@@ -483,7 +483,7 @@ const Reading = () => {
                                                     )}
                                                   </div>
                                                 </div>
-                                                {itemSolution?.solution?.type !=
+                                                {itemSolution?.solution?.type !==
                                                   "freemium" && (
                                                   <div className="outer">
                                                     <img

@@ -16,12 +16,15 @@ const Login = require("../api/v1/controllers/login/Login");
 const Quiz = require("../api/v1/controllers/challenge/Quiz");
 const QuestionAnswers = require("../api/v1/controllers/challenge/QuestionAnswers");
 //
-// root configure
+// root configure and setup
 router.get("/auth/config", User.config);
 //
 router.get("/countries", function (req, res) {
   res.status(200).json({ countries });
 });
+// 
+// User
+router.get("/user/dashboard/student/:key", User.dashboardStudent);
 //
 // Inscription
 router.post("/auth/register", Inscription.create);

@@ -6,7 +6,7 @@ import Chart from "react-apexcharts";
 const Dashboard = () => {
   const [data, setData] = useState({
     challenge_progress: {
-      series: [70],
+      series: [10],
       options: {
         chart: {
           height: 350,
@@ -23,7 +23,7 @@ const Dashboard = () => {
       },
     },
     reading_progress: {
-      series: [60],
+      series: [5],
       options: {
         chart: {
           height: 350,

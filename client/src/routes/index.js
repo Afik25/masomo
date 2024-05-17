@@ -5,6 +5,8 @@ export const COMPLETE_ACTIVATION = "/auth/activation";
 export const LOGIN = "/auth/login";
 export const REFRESH = "/auth/refresh";
 export const LOGOUT = "/auth/logout";
+// 
+export const DASHBOARD_STUDENT = "/user/dashboard/student";
 //
 export const PROGRAMS = "/programs";
 export const PROGRAMS_CUSTOMIZED = "/programs/customized";

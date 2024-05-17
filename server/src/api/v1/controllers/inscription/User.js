@@ -1,6 +1,16 @@
 const User = require("../../models/inscription/User");
+const Inscription = require("../../models/inscription/Inscription");
+const Program = require("../../models/inscription/Program");
+const Level = require("../../models/course/Level");
+const Subscription = require("../../models/subscription/Subscription");
+const Login = require("../../models/login/Login");
+const Course = require("../../models/course/Course");
+const Lesson = require("../../models/course/Lesson");
+const Exercice = require("../../models/course/Exercice");
+const Participate = require("../../models/challenge/Participate");
+//
 const { Op } = require("sequelize");
-const uuid = require('uuid');
+const uuid = require("uuid");
 
 const { generatePassword } = require("../../../../utils/utils");
 
@@ -57,7 +67,7 @@ module.exports = {
           message: `The username ${username} is already used!`,
         });
       }
-      const sys_id = uuid.v1()
+      const sys_id = uuid.v1();
       const password = generatePassword(6);
       const user = await User.create({
         prename,
@@ -240,7 +250,7 @@ module.exports = {
       const mail = "admin@masomo.edu";
       const username = "admin";
       const password = "root@1";
-      const sys_id = uuid.v1()
+      const sys_id = uuid.v1();
       const sys_role = "admin";
       const is_completed = false;
 
@@ -279,6 +289,77 @@ module.exports = {
       });
     } catch (error) {
       console.log({ "Error initial configure process ": error });
+    }
+  },
+  async dashboardStudent(req, res) {
+    try {
+      // student id
+      const { key } = req.params;
+
+      const inscription = await Inscription.findOne({
+        where: { user_id: parseInt(key) },
+      });
+      if (!inscription) {
+        return res.status.json({
+          status: false,
+          message: "The student is not inscribed.",
+        });
+      }
+      const level = await Level.findByPk(parseInt(inscription.level_id));
+      const program = await Program.findByPk(parseInt(level.program_id));
+      const subscription = await Subscription.findAll({
+        limit: 1,
+        where: { student_id: parseInt(key) },
+        order: [["id", "DESC"]],
+      });
+      const logins = await Login.findAll({
+        where: { user_id: parseInt(key) },
+      });
+      //
+      const { count, rows } = await Course.findAndCountAll({
+        where: { level_id: level.id },
+      });
+      var total_lesson = 0;
+      var total_exercise = 0;
+      for (let i = 0; i < rows.length; i++) {
+        const lessons = await Lesson.findAndCountAll({
+          where: { course_id: parseInt(rows[i].id) },
+        });
+        total_lesson = total_lesson + lessons.count;
+
+        for (let j = 0; j < lessons.rows.length; j++) {
+          const _countExercises = await Exercice.count({
+            where: { lesson_id: parseInt(lessons.rows[j].id) },
+          });
+          total_exercise = total_exercise + _countExercises
+        }
+      }
+
+      const total_challenge = await Participate.count({
+        where: {
+          [Op.and]: [{ user_id: parseInt(key) }, { status: true }],
+        },
+      });
+
+      const dashboardData = {
+        level: level.title,
+        program_country: program.country,
+        program_language: program.language,
+        program_title: program.title,
+        subscription_end: subscription.end_sub,
+        last_login: logins[logins.length - 1],
+        logins: logins,
+        total_course: count,
+        courses: rows,
+        total_lesson: total_lesson,
+        total_exercise: total_exercise,
+        total_challenge: total_challenge,
+      };
+
+      return res.status(200).json({ status: true, dashboardData });
+    } catch (error) {
+      console.log({ "catch error get User by key ": error });
+      return res.status(400).json({ status: false, error });
     }
   },
 };

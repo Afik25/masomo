@@ -35,7 +35,7 @@ const PreviewContent = () => {
             <div className="pc-item">
               <p className="title t-2">{item?.description}</p>
               <div className="pc-images">{!isEmpty(_thumbs) && _thumbs.map((element, k)=>{
-                return <img src={`${process.env.REACT_APP_API_SERVER_URL}:${process.env.REACT_APP_API_SERVER_PORT}/images/${element}`}/>
+                return <img src={`${process.env.REACT_APP_API_SERVER_URL}:${process.env.REACT_APP_API_SERVER_PORT}/images/${element}`} alt={`thumb-${k}`}/>
               })}</div>
             </div>
           );

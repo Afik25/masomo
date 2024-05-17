@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { IoArrowForward, FaPlus } from "../../../../middlewares/icons";
 
 const JoinQuiz = () => {
-  const [step, setStep] = useState(0);
+  const [step, setStep] = useState(2);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isClassicMode, setIsClassicMode] = useState(true);
   const [emojis, setEmojis] = useState("");
