@@ -444,10 +444,28 @@
       flex-wrap: wrap;
       justify-content: space-between;
       padding-top: 1rem;
+      .resend-code {
+        width: 100%;
+        display: flex;
+        align-items: center;
+        margin-bottom: $size-07;
+        .title {
+          margin: 0;
+          margin-right: $size-07;
+        }
+        .button {
+          border-radius: $size-07;
+          background-color: $color-1;
+          color: $white-color;
+          font-size: $size-07;
+          box-shadow: rgba(45, 35, 66, 0.4) 0 2px 4px,
+            rgba(45, 35, 66, 0.3) 0 7px 13px -3px, $color-1 0 -3px 0 inset;
+        }
+      }
     }
-    .buttons{
+    .buttons {
       text-align: center;
-      .validate{
+      .validate {
         width: 30%;
         border-radius: $size-03;
         color: $white-color;
@@ -465,7 +483,7 @@
   height: 40px;
   width: 110px;
   @include padding(0.5rem);
-  img{
+  img {
     width: 20px;
     height: 20px;
   }

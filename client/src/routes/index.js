@@ -2,6 +2,7 @@ export const REGISTER = "/auth/register";
 export const COMPLETE = "/auth/complete";
 export const COMPLETE_PROGRAM = "/auth/complete/program";
 export const COMPLETE_ACTIVATION = "/auth/activation";
+export const RESEND_ACTIVATION_CODE = "/auth/resend/activation/code";
 export const LOGIN = "/auth/login";
 export const REFRESH = "/auth/refresh";
 export const LOGOUT = "/auth/logout";

@@ -100,14 +100,15 @@ const Dashboard = () => {
     const controller = new AbortController();
     const signal = controller.signal;
 
-    onGetStudentDashboard(user?.userInfo?.user_id, axiosPrivate, signal).then(
-      (result) => {
-        dispatch({
-          type: "setUpUser/getStudentDashboard",
-          payload: result,
-        });
-      }
-    );
+    user?.userInfo?.is_completed &&
+      onGetStudentDashboard(user?.userInfo?.user_id, axiosPrivate, signal).then(
+        (result) => {
+          dispatch({
+            type: "setUpUser/getStudentDashboard",
+            payload: result,
+          });
+        }
+      );
 
     return () => {
       isMounted = false;

@@ -373,8 +373,10 @@ module.exports = {
       // student id
       const { key } = req.params;
 
-      const inscription = await Inscription.findOne({
+      const inscription = await Inscription.findAll({
+        limit:1,
         where: { user_id: parseInt(key) },
+        order: [["id", "DESC"]],
       });
       if (!inscription) {
         return res.status.json({
@@ -383,7 +385,7 @@ module.exports = {
         });
       }
       const level = await Level.findOne({
-        where: { id: parseInt(inscription.level_id) },
+        where: { id: parseInt(inscription[0].level_id) },
       });
       const program = await Program.findOne({
         where: { id: parseInt(level.program_id) },

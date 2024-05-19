@@ -30,6 +30,7 @@ router.get("/user/dashboard/student/:key", User.dashboardStudent);
 router.post("/auth/register", Inscription.create);
 router.post("/auth/complete", Inscription.complete);
 router.post("/auth/complete/program", Inscription.completeProgram);
+router.post("/auth/resend/activation/code", Inscription.resendActivationCode);
 router.post("/auth/activation", Inscription.activateCompletion);
 //
 // login

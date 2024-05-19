@@ -5,6 +5,7 @@ import {
   COMPLETE,
   COMPLETE_PROGRAM,
   COMPLETE_ACTIVATION,
+  RESEND_ACTIVATION_CODE,
 } from "../routes";
 
 // const ipAPI = "//api.ipify.org?format=json";
@@ -122,6 +123,26 @@ export function completeProgram(data) {
   return new Promise(async (resolve, reject) => {
     await axios
       .post(COMPLETE_PROGRAM, _data, {
+        headers: { "Content-Type": "application/json" },
+        withCredentials: true,
+      })
+      .then((response) => {
+        resolve(response);
+      })
+      .catch((error) => {
+        reject(error);
+      });
+  });
+}
+
+export function onResendActivationCode(data) {
+  const _data = {
+    student_id: data.student_id,
+    old_code: data.old_code,
+  };
+  return new Promise(async (resolve, reject) => {
+    await axios
+      .post(RESEND_ACTIVATION_CODE, _data, {
         headers: { "Content-Type": "application/json" },
         withCredentials: true,
       })

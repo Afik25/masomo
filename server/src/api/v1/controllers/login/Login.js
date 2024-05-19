@@ -25,13 +25,13 @@ module.exports = {
       const user = await User.findOne({
         where: {
           [Op.or]: [
-            { username: username },
+            { username: username.toLowerCase() },
             {
               telephone: {
                 [Op.like]: `%${username}%`,
               },
             },
-            { mail: username },
+            { mail: username.toLowerCase() },
           ],
         },
       });
@@ -44,12 +44,11 @@ module.exports = {
       }
 
       const level = await Inscription.findOne({ where: { user_id: user.id } });
-
-      if (!bcrypt.compareSync(password, user.password)) {
+      if (!bcrypt.compare(password, user.password)) {
         return res.status(400).json({
           status: 0,
           isLogged: false,
-          message: "The username or/and password is/are wrong.",
+          message: "The username or/and password is/are wrong.2",
         });
       }
       const user_id = user.id;

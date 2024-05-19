@@ -62,7 +62,7 @@ module.exports = {
         mail,
         birth,
         birth_location,
-        nationality
+        nationality,
       } = req.body;
       const {
         dates,
@@ -162,11 +162,14 @@ module.exports = {
     try {
       const { inscription_id, level_id } = req.body;
 
-      const inscription = await Inscription.update(
+      const _inscription = await Inscription.update(
         { level_id },
         { where: { id: inscription_id } }
       );
-      if (inscription) {
+      if (_inscription) {
+        const inscription = await Inscription.findOne({
+          where: { id: inscription_id },
+        });
         return res.status(200).json({
           status: 1,
           message: "Completion's program done successfully.",
@@ -180,6 +183,37 @@ module.exports = {
       });
     } catch (error) {
       console.log({ "Error on Completion's program ": error });
+    }
+  },
+  async resendActivationCode(req, res) {
+    try {
+      const { student_id, old_code } = req.body;
+
+      const subscriptionFindout = await Subscription.findAll({
+        limit: 1,
+        where: { student_id: student_id, reference_transaction: old_code },
+        order: [["id", "DESC"]],
+      });
+
+      if (subscriptionFindout) {
+        const code = generateOTP();
+        await Subscription.update(
+          { reference_transaction: code },
+          { where: { id: subscriptionFindout[0].id } }
+        );
+        return res.status(200).json({
+          status: 1,
+          message: "New code generated successfully.",
+          code,
+        });
+      }
+
+      return res.status(400).json({
+        status: 0,
+        message: "generation process of the new confirmation code failed.",
+      });
+    } catch (error) {
+      console.log({ "Error resend activation code ": error });
     }
   },
   async activateCompletion(req, res) {

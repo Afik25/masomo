@@ -17,6 +17,7 @@ import {
   completeInscription,
   completeProgram,
   completeActivation,
+  onResendActivationCode,
 } from "../../services/authentication";
 import countries from "../../middlewares/countries.json";
 import { getPrograms } from "../../services/programs";
@@ -32,6 +33,7 @@ const CompleteRegister = ({ sys_role }) => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [selectedProgram, setSelectedProgram] = useState(null);
   const [activationCode, setActivationCode] = useState();
+  const [inscriptionData, setInscriptionData] = useState();
   //
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -152,6 +154,7 @@ const CompleteRegister = ({ sys_role }) => {
             }).then((res) => {
               swal("An activation's code was sent to provided number by SMS.");
             });
+            setInscriptionData(response?.data?.inscription);
             setActiveOption(2);
           }
         })
@@ -174,6 +177,32 @@ const CompleteRegister = ({ sys_role }) => {
           }
         });
     } else {
+      if (data?.confirmation_code != activationCode) {
+        swal({
+          title: "Process failed!",
+          text: "Confirmation Code Invalid!",
+          icon: "warning",
+          buttons: true,
+        });
+        return;
+      }
+      let inscriptionDates = inscriptionData?.dates;
+      var t1 = new Date();
+      var t2 = new Date(inscriptionDates);
+      var diff = (t1.getTime() - t2.getTime()) / 1000;
+
+      var seconds = Math.floor(Math.abs(diff));
+
+      if (seconds > 300) {
+        swal({
+          title: "Process failed!",
+          text: "Confirmation Code expired!" + seconds,
+          icon: "warning",
+          buttons: true,
+        });
+        return;
+      }
+
       setIsSubmitting(!isSubmitting);
       completeActivation(data)
         .then((result) => {
@@ -359,7 +388,11 @@ const CompleteRegister = ({ sys_role }) => {
                 return (
                   prog.status === 1 && (
                     <option value={prog.id}>
-                      {prog.language + " / " + prog.country}
+                      {prog?.title +
+                        " " +
+                        capitalize(prog.language) +
+                        " Program / " +
+                        prog.country}
                     </option>
                   )
                 );
@@ -383,7 +416,9 @@ const CompleteRegister = ({ sys_role }) => {
               selectedProgram.map((lev) => {
                 return (
                   lev.status === 1 && (
-                    <option value={lev.id}>{lev.title.toLowerCase()}</option>
+                    <option value={lev.id}>
+                      {capitalize(lev?.title)} level
+                    </option>
                   )
                 );
               })
@@ -401,6 +436,55 @@ const CompleteRegister = ({ sys_role }) => {
           Un code de confirmation permettant l'activation de votre compte a été
           envoyé par SMS via le numéro de téléphone que vous avez renseigné.
         </p>
+        <div className="resend-code">
+          <p className="title t-2">
+            Vous n'avez pas reçu de code ? --- {activationCode}
+          </p>
+          <button
+            type="button"
+            className="button"
+            onClick={() => {
+              const data = {
+                student_id: user.userInfo?.user_id,
+                old_code: activationCode,
+              };
+              onResendActivationCode(data)
+                .then((result) => {
+                  let response = result;
+                  if (response?.data?.status === 1) {
+                    setIsSubmitting(false);
+                    swal({
+                      title: "Activation Code",
+                      text: "New activation code sent!",
+                      icon: "success",
+                      button: "Ok",
+                    });
+                    setActivationCode(response?.data?.code);
+                  }
+                })
+                .catch((error) => {
+                  setIsSubmitting(false);
+                  if (!error?.response) {
+                    swal({
+                      title: "Oups!",
+                      text: "No server response!",
+                      icon: "warning",
+                      buttons: true,
+                    });
+                  } else {
+                    swal({
+                      title: "Activat Code Process failed!",
+                      text: error?.response?.data?.message,
+                      icon: "warning",
+                      buttons: true,
+                    });
+                  }
+                });
+            }}
+          >
+            Renvoyer le code
+          </button>
+        </div>
         <div className="input-div">
           <input
             type="text"
