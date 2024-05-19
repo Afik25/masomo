@@ -92,12 +92,7 @@ const CompleteRegister = ({ sys_role }) => {
     defaultValues: {
       id: user.userInfo?.user_id,
       is_completed: true,
-      prename: user.userInfo?.prename,
-      name: user.userInfo?.name,
-      telephone: user.userInfo?.telephone,
-      mail: user.userInfo?.mail,
       sys_role: user.userInfo?.sys_role,
-      username: user.userInfo?.username,
     },
   });
   const onSubmit = async (data) => {
@@ -223,36 +218,6 @@ const CompleteRegister = ({ sys_role }) => {
       <div className="steps">
         <p className="title t-2">Complete your Personal Informations</p>
         <div className="input-div">
-          <input
-            type="text"
-            className="input-form"
-            autoComplete="none"
-            placeholder=" "
-            {...register("prename")}
-          />
-          <label htmlFor="prename" className="label-form">
-            Lastname
-          </label>
-          {errors.prename && (
-            <span className="fade-in">{errors.prename.message}</span>
-          )}
-        </div>
-        <div className="input-div">
-          <input
-            type="text"
-            className="input-form"
-            autoComplete="none"
-            placeholder=" "
-            {...register("name")}
-          />
-          <label htmlFor="name" className="label-form">
-            Firstname
-          </label>
-          {errors.name && (
-            <span className="fade-in">{errors.name.message}</span>
-          )}
-        </div>
-        <div className="input-div">
           <select className="input-form" {...register("gender")}>
             <option value="" style={{ color: "grey" }} selected>
               Gender
@@ -265,7 +230,7 @@ const CompleteRegister = ({ sys_role }) => {
           )}
         </div>
         <div className="input-div">
-          <select className="input-form" {...register("role")}>
+          <select className="input-form" {...register("sys_role")}>
             <option value="" style={{ color: "grey" }}>
               You are (Role){" "}
             </option>
@@ -339,7 +304,7 @@ const CompleteRegister = ({ sys_role }) => {
         <div className="input-div">
           <select className="input-form" {...register("nationality")}>
             <option value="" style={{ color: "grey" }}>
-              Nationality
+              Country of Origin
             </option>
             {isEmpty(countries) ? (
               <option value="" selected>
@@ -355,66 +320,6 @@ const CompleteRegister = ({ sys_role }) => {
           </select>
           {errors.nationality && (
             <span className="fade-in">{errors.nationality.message}</span>
-          )}
-        </div>
-        <div className="input-div">
-          <input
-            type="text"
-            className="input-form"
-            autoComplete="none"
-            placeholder=" "
-            {...register("username")}
-          />
-          <label htmlFor="username" className="label-form">
-            Username
-          </label>
-          {errors.username && (
-            <span className="fade-in">{errors.username.message}</span>
-          )}
-        </div>
-        <div className="input-div">
-          <input
-            type="text"
-            className="input-form"
-            autoComplete="none"
-            placeholder=" "
-            {...register("old_password")}
-          />
-          <label htmlFor="old_password" className="label-form">
-            Old password
-          </label>
-          {errors.old_password && (
-            <span className="fade-in">{errors.old_password.message}</span>
-          )}
-        </div>
-        <div className="input-div">
-          <input
-            type="text"
-            className="input-form"
-            autoComplete="none"
-            placeholder=" "
-            {...register("new_password")}
-          />
-          <label htmlFor="new_password" className="label-form">
-            New password
-          </label>
-          {errors.new_password && (
-            <span className="fade-in">{errors.new_password.message}</span>
-          )}
-        </div>
-        <div className="input-div">
-          <input
-            type="text"
-            className="input-form"
-            autoComplete="none"
-            placeholder=" "
-            {...register("confirm_password")}
-          />
-          <label htmlFor="confirm_password" className="label-form">
-            Confirm new password
-          </label>
-          {errors.confirm_password && (
-            <span className="fade-in">{errors.confirm_password.message}</span>
           )}
         </div>
       </div>

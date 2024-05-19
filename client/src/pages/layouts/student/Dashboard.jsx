@@ -6,6 +6,7 @@ import { onGetStudentDashboard } from "../../../services/user";
 import { useDispatch, useSelector } from "react-redux";
 import useAxiosPrivate from "../../../hooks/context/state/useAxiosPrivate";
 import moment from "moment";
+import { capitalize, isEmpty } from "../../../utils/utils";
 
 const Dashboard = () => {
   const axiosPrivate = useAxiosPrivate();
@@ -118,7 +119,7 @@ const Dashboard = () => {
     (state) => state.setUserSlice.initStudentDashboard?.studentDashboardsData
   );
 
-  console.log({ 'studentDashboard': studentDashboard });
+  console.log({ studentDashboard: studentDashboard });
 
   return (
     <div className="student-dashboard">
@@ -126,10 +127,27 @@ const Dashboard = () => {
         <div className="sd-left">
           <div className="item">
             <p>
-              You are enrolled in the <span>First level</span> of
-              <span>the Republic of Congo's national French program.</span>
-              And you have an <span>active</span> subscription that expires on
-              <span>Monday, 6 May, 2024 at 11:42 AM.</span>
+              You are enrolled in the{" "}
+              <span>
+                {capitalize(studentDashboard?.data?.dashboardData?.level)} level
+              </span>{" "}
+              of
+              <span>
+                {capitalize(
+                  studentDashboard?.data?.dashboardData?.program_title
+                )}{" "}
+                {capitalize(
+                  studentDashboard?.data?.dashboardData?.program_language
+                )}{" "}
+                Program in{" "}
+                {studentDashboard?.data?.dashboardData?.program_country}.
+              </span>
+              And you have a subscription that expires on
+              <span>
+                {moment(
+                  studentDashboard?.data?.dashboardData?.subscription_end
+                ).format("LLLL")}
+              </span>
             </p>
           </div>
           <div className="item">
@@ -155,7 +173,12 @@ const Dashboard = () => {
           <div className="item">
             <h3 className="title t-2">Historic of logins</h3>
             <p className="title t-3">
-              Last login, <span>Monday 6 May 2024 at 11:42 AM</span>
+              Last login,{" "}
+              <span>
+                {moment(
+                  studentDashboard?.data?.dashboardData?.lastLogin?.dates
+                ).format("LLLL")}
+              </span>
             </p>
             <div className="chart">
               <Chart
@@ -171,48 +194,73 @@ const Dashboard = () => {
         <div className="sd-right">
           <div className="item">
             <MdMenuBook className="icon" />
-            <span>25 courses</span>
+            <span>
+              {studentDashboard?.data?.dashboardData?.totalCourse}{" "}
+              {studentDashboard?.data?.dashboardData?.totalCourse > 1
+                ? "Courses"
+                : "Course"}
+            </span>
           </div>
           <div className="item">
             <MdMenuBook className="icon" />
-            <span>25 Lessons</span>
+            <span>
+              {studentDashboard?.data?.dashboardData?.totalLesson}{" "}
+              {studentDashboard?.data?.dashboardData?.totalLesson > 1
+                ? "Lessons"
+                : "Lesson"}
+            </span>
           </div>
           <div className="item">
             <MdMenuBook className="icon" />
-            <span>25 Exercises</span>
+            <span>
+              {studentDashboard?.data?.dashboardData?.totalExercise}{" "}
+              {studentDashboard?.data?.dashboardData?.totalExercise > 1
+                ? "Exercises"
+                : "Exercise"}
+            </span>
           </div>
           <div className="item">
             <MdQuiz className="icon" />
-            <span>25 Challenges completed</span>
+            <span>
+              {studentDashboard?.data?.dashboardData?.totalChallenge}{" "}
+              {studentDashboard?.data?.dashboardData?.totalChallenge > 1
+                ? "Challenges"
+                : "Challenge"}{" "}
+              completed.
+            </span>
           </div>
           <div className="item timeline">
-            <div className="timeline-container tc-left">
-              <div className="icon-container">
-                <FaBookReader className="icon" />
-              </div>
-              <div className="text-box">
-                <h2 className="title t-2">Course title 1</h2>
-                <p>
-                  Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nam,
-                  accusamus debitis.
-                </p>
-                <span className="left-arrow"></span>
-              </div>
-            </div>
-            <div className="timeline-container tc-right">
-              <div className="icon-container">
-                <FaBookReader className="icon" />
-              </div>
-              <div className="text-box">
-                <h2 className="title t-2">Course title 1</h2>
-                <p>
-                  Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nam,
-                  accusamus debitis. Et sint laudantium nobis voluptatum nostrum
-                  magnam voluptas sequi repudiandae.
-                </p>
-                <span className="right-arrow"></span>
-              </div>
-            </div>
+            {isEmpty(studentDashboard?.data?.dashboardData?.courses) ? (
+              <p>No course for study level set yet!</p>
+            ) : (
+              studentDashboard?.data?.dashboardData?.courses.map(
+                (item, idx) => {
+                  return (
+                    <div
+                      className={
+                        idx % 2 === 0
+                          ? "timeline-container tc-left"
+                          : "timeline-container tc-right"
+                      }
+                      key={idx}
+                    >
+                      <div className="icon-container">
+                        <FaBookReader className="icon" />
+                      </div>
+                      <div className="text-box">
+                        <h2 className="title t-2">{capitalize(item?.title)}</h2>
+                        <p>{capitalize(item?.description)}</p>
+                        <span
+                          className={
+                            idx % 2 === 0 ? "left-arrow" : "right-arrow"
+                          }
+                        ></span>
+                      </div>
+                    </div>
+                  );
+                }
+              )
+            )}
           </div>
         </div>
       </div>

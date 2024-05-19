@@ -97,31 +97,16 @@ export const validationSchemaLogin = Yup.object().shape({
 });
 
 export const validationCompleteInscription = Yup.object().shape({
-  prename: Yup.string()
-    .required("First name(Prename) is required")
-    .min(2, "First name require at least 2 caractors"),
-  name: Yup.string()
-    .required("Last name(Name) is required")
-    .min(2, "Last name require at least 2 caractors"),
   gender: Yup.string().required("Gender is required"),
+  sys_role: Yup.string().required("Role is required"),
   telephone: Yup.number()
     .typeError("You should specify a phone number")
     .required("Phone number is required")
     .min(8, "Input a valid phone number"),
-  mail: Yup.string()
-    .required("E-mail is required")
-    .email("Input a valid address e-mail"),
+  mail: Yup.string().email("Input a valid address e-mail"),
   birth: Yup.string().required("Birth date is required"),
   birth_location: Yup.string().required("Birth location is required"),
   nationality: Yup.string().required("Nationality is required"),
-  username: Yup.string().required("Username is required"),
-  old_password: Yup.string().required("Old Password is required"),
-  new_password: Yup.string()
-    .required("New Password is required")
-    .min(4, "The password must have at least 6 caractors"),
-  confirm_password: Yup.string()
-    .required("Confirm password is required")
-    .oneOf([Yup.ref("new_password"), null], "The password must match!"),
 });
 
 export const validationCompleteProgram = Yup.object().shape({

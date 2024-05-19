@@ -27,7 +27,8 @@ const Student = () => {
       {!user.userInfo?.is_completed && (
         <Modal
           visibility={false}
-          height="95%"
+          height="auto"
+          maxHeight={"90%"}
           width="60%"
           title="Complete your registration"
           content={<CompleteRegister sys_role={user.userInfo?.sys_role} />}

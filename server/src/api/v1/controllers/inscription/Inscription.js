@@ -5,7 +5,7 @@ const Subscription = require("../../models/subscription/Subscription");
 const { generateOTP, capitalize } = require("../../../../utils/utils");
 const bcrypt = require("bcrypt");
 const moment = require("moment");
-const uuid = require('uuid');
+const uuid = require("uuid");
 
 module.exports = {
   async create(req, res) {
@@ -13,7 +13,7 @@ module.exports = {
       const { prename, name, sys_role, username, password } = req.body;
 
       const check_username = await User.findOne({
-        where: { username: username },
+        where: { username: username.toLowerCase() },
       });
       if (check_username) {
         return res.status(400).json({
@@ -21,13 +21,13 @@ module.exports = {
           message: "The username is already used!",
         });
       }
-      const sys_id = uuid.v1()
+      const sys_id = uuid.v1();
       const user = await User.create({
-        prename,
-        name,
+        prename: prename.toLowerCase(),
+        name: name.toLowerCase(),
         sys_role,
         sys_id,
-        username,
+        username: username.toLowerCase(),
         password,
         is_completed: false,
       });
@@ -35,14 +35,18 @@ module.exports = {
       if (user) {
         return res.status(200).json({
           status: 1,
-          message: `Inscription process for ${capitalize(prename)} ${capitalize(name)} successfully.`,
+          message: `Inscription process for ${capitalize(prename)} ${capitalize(
+            name
+          )} successfully.`,
           user,
         });
       }
 
       return res.status(400).json({
         status: 0,
-        message: `Inscription process for ${capitalize(prename)} ${capitalize(name)} failed.`,
+        message: `Inscription process for ${capitalize(prename)} ${capitalize(
+          name
+        )} failed.`,
       });
     } catch (error) {
       console.log({ "Error create inscription ": error });
@@ -52,18 +56,13 @@ module.exports = {
     try {
       const {
         id,
-        prename,
-        name,
         gender,
         sys_role,
         telephone,
         mail,
         birth,
         birth_location,
-        nationality,
-        username,
-        old_password,
-        new_password,
+        nationality
       } = req.body;
       const {
         dates,
@@ -78,7 +77,6 @@ module.exports = {
       } = req.body;
 
       const getUser = await User.findOne({ where: { id: id } });
-
       const phone = telephone || null;
       if (getUser.telephone != null && !getUser.telephone.includes(phone)) {
         const check_phone = await User.findOne({
@@ -90,7 +88,6 @@ module.exports = {
             .json({ status: 0, message: "The phone number is already used!" });
         }
       }
-
       const email = mail || null;
       if (
         getUser.mail != null &&
@@ -105,41 +102,15 @@ module.exports = {
         }
       }
 
-      const _username = username || null;
-      if (
-        getUser.username != null &&
-        _username != getUser.username &&
-        (_username != null || _username != "")
-      ) {
-        const check_username = await User.findOne({
-          where: { username: _username },
-        });
-        if (check_username) {
-          return res
-            .status(400)
-            .json({ status: 0, message: "The mail is already used!" });
-        }
-      }
-
-      if (!bcrypt.compareSync(old_password, getUser.password)) {
-        return res.status(400).json({
-          status: 0,
-          message: "The provided old password is wrong.",
-        });
-      }
-
       const user = await User.update(
         {
-          prename,
-          name,
           gender,
           telephone,
           mail,
           birth,
           birth_location,
           nationality,
-          username,
-          password: new_password,
+          sys_role,
           status: 1,
         },
         { where: { id: id }, individualHooks: true }
@@ -172,7 +143,7 @@ module.exports = {
         });
         return res.status(200).json({
           status: 1,
-          message: `Completion first step for ${prename.toUpperCase()} ${name.toUpperCase()} successfully.`,
+          message: `Completion first step for ${getUser.prename.toUpperCase()} ${getUser.name.toUpperCase()} successfully.`,
           user,
           code,
           inscription_id: inscription.id,
@@ -181,7 +152,7 @@ module.exports = {
 
       return res.status(400).json({
         status: 0,
-        message: `Completion first step for ${prename.toUpperCase()} ${name.toUpperCase()} failed.`,
+        message: `Completion first step for ${getUser.prename.toUpperCase()} ${getUser.name.toUpperCase()} failed.`,
       });
     } catch (error) {
       console.log({ "Error create inscription(completion) ": error });

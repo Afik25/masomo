@@ -147,8 +147,8 @@ const Navigation = ({ role }) => {
               className="link"
               to="/student/messaging"
             >
-              <MdMenuBook className="option-icon" />
-              <span>TiMessages</span>
+              <TiMessages className="option-icon" />
+              <span>Messaging</span>
             </NavLink>
             <NavLink
               activeClassName="active-option"

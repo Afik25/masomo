@@ -7,12 +7,13 @@ import {
   COMPLETE_ACTIVATION,
 } from "../routes";
 
+// const ipAPI = "//api.ipify.org?format=json";
+// const response = await fetch(ipAPI);
+// const responseData = await response.json();
+// const ipAddress = responseData.ip;
+
 export async function login(data) {
-  // const ipAPI = "//api.ipify.org?format=json";
-  // const response = await fetch(ipAPI);
-  // const responseData = await response.json();
-  // const ipAddress = responseData.ip;
-  const ipAddress = '127.0.0.1';
+  const ipAddress = "127.0.0.1";
   //
   const dates = new Date();
   const location = "N/A";
@@ -55,7 +56,6 @@ export function inscription(data) {
   const _data = {
     prename: data.prename,
     name: data.name,
-    role: "Student",
     sys_role: "student",
     username: data.username,
     password: data.password,
@@ -76,16 +76,10 @@ export function inscription(data) {
 }
 
 export async function completeInscription(data) {
-  // const ipAPI = "//api.ipify.org?format=json";
-  // const response = await fetch(ipAPI);
-  // const responseData = await response.json();
-  // const ipAddress = responseData.ip;
-  const ipAddress = '127.0.0.1';
-  // 
+  const ipAddress = "127.0.0.1";
+  //
   const _data = {
     id: data.id,
-    prename: data.prename,
-    name: data.name,
     gender: data.gender,
     sys_role: data.sys_role,
     telephone: data.telephone,
@@ -93,9 +87,6 @@ export async function completeInscription(data) {
     birth: data.birth,
     birth_location: data.birth_location,
     nationality: data.nationality,
-    username: data.username,
-    old_password: data.old_password,
-    new_password: data.new_password,
     //
     dates: new Date(),
     location: "N/A",

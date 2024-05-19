@@ -373,8 +373,6 @@ module.exports = {
       // student id
       const { key } = req.params;
 
-      console.log({ "req.params": req.params });
-
       const inscription = await Inscription.findOne({
         where: { user_id: parseInt(key) },
       });
@@ -429,14 +427,14 @@ module.exports = {
         program_country: program.country,
         program_language: program.language,
         program_title: program.title,
-        subscription_end: subscription.end_sub,
-        last_login: logins[logins.length - 1],
+        subscription_end: subscription[0].end_sub,
+        lastLogin: logins[logins.length - 1],
         logins: logins,
-        total_course: count,
+        totalCourse: count,
         courses: rows,
-        total_lesson: total_lesson,
-        total_exercise: total_exercise,
-        total_challenge: total_challenge,
+        totalLesson: total_lesson,
+        totalExercise: total_exercise,
+        totalChallenge: total_challenge,
       };
 
       return res.status(200).json({ status: true, dashboardData });
