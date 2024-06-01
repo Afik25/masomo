@@ -31,3 +31,24 @@ export function onCreateQuestionsAnswers(axiosPrivate, data) {
       });
   });
 }
+
+export function onGetQuizByUser(
+  user_id,
+  axiosPrivate,
+  signal
+) {
+  return new Promise(async (resolve, reject) => {
+    await axiosPrivate
+      .get(QUIZ + "/" + user_id, {
+        signal: signal,
+        headers: { "Content-Type": "application/json" },
+        withCredentials: true,
+      })
+      .then((response) => {
+        resolve(response);
+      })
+      .catch((error) => {
+        reject(error);
+      });
+  });
+}

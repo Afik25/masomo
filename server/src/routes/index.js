@@ -97,13 +97,13 @@ router.get(
 //
 // Challenge
 router
+  .get("/learning/challenge/quiz/:key", Quiz.getByUser)
   .post(
     "/learning/challenge/quiz",
     uploadFiles.upload.single("thumbnail"),
     Quiz.create
   )
-  .get("/learning/challenge/quiz", () => console.log("get quiz"));
-router
+  .get("/learning/challenge/quiz", () => console.log("get quiz"))
   .post(
     "/learning/challenge/quiz/question_answers",
     uploadFiles.upload.fields([

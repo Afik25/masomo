@@ -1,12 +1,45 @@
-import React from "react";
-import { Link } from "react-router-dom";
-import { useSelector } from "react-redux";
+import React, { useEffect } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
 import { MdAirplay, FiUser, FiUsers } from "../../../middlewares/icons";
+import { onGetQuizByUser } from "../../../services/challenge";
+import useAxiosPrivate from "../../../hooks/context/state/useAxiosPrivate";
+import { isEmpty, capitalize } from "../../../utils/utils";
+import moment from "moment";
 
 const InitChallenge = () => {
+  const axiosPrivate = useAxiosPrivate();
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
   const user = useSelector(
     (state) => state.setInitConf.initConnectedUser.connectedUserData
   );
+
+  useEffect(() => {
+    let isMounted = true;
+    const controller = new AbortController();
+    const signal = controller.signal;
+
+    onGetQuizByUser(user?.userInfo?.user_id, axiosPrivate, signal).then(
+      (result) => {
+        dispatch({
+          type: "setUpChallenge/getQuizByUser",
+          payload: result,
+        });
+      }
+    );
+
+    return () => {
+      isMounted = false;
+      isMounted && controller.abort();
+    };
+  }, []);
+
+  const quizByUser = useSelector(
+    (state) => state.setChallengeSlice.initQuizByUser?.quizByUserData
+  );
+
   return (
     <div className="challenges">
       <div className="container">
@@ -14,7 +47,10 @@ const InitChallenge = () => {
           All of your quiz and challenges appear here.
         </p>
         <div className="block block-1">
-          <Link to={`/${user?.userInfo?.sys_role}/challenge/join-quiz`} className="tile link">
+          <Link
+            to={`/${user?.userInfo?.sys_role}/challenge/join-quiz`}
+            className="tile link"
+          >
             <MdAirplay className="icon" />
             <div className="content">
               <h3 className="title t-2">Join a Quiz</h3>
@@ -61,26 +97,82 @@ const InitChallenge = () => {
         <div className="block block-3">
           <h3 className="title t-2">Created and Available MASSE</h3>
           <div className="container">
-            <div className="tile">
-              <div className="left">
-                <div className="up">
-                  <h2 className="title t-2">1234567</h2>
-                </div>
-                <img src={process.env.PUBLIC_URL + "/ecoliers.jpg"} alt="tile1" className="img"/>
-              </div>
-              <div className="right">
-                <h3 className="title t-3">Assessment title</h3>
-                <p className="title t-4">Start : 14/04/2024 | 09:00 AM</p>
-                <p className="title t-4">End : 14/04/2024 | 09:00 AM</p>
-                <span className="msg-box msg-box-success">Ongoing</span>
-                <div className="options">
-                  <button className="button">Start</button>
-                  <Link to={`/${user?.userInfo?.sys_role}/challenge/quiz-play`} className="button link">View</Link>
-                  <button className="button">Update</button>
-                  <button className="button">Cancel</button>
-                </div>
-              </div>
-            </div>
+            {isEmpty(quizByUser?.data?.quiz) ? (
+              <p>No Quiz available. (You did not set quiz yet!)</p>
+            ) : (
+              quizByUser?.data?.quiz.map((quiz, idx) => {
+                return (
+                  <div className="tile">
+                    <div className="left">
+                      <div className="up">
+                        <h2 className="title t-2">{quiz?.code}</h2>
+                      </div>
+                      <img
+                        src={
+                          quiz?.thumbnail
+                            ? `${process.env.REACT_APP_API_SERVER_URL}:${process.env.REACT_APP_API_SERVER_PORT}/images/${quiz?.thumbnail}`
+                            : process.env.PUBLIC_URL + "/ecoliers.jpg"
+                        }
+                        alt={`quiz-cover-${idx}`}
+                        className="img"
+                      />
+                      <p>{process.env.API_SERVER_URL}</p>
+                    </div>
+                    <div className="right">
+                      <h3 className="title t-3">{capitalize(quiz?.title)}</h3>
+                      <p className="title t-4">
+                        Start : {moment(quiz?.start).format("LLLL")}
+                      </p>
+                      <p className="title t-4">
+                        End : {moment(quiz?.end).format("LLLL")}
+                      </p>
+                      {moment(Date.now())
+                        .format("LLLL")
+                        .isSameOrAfter(moment(quiz?.start).format("LLLL")) &&
+                        moment(Date.now())
+                          .format("LLLL")
+                          .isSameOrBefore(moment(quiz?.end).format("LLLL")) && (
+                          <span className="msg-box msg-box-success">
+                            onGoing
+                          </span>
+                        )}
+                      {moment(Date.now())
+                        .format("LLLL")
+                        .isBefore(moment(quiz?.start).format("LLLL")) && (
+                        <span className="msg-box" style={{ color: "grey" }}>
+                          onWaiting
+                        </span>
+                      )}
+                      {moment(Date.now())
+                        .format("LLLL")
+                        .isAfter(moment(quiz?.end).format("LLLL")) && (
+                        <span className="msg-box msg-box-failed">Finished</span>
+                      )}
+                      <div className="options">
+                        <button className="button">Start</button>
+                        <button
+                          className="button link"
+                          onClick={() => {
+                            navigate(
+                              `/${user?.userInfo?.sys_role}/challenge/quiz-play`,
+                              {
+                                state: {
+                                  quiz: quiz,
+                                },
+                              }
+                            );
+                          }}
+                        >
+                          View
+                        </button>
+                        <button className="button">Update</button>
+                        <button className="button">Cancel</button>
+                      </div>
+                    </div>
+                  </div>
+                );
+              })
+            )}
           </div>
         </div>
       </div>

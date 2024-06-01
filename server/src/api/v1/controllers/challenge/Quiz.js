@@ -83,6 +83,27 @@ module.exports = {
       console.log({ "Error get Quiz by key ": error });
     }
   },
+  async getByUser(req, res) {
+    try {
+      const { key } = req.params;
+
+      const quiz = await Quiz.findAll({ where: { user_id: key } });
+      if (isEmpty(quiz)) {
+        return res.status(400).json({
+          status: 0,
+          length: 0,
+          message: "No Quiz available for the specified user.",
+        });
+      }
+      return res.status(200).json({ status: 1, length: quiz.length, quiz });
+    } catch (error) {
+      console.log({ "Error get Quiz by user ": error });
+      return res.status(400).json({
+        status: 0,
+        message: "Error get Quiz by user.",
+      });
+    }
+  },
   async update(req, res) {
     try {
       const {

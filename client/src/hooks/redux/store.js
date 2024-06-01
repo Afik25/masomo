@@ -7,6 +7,7 @@ import { courseSlice } from "./slices/courses";
 import { lessonSlice } from "./slices/lessons";
 import { exerciseSlice } from "./slices/exercises";
 import { solutionSlice } from "./slices/solutions";
+import { challengeSlice } from "./slices/challenge";
 
 export const store = configureStore({
   reducer: {
@@ -18,6 +19,7 @@ export const store = configureStore({
     setLessonSlice: lessonSlice.reducer,
     setExerciseSlice: exerciseSlice.reducer,
     setSolutionSlice: solutionSlice.reducer,
+    setChallengeSlice: challengeSlice.reducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({

@@ -61,7 +61,7 @@ export const routes = [
                 path: "/admin",
                 element: <Admin />,
                 children: [
-                  { path: "/admin", element: <Dashboard /> },
+                  { path: "/admin", element: <p>Admin Dashboard</p> },
                   {
                     path: "courses",
                     element: <Course />,

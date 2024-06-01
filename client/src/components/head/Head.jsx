@@ -66,7 +66,7 @@ const Head = () => {
                 src={
                   !connectedUser?.userInfo?.thumbnails
                     ? process.env.PUBLIC_URL + "/user.png"
-                    : `${process.env.API_SERVER_URL}:${process.env.API_SERVER_PORT}/${connectedUser?.userInfo?.thumbnails}`
+                    : `${process.env.REACT_APP_API_SERVER_URL}:${process.env.REACT_APP_API_SERVER_PORT}/${connectedUser?.userInfo?.thumbnails}`
                 }
                 alt="user-profile"
               />
