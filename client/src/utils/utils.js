@@ -16,7 +16,8 @@ export const wait = (duration = 1000) => {
   });
 };
 
-export const capitalize = (s) => s && s[0].toUpperCase() + s.slice(1);
+export const capitalize = (s) =>
+  s && s[0].toUpperCase() + s.slice(1).toLowerCase();
 
 export const colors = [
   "#0FA3B1",
@@ -173,4 +174,12 @@ export const validationSchemaQuizWithDelayed = Yup.object().shape({
 export const validationSchemaQuestionAnswers = Yup.object().shape({
   question_description: Yup.string().required("The question is required."),
   question_type: Yup.string().required("The type of question is required."),
+});
+
+// Join Quiz
+export const validationSchemaJoinInitialStep = Yup.object().shape({
+  quiz_code: Yup.string().required("Code of Quiz is required."),
+});
+export const validationSchemaJoinStepTwo = Yup.object().shape({
+  names: Yup.string().required("Names or Nickname is required."),
 });

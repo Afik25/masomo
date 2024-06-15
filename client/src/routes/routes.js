@@ -117,7 +117,25 @@ export const routes = [
                     ],
                   },
                   { path: "messaging", element: <Messaging /> },
-                  { path: "challenge", element: <Challenge /> },
+                  {
+                    path: "challenge",
+                    element: <Challenge />,
+                    children: [
+                      { index: true, element: <InitChallenge /> },
+                      { path: "join-quiz", element: <JoinQuiz /> },
+                      { path: "play", element: <Play /> },
+                      { path: "quiz", element: <Quiz /> },
+                      { path: "questions", element: <QuestionAnswers /> },
+                      {
+                        path: "quiz-play",
+                        element: <QuizPlay />,
+                        children: [
+                          { index: true, element: <LeaderBoard /> },
+                          { path: "qa", element: <p>QA</p> },
+                        ],
+                      },
+                    ],
+                  },
                   { path: "favorite", element: <Favorite /> },
                   { path: "library", element: <Library /> },
                   { path: "settings", element: <Setting /> },

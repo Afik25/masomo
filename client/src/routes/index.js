@@ -29,5 +29,10 @@ export const SOLUTIONS = "/courses/lessons/exercises/solutions";
 export const SOLUTIONS_CUSTOMIZED = "/courses/lessons/exercises/solutions/customized";
 export const SOLUTIONS_ACTIVATION = "/courses/lessons/exercises/solutions/activation";
 // 
+export const THEMES = "/learning/challenge/themes";
+export const AVATARS = "/avatars";
 export const QUIZ = "/learning/challenge/quiz";
+export const JOIN_QUIZ = "/learning/challenge/quiz/join";
+export const JOIN_QUIZ_REQUEST_STATUS = "/learning/challenge/quiz/join/request/status";
+export const QUIZ_LEADERBOARD = "/learning/challenge/quiz/leaderboard";
 export const QUESTIONS_ANSWERS = "/learning/challenge/quiz/question_answers";

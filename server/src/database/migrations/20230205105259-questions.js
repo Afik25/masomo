@@ -4,6 +4,11 @@
 module.exports = {
   async up(queryInterface, Sequelize) {
     await queryInterface.createTable("questions", {
+      theme_id: {
+        type: Sequelize.INTEGER,
+        references: { model: "themes", key: "id" },
+        allowNull: true,
+      },
       id: {
         type: Sequelize.INTEGER,
         primaryKey: true,

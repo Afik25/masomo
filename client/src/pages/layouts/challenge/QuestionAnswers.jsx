@@ -305,12 +305,12 @@ const QuestionAnswers = () => {
       closeOnClickOutside: false,
       closeOnEsc: false,
     });
-    // const timer = setTimeout(() => {
-    //   navigate(`/${user?.userInfo?.sys_role}/challenge/`, {
-    //     replace: true,
-    //   });
-    // }, 4000);
-    // return () => clearTimeout(timer);
+    const timer = setTimeout(() => {
+      navigate(`/${user?.userInfo?.sys_role}/challenge/`, {
+        replace: true,
+      });
+    }, 4000);
+    return () => clearTimeout(timer);
   };
 
   return (

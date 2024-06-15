@@ -69,6 +69,10 @@
   background-color: rgba($color: $green-color, $alpha: 0.15);
   border: 1px solid $green-color;
 }
+.msg-box-pending{
+  background-color: rgba($color: $grey-color-2, $alpha: 0.15);
+  border: 1px solid $grey-color-1;
+}
 .msg-box-failed{
   background-color: rgba($color: $red-color, $alpha: 0.15);
   border: 1px solid $red-color;

@@ -1,8 +1,13 @@
 import React, { useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-import { MdAirplay, FiUser, FiUsers } from "../../../middlewares/icons";
-import { onGetQuizByUser } from "../../../services/challenge";
+import {
+  MdAirplay,
+  FiUser,
+  FiUsers,
+  MdOutlineQuiz,
+} from "../../../middlewares/icons";
+import { onGetThemes, onGetQuizByUser } from "../../../services/challenge";
 import useAxiosPrivate from "../../../hooks/context/state/useAxiosPrivate";
 import { isEmpty, capitalize } from "../../../utils/utils";
 import moment from "moment";
@@ -21,6 +26,14 @@ const InitChallenge = () => {
     const controller = new AbortController();
     const signal = controller.signal;
 
+    user?.userInfo?.sys_role !== "student" &&
+      onGetThemes(axiosPrivate, signal).then((result) => {
+        dispatch({
+          type: "setUpChallenge/getThemes",
+          payload: result,
+        });
+      });
+
     onGetQuizByUser(user?.userInfo?.user_id, axiosPrivate, signal).then(
       (result) => {
         dispatch({
@@ -35,6 +48,10 @@ const InitChallenge = () => {
       isMounted && controller.abort();
     };
   }, []);
+
+  const themes = useSelector(
+    (state) => state.setChallengeSlice.initTheme?.themesData
+  );
 
   const quizByUser = useSelector(
     (state) => state.setChallengeSlice.initQuizByUser?.quizByUserData
@@ -76,29 +93,61 @@ const InitChallenge = () => {
             </div>
           </div>
         </div>
-        <div className="block block-2">
-          <h3 className="title t-2">Create a new MASSE (MASOMO-Assess)</h3>
-          <div className="container">
-            <Link
-              to={`/${user?.userInfo?.sys_role}/challenge/quiz`}
-              className="tile link"
-            >
-              <FiUser className="icon" />
-              <p className="title t-3">new empty MASSE</p>
-            </Link>
-            <div className="tile">
-              <img src={process.env.PUBLIC_URL + "/ecoliers.jpg"} alt="tile1" />
-              <div className="outer">
-                <p className="title t-3">Learning the congolese culture.</p>
-              </div>
+        {user?.userInfo?.sys_role !== "student" && (
+          <div className="block block-2">
+            <h3 className="title t-2">Create a new MASSE (MASOMO-Assess)</h3>
+            <div className="container">
+              <Link
+                to={`/${user?.userInfo?.sys_role}/challenge/quiz`}
+                className="tile link"
+              >
+                <MdOutlineQuiz className="icon" />
+                <p className="title t-3">new empty MASSE</p>
+              </Link>
+              {isEmpty(themes?.data?.themes) ? (
+                <div className="tile">
+                  <img
+                    src={process.env.PUBLIC_URL + "/ecoliers.jpg"}
+                    alt="default"
+                  />
+                  <div className="outer">
+                    <p className="title t-3">{themes?.data?.message}</p>
+                  </div>
+                </div>
+              ) : (
+                themes?.data?.themes.map((theme, idx) => {
+                  return (
+                    <div className="tile">
+                      <img
+                        src={process.env.PUBLIC_URL + "/ecoliers.jpg"}
+                        alt="tile1"
+                      />
+                      <div className="outer">
+                        <p className="title t-3">
+                          Learning the congolese culture.
+                        </p>
+                      </div>
+                    </div>
+                  );
+                })
+              )}
             </div>
           </div>
-        </div>
+        )}
         <div className="block block-3">
-          <h3 className="title t-2">Created and Available MASSE</h3>
+          <h3 className="title t-2">
+            {user?.userInfo?.sys_role !== "student"
+              ? "Created and Available MASSE"
+              : "Completed MASSE"}
+          </h3>
           <div className="container">
             {isEmpty(quizByUser?.data?.quiz) ? (
-              <p>No Quiz available. (You did not set quiz yet!)</p>
+              <p>
+                {" "}
+                {user?.userInfo?.sys_role !== "student"
+                  ? "No Quiz available. (You did not set quiz yet!)"
+                  : "Youd did not attend any MASSE yet!"}
+              </p>
             ) : (
               quizByUser?.data?.quiz.map((quiz, idx) => {
                 return (
@@ -126,47 +175,37 @@ const InitChallenge = () => {
                       <p className="title t-4">
                         End : {moment(quiz?.end).format("LLLL")}
                       </p>
-                      {moment(Date.now())
-                        .format("LLLL")
-                        .isSameOrAfter(moment(quiz?.start).format("LLLL")) &&
-                        moment(Date.now())
-                          .format("LLLL")
-                          .isSameOrBefore(moment(quiz?.end).format("LLLL")) && (
+                      {moment(Date.now()).isSameOrAfter(moment(quiz?.start)) &&
+                        moment(Date.now()).isSameOrBefore(
+                          moment(quiz?.end)
+                        ) && (
                           <span className="msg-box msg-box-success">
                             onGoing
                           </span>
                         )}
-                      {moment(Date.now())
-                        .format("LLLL")
-                        .isBefore(moment(quiz?.start).format("LLLL")) && (
-                        <span className="msg-box" style={{ color: "grey" }}>
+                      {moment(Date.now()).isBefore(moment(quiz?.start)) && (
+                        <span className="msg-box msg-box-pending">
                           onWaiting
                         </span>
                       )}
-                      {moment(Date.now())
-                        .format("LLLL")
-                        .isAfter(moment(quiz?.end).format("LLLL")) && (
+                      {moment(Date.now()).isAfter(moment(quiz?.end)) && (
                         <span className="msg-box msg-box-failed">Finished</span>
                       )}
                       <div className="options">
-                        <button className="button">Start</button>
                         <button
                           className="button link"
                           onClick={() => {
+                            dispatch({
+                              type: "setUpChallenge/getQuizCurrent",
+                              payload: quiz,
+                            });
                             navigate(
-                              `/${user?.userInfo?.sys_role}/challenge/quiz-play`,
-                              {
-                                state: {
-                                  quiz: quiz,
-                                },
-                              }
+                              `/${user?.userInfo?.sys_role}/challenge/quiz-play`
                             );
                           }}
                         >
                           View
                         </button>
-                        <button className="button">Update</button>
-                        <button className="button">Cancel</button>
                       </div>
                     </div>
                   </div>

@@ -24,6 +24,14 @@ module.exports = {
         type: Sequelize.STRING,
         allowNull: true,
       },
+      team: {
+        type: Sequelize.STRING,
+        allowNull: true,
+      },
+      thumbnail: {
+        type: Sequelize.STRING,
+        allowNull: true,
+      },
       request_dates: {
         type: Sequelize.DATE,
         allowNull: true,
@@ -35,7 +43,6 @@ module.exports = {
       status: {
         type: Sequelize.BOOLEAN,
         allowNull: true,
-        defaultValue: false,
       },
       updated_at: {
         type: Sequelize.DATE,

@@ -7,6 +7,8 @@ class Participate extends Model {
         quiz_id: DataTypes.INTEGER,
         user_id: DataTypes.INTEGER,
         pseudo: DataTypes.STRING,
+        team: DataTypes.STRING,
+        thumbnail: DataTypes.STRING,
         request_dates: DataTypes.DATE,
         response_dates: DataTypes.DATE,
         status: DataTypes.BOOLEAN,

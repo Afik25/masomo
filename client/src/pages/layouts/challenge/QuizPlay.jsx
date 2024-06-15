@@ -1,13 +1,15 @@
 import React from "react";
-import { Outlet, useLocation } from "react-router-dom";
+import { Outlet } from "react-router-dom";
 import { NavLink } from "../../../routes/NavLink";
 import { useSelector } from "react-redux";
-import { capitalize} from "../../../utils/utils"
-import moment from "moment"
+import { capitalize } from "../../../utils/utils";
+import moment from "moment";
 
 const QuizPlay = () => {
-  const location = useLocation();
-  let currentQuiz = location.state.quiz;
+  const currentQuiz = useSelector(
+    (state) => state.setChallengeSlice.initQuizCurrent.quizCurrentData
+  );
+
   const user = useSelector(
     (state) => state.setInitConf.initConnectedUser.connectedUserData
   );
@@ -34,31 +36,39 @@ const QuizPlay = () => {
         </div>
         <div className="qp-left-row">
           <span>Start</span>
-          <span className="t-3">{moment(currentQuiz?.start).format("LLLL")}</span>
+          <span className="t-3">
+            {moment(currentQuiz?.start).format("LLLL")}
+          </span>
         </div>
         <div className="qp-left-row">
           <span>End</span>
           <span className="t-3">{moment(currentQuiz?.end).format("LLLL")}</span>
         </div>
         <label>Quiz description</label>
-        <p className="title t-3">
-          {capitalize(currentQuiz?.description)}
-        </p>
+        <p className="title t-3">{capitalize(currentQuiz?.description)}</p>
         <div className="qp-left-row">
           <span>Randomize order of questions</span>
-          <span className="t-3">{capitalize(currentQuiz?.random_order_questions.toString())}</span>
+          <span className="t-3">
+            {capitalize(currentQuiz?.random_order_questions.toString())}
+          </span>
         </div>
         <div className="qp-left-row">
           <span>Randomize order of answers</span>
-          <span className="t-3">{capitalize(currentQuiz?.random_order_answers.toString())}</span>
+          <span className="t-3">
+            {capitalize(currentQuiz?.random_order_answers.toString())}
+          </span>
         </div>
         <div className="qp-left-row">
           <span>Automatically move through questions</span>
-          <span className="t-3">{capitalize(currentQuiz?.auto_move_questions.toString())}</span>
+          <span className="t-3">
+            {capitalize(currentQuiz?.auto_move_questions.toString())}
+          </span>
         </div>
         <div className="qp-left-row">
           <span>Enabled player anonymat</span>
-          <span className="t-3">{capitalize(currentQuiz?.player_anonymat.toString())}</span>
+          <span className="t-3">
+            {capitalize(currentQuiz?.player_anonymat.toString())}
+          </span>
         </div>
       </div>
       <div className="qp-right">

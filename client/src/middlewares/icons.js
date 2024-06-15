@@ -43,6 +43,7 @@ import {
   MdOutlineArrowForwardIos,
   MdQuiz,
   MdAirplay,
+  MdOutlineQuiz,
 } from "react-icons/md";
 import { PiBooksLight } from "react-icons/pi";
 import { GoCommentDiscussion } from "react-icons/go";
@@ -97,6 +98,7 @@ export {
   MdOutlineArrowForwardIos,
   MdQuiz,
   MdAirplay,
+  MdOutlineQuiz,
 };
 export {
   PiBooksLight,

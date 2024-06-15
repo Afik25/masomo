@@ -4,6 +4,7 @@ class Question extends Model {
   static init(sequelize) {
     super.init(
       {
+        theme_id: DataTypes.INTEGER,
         description: DataTypes.TEXT,
         type: DataTypes.STRING,
         timing: DataTypes.INTEGER,
@@ -18,6 +19,11 @@ class Question extends Model {
     );
   }
   static associate(models) {
+    this.belongsTo(models.Theme, {
+      foreignKey: "theme_id",
+      as: "question_theme",
+      allowNull: true,
+    });
     this.hasMany(models.QuizDetails, {
       foreignKey: "question_id",
       as: "question_quiz-details",
