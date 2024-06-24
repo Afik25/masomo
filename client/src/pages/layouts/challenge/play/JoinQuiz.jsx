@@ -54,7 +54,6 @@ const JoinQuiz = () => {
         .then((response) => {
           if (response?.data?.status) {
             if (response?.data?.joinRequest?.status.toString()) {
-              console.log({ ceccccc: response?.data?.joinRequest?.status });
               navigate(`/${user?.userInfo?.sys_role}/challenge/play`);
             } else {
               swal({
@@ -134,7 +133,7 @@ const JoinQuiz = () => {
           setIsSubmitting(false);
           if (!error?.response) {
             swal({
-              title: "Join Quiz",
+              title: "Join Quiz 1",
               text: "No server response",
               icon: "warning",
             });
@@ -170,7 +169,6 @@ const JoinQuiz = () => {
         await onJoinChallenge(_data, axiosPrivate)
           .then((response) => {
             setIsSubmitting(false);
-            console.log({ res: response?.data?.status });
             if (response?.data?.status) {
               setParticipation(response?.data?.participate);
               swal({
